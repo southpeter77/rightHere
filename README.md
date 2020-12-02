@@ -5,7 +5,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-    <img src="client/public/rightHereLogo.png" alt="Logo" width="80" height="80">
+    <img src="client/public/rightHereLogo.png" alt="Logo" width="120" height="auto">
   </a>
 
   <h3 align="center">Right Here</h3>
