@@ -1,13 +1,28 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const photo = sequelize.define('photo', {
+  const Photo = sequelize.define('Photo', {
     url: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
-    post_id: DataTypes.INTEGER,
-    place_id: DataTypes.INTEGER
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      references: {model:"User"}
+    },
+    post_id: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      references: {model:"Post"}
+    },
+    place_id: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      references: {model:"Place"}
+    },
   }, {});
-  photo.associate = function(models) {
+  Photo.associate = function(models) {
     // associations can be defined here
+    Photo.belongsTo(models.User, {foreignKey:"user_id"})
+    Photo.belongsTo(models.Post, {foreignKey:"post_id"})
+    Photo.belongsTo(models.Place, {foreignKey:"place_id"})
   };
-  return photo;
+  return Photo;
 };

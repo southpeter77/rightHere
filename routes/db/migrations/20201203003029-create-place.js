@@ -1,23 +1,17 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Comments', {
+    return queryInterface.createTable('Places', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-        references: {model: "Users"}
+      name: {
+        type: Sequelize.STRING(255)
       },
-      post_id: {
-        type: Sequelize.INTEGER,
-        references: {model: "Posts"},
-        onDelete:"CASCADE"
-      },
-      description:{
+      coordinates: {
         type: Sequelize.STRING(255)
       },
       createdAt: {
@@ -31,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Comments');
+    return queryInterface.dropTable('places');
   }
 };

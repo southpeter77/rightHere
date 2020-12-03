@@ -14,8 +14,7 @@ module.exports = {
       },
       post_id: {
         type: Sequelize.INTEGER,
-        references: {model: "Posts"},
-        onDelete:"CASCADE"
+        references: {model: "Posts"}
       },
       description:{
         type: Sequelize.STRING(255)
@@ -31,6 +30,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Comments');
+    return queryInterface.dropTable('comments');
   }
 };

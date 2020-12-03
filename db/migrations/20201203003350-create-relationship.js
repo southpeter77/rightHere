@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('relationships', {
+    return queryInterface.createTable('Relationships', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,10 +9,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       from_user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: "Users"}
+
       },
       to_user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: "Users"}
+
       },
       friend: {
         type: Sequelize.BOOLEAN
@@ -28,6 +32,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('relationships');
+    return queryInterface.dropTable('Relationships');
   }
 };
