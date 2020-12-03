@@ -71,16 +71,16 @@ the MVP for this website encompasses the following:
     4. show all the markers within certain distance of that place.
     5. can edit the name of the place
     5. can delete the place with all the markers in side
-2.  Markers
-    1. Ability to create marker using user's current location and the picture that was provided
+2.  Post
+    1. Ability to create Post using user's current location(place) and the picture that was provided
     2. add description and name
-    3. show all the markers near by (within the location)
+    3. show all the Post near by (within the location)
     4. can edit and delete the marker
 3. Picture
-    1. Can update location, marker, profile picture
+    1. Can update place, Post, profile picture
 4. Relationship
     1. Can create a relationship with other users
-    2. only connected users can comment on their marker
+    2. only connected users can comment on their Post
 
 
 
@@ -122,7 +122,7 @@ Express, react, s3, google map react, react webcam...
 ## Usage
 -----------
 
-One user can enjoy a dinner at a restaurant down the street and simply post a photo and it will become a 'i was here' mark at the restaurant. Other user will be able to see the photo of the first user at the same restaurant. The first user can come back to the same street after awhile but he totally forgot about the restaurant but now he feels like he was there before and try so hard to remember why. Using this app, he will easily find out about the photo he took near by his current location and see his old memory about the restaurant. 
+One user can enjoy a dinner at a restaurant down the street and simply post a photo and it will become a 'i was here' Post at the restaurant. Other user will be able to see the photo of the first user at the same restaurant. The first user can come back to the same street after awhile but he totally forgot about the restaurant but now he feels like he was there before and try so hard to remember why. Using this app, he will easily find out about the photo he took near by his current location and see his old memory about the restaurant. 
 
 Useful for traveling, events, festival, resturant and other special occations.
 
@@ -139,12 +139,12 @@ Useful for traveling, events, festival, resturant and other special occations.
 |/login|POST|Log in a user|
 |/signup|GET|Show sign up page|
 |/signup|POST|sign up a user|
-|/marker|GET|use camera|
-|/marker|POST|save a photo ( create markers)|
+|/Post|GET|use camera|
+|/Post|POST|save a photo ( create Post)|
 |/search/places|GET|get a list of places|
 |/search/places|POST|search a places|
-|/search/places/marker|GET|get a list of markers|
-|/search/places/marker/id|GET|get a marker of id number id|
+|/search/places/Post|GET|get a list of Post|
+|/search/places/Post/id|GET|get a Post of id number id|
 --------------------------
 
 ## API Backend
@@ -160,11 +160,11 @@ Useful for traveling, events, festival, resturant and other special occations.
 |/api/search/places|GET|get data of places near by current location|
 |/api/search/places|POST|create a place data current location|
 |/api/search/places|DELETE|delete a place data current location|
-|/api/search/places/markers|GET|get data of markers of that place|
-|/api/search/places/markers/id|GET|get data of that id's marker of that place|
-|/api/search/places/markers/id|POST|create a new marker of that place|
-|/api/search/places/markers/id|PUT|edit the id's marker of that place|
-|/api/search/places/markers/id|DELETE|delete the id's marker of that place|
+|/api/search/places/Post|GET|get data of Post of that place|
+|/api/search/places/Post/id|GET|get data of that id's Post of that place|
+|/api/search/places/Post/id|POST|create a new Post of that place|
+|/api/search/places/Post/id|PUT|edit the id's Post of that place|
+|/api/search/places/Post/id|DELETE|delete the id's Post of that place|
 
 
 ## Redux State Structure
@@ -172,42 +172,145 @@ Useful for traveling, events, festival, resturant and other special occations.
 state ={
   entities:{
      users:{
-       1:{
-         id:1,
-         email: "email.com",
+       byId:{
+         "user1":{
+           id: "user1",
+           email: "email.com",
+           firstName: "firstName",
+           lastName: "lastName",
+           biography: "biography",
+           photos:["photo1", "photo2", "photo3"],
+           comments:["comment1", "comment2", "comment3"],
+           posts: ["post1", "post2", "post3"],
+           relationships: ["relationship1", "relationship2"]
+         },
+         "user2":{
+           id: "user2",
+           email: "email.com",
+           firstName: "firstName",
+           lastName: "lastName",
+           biography: "biography",
+           photos:["photo1", "photo2", "photo3"],
+           comments:["comment1", "comment2", "comment3"],
+           posts: ["post1", "post2", "post3"],
+           relationships: ["relationship1", "relationship2"]
+         },
        },
-       3:{
-         id:3,
-         email: '3email.com'
-       }
+       allIds: ["user1", "user2"]
      },
-     markers:{
-       1:{
-         id:1,
-         coordinate: 12345,
-         photoID:2
-       }
-     },
-     location: {
-       1:{
-         id:1,
-         name: "good place"
-       }
+     posts:{
+       byId:{
+         "post1":{
+           id: "post1",
+           name: "name",
+           description: "description",
+           coordinates: "coordinates",
+           user_id: "user_id",
+           place_id: "place_id",
+           photos: ["photo1", "photo2"],
+           comments: ["comment1", "comment2"]
+         },
+       "post2":{
+           id: "post2",
+           name: "name",
+           description: "description",
+           coordinates: "coordinates",
+           user_id: "user_id",
+           place_id: "place_id",
+           photos: ["photo1", "photo2"],
+           comments: ["comment1", "comment2"]
+         }
+       },
+       allIds:["post1", "post2"]
+     }
+     places: {
+       byId:{
+         "place1":{
+           id: "place1",
+           name: "name",
+           coordinates: "coordinates",
+           posts: ["post1", "post2"],
+           photos: ["photo1", "photo2"]
+         },
+         "place1":{
+           id: "place1",
+           name: "name",
+           coordinates: "coordinates",
+           posts: ["post1", "post2"],
+           photos: ["photo1", "photo2"]
+         }
+       },
+       allIds:["place1", "place2"]
      },
      photos: {
-       2:{
-         id:2,
-         url: "asdfasdfasdf"
-       }
+       byId:{
+         photo1:{
+           id: "photo1",
+           url: "url",
+           user_id: "user_id",
+           post_id: "post_id",
+           place_id: "place_id"
+         },
+         photo2:{
+           id: "photo2",
+           url: "url",
+           user_id: "user_id",
+           post_id: "post_id",
+           place_id: "place_id"
+         }
+       },
+       allIds: ["photo1", "photo2"]
+     },
+     relationships: {
+       byId:{
+         relationship1: {
+           id: "relationship1",
+           from_user_id: "from_user_id",
+           to_user_id: "to_user_id",
+           friend: "friend"
+         },
+         relationship2: {
+           id: "relationship2",
+           from_user_id: "from_user_id",
+           to_user_id: "to_user_id",
+           friend: "friend"
+         }
+       },
+       allIds= ["relationship1", "relationship2"]
+     },
+     comments: {
+       byId:{
+         comment1:{
+           id: "comment1",
+           user_id: "user_id",
+           post_id: "post_id",
+           description: "description"
+         },
+         comment2:{
+           id: "comment2",
+           user_id: "user_id",
+           post_id: "post_id",
+           description: "description"
+         }
+       },
+       allIds = ["comment1", "comment2"]
      }
    },
    session:{
-     currentUserId:1,
-     currentMarkerId: 1,
+     currentUserId: "currentUserId",
+     currentPostId: "currentPostId",
+     currentPlaceId: "currentPlaceId",
+     currentPhotoId: "currentPhotoId",
+     currentCommentId: "currentCommentId",
+     currentRelationshipId: "currentRelationshipId"
    },
    errors:{
-     loginError:[],
-     signUperror:[],
+     loginErrors:[],
+     signUpErrors:[],
+     postErrors:[],
+     placeErrors:[],
+     commentErrors:[],
+     relationshipErrors:[]
    },
    ui:{ //optional flag for conditionally render certain component
      signUpModual: true // true = modual appear, false = disappear

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       references: {model:"User"}
     },
     description:{
-      type: Sequelize.STRING(255),
+      type: DataTypes.STRING(255),
       allowNull:false
     },
   }, {});

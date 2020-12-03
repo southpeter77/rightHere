@@ -9,16 +9,16 @@ function UsersList (props) {
         async function fetchData() {
             const response = await fetch('/api/users/');
             const responseData = await response.json();
-            setUsers(responseData.users);
+            console.log(responseData);
         }
         fetchData();
     }, []);
 
-    const userComponents = users.map((user) => <User key={user.id} user={user} />)
+    // const userComponents = users.map((user) => <User key={user.id} user={user} />)
     return (
         <>
             <h1>User List: </h1>
-            {userComponents}
+            {/* {userComponents} */}
         </>
         );
 }

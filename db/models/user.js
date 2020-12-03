@@ -7,20 +7,20 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     firstName: {
-      tyle:DataTypes.STRING,
+      type:DataTypes.STRING,
       allowNull: false
 
     },
     lastName: {
-      tyle:DataTypes.STRING,
+      type:DataTypes.STRING,
       allowNull: false
 
     },
     biography: {
-      tyle:DataTypes.STRING,
+      type:DataTypes.STRING,
     },
     hashed_password: {
-      tyle:DataTypes.STRING.BINARY,
+      type:DataTypes.STRING.BINARY,
       allowNull: false
 
     },

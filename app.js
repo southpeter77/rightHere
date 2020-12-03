@@ -29,7 +29,6 @@ app.use(csurf({
   }
 }));
 
-
 app.use(routes);
 
 // Serve React Application
@@ -40,7 +39,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-
 
 app.use(function(_req, _res, next) {
   next(createError(404));

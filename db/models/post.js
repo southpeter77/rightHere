@@ -2,22 +2,22 @@
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     name: {
-      tyle:DataTypes.STRING,
+      type:DataTypes.STRING,
       allowNull: false
     },
     description: {
-      tyle:DataTypes.TEXT,
+      type:DataTypes.TEXT,
     },
     coordinates: {
-      tyle:DataTypes.STRING,
+      type:DataTypes.STRING,
       allowNull: false
     },
     user_id: {
-      tyle:DataTypes.INTEGER,
+      type:DataTypes.INTEGER,
       allowNull: false
     },
     place_id: {
-      tyle:DataTypes.INTEGER,
+      type:DataTypes.INTEGER,
       allowNull: false
     },
   }, {});

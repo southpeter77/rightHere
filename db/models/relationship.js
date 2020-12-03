@@ -2,17 +2,17 @@
 module.exports = (sequelize, DataTypes) => {
   const Relationship = sequelize.define('Relationship', {
     from_user_id: {
-      tyle:DataTypes.INTEGER,
+      type:DataTypes.INTEGER,
       allowNull: false
 
     },
     to_user_id: {
-      tyle:DataTypes.INTEGER,
+      type:DataTypes.INTEGER,
       allowNull: false
 
     },
     friend: {
-      tyle:DataTypes.BOOLEAN,
+      type:DataTypes.BOOLEAN,
       defaultValue: false,
     },
   }, {});
