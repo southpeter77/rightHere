@@ -40,7 +40,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#api-frontend">API Frontend</a></li>
     <li><a href="#api-backend">API Backend</a></li>
-
+    <li><a href="#redux-state-structure">Redux State Structure</a></li>
   </ol>
 </details>
 
@@ -167,9 +167,52 @@ Useful for traveling, events, festival, resturant and other special occations.
 |/api/search/places/markers/id|DELETE|delete the id's marker of that place|
 
 
-
-
-
+## Redux State Structure
+```
+state ={
+  entities:{
+     users:{
+       1:{
+         id:1,
+         email: "email.com",
+       },
+       3:{
+         id:3,
+         email: '3email.com'
+       }
+     },
+     markers:{
+       1:{
+         id:1,
+         coordinate: 12345,
+         photoID:2
+       }
+     },
+     location: {
+       1:{
+         id:1,
+         name: "good place"
+       }
+     },
+     photos: {
+       2:{
+         id:2,
+         url: "asdfasdfasdf"
+       }
+     }
+   },
+   session:{
+     currentUserId:1,
+     currentMarkerId: 1,
+   },
+   errors:{
+     loginError:[],
+     signUperror:[],
+   },
+   ui:{ //optional flag for conditionally render certain component
+     signUpModual: true // true = modual appear, false = disappear
+   
+   }```
 
 
 
