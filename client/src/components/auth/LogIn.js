@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,19 +12,8 @@ import Grid from '@material-ui/core/Grid';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      <Link color="inherit" href="https://material-ui.com/">
-        Right Here
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
+import {login} from "../store/actions/user"
+import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -56,8 +45,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+const Login = ()=> {
   const classes = useStyles();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const dispatch = useDispatch()
+
+  const updateProperty = (callback) => (e) => {
+    callback(e.target.value);
+  };
+  
+  const handleSubmit = async (e)=> {
+    e.preventDefault()
+    const payload = {
+      email, password
+    }
+    dispatch(login(payload))
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -66,12 +70,12 @@ export default function Login() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <form className={classes.form} noValidate>
+          {/* <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>" /> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -80,7 +84,8 @@ export default function Login() {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
+              value={email}
+              onChange={updateProperty(setEmail)}
               autoFocus
             />
             <TextField
@@ -92,11 +97,9 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              value={password}
+              onChange={updateProperty(setPassword)}
+
             />
             <Button
               type="submit"
@@ -104,8 +107,9 @@ export default function Login() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleSubmit}
             >
-              Sign In
+              Log In
             </Button>
             <Grid container>
               <Grid item xs>
@@ -120,7 +124,12 @@ export default function Login() {
               </Grid>
             </Grid>
             <Box mt={5}>
-              <Copyright />
+            <Typography variant="body2" color="textSecondary" align="center">
+            Right Here{`  ${new Date().getFullYear()}`}
+
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
             </Box>
           </form>
         </div>
@@ -128,3 +137,7 @@ export default function Login() {
     </Grid>
   );
 }
+
+
+
+export default Login 

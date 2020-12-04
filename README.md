@@ -296,7 +296,7 @@ state ={
        allIds = ["comment1", "comment2"]
      }
    },
-   session:{
+   sessions:{
      currentUserId: "currentUserId",
      currentPostId: "currentPostId",
      currentPlaceId: "currentPlaceId",
