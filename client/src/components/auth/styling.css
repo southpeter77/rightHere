@@ -1,0 +1,54 @@
+#slideshow { 
+    margin: 50px auto; 
+    position: relative; 
+    width: 240px; 
+    height: 240px; 
+    padding: 10px; 
+    box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+}
+
+/* #slideshow > div { 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    right: 10px; 
+    bottom: 10px; 
+} */
+.emptyPhone{
+ width: 350pt;
+ height: 500pt;
+ background-size: cover;
+}
+.individualPhoto{
+    height: 515px;
+    width: 203pt;
+    object-fit: cover;
+    border: 1px solid black;
+    border-top: none;
+    margin-top: 25%;
+    /* border-radius: 18pt; */
+    opacity: 0.9;
+    border-bottom-left-radius: 18pt;
+    border-bottom-right-radius: 18pt;
+}
+.individualPhotoContainer{
+    margin-left: 29.5%;
+}
+
+.logoPhoto{
+    width: 30pt
+}
+.logoPhotoContainer{
+    position: absolute;
+    margin-left: 11em;
+    top: 3em;
+}
+.cameraPhoto{
+    width: 20pt;
+    margin-left:50pt;
+}
+
+.signUpForm{
+    border: 5px solid red;
+    position: sticky;
+}

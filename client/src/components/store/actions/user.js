@@ -1,9 +1,10 @@
-import {logInErrors} from "./errors/loginError"
-import {currentUserId} from "./sessions/currentUserId"
+import {logInErrors, signUpErrors} from "./errors/errors"
+import {currentUserId, saveToken, loadToken} from "./sessions/currentUser"
 export const TOKEN_KEY = "TOKEN_KEY";
 
-////////ACTION CREATORS////////////////////
 
+
+////////ACTION CREATORS////////////////////
 
 /////////THUNKS///////////
 export const login = ({email, password}) => async (dispatch) => {
@@ -17,7 +18,7 @@ export const login = ({email, password}) => async (dispatch) => {
         const data = await response.json()
         dispatch(logInErrors([]))
         dispatch(currentUserId(data.userId))
-        window.localStorage.setItem(TOKEN_KEY,data.token)
+        dispatch(saveToken(data.token))
       } 
       if (!response.ok){
           throw response
@@ -39,14 +40,17 @@ export const signUp = (payload) => async (dispatch) => {
         })
            if(response.ok) {
                 const data = await response.json()
-                console.log('good',data)
+                dispatch(signUpErrors([]))
+                dispatch(currentUserId(data.userId))
+                dispatch(saveToken(data.token))
+
         } else {
             throw response
         }
     } catch(err) {
         const badRequest = await err.json();
-        console.log('bad',badRequest)
-        // dispatch(signinErrorArray(arrayOfError))
+        const errorArray = badRequest.error.errors
+        dispatch(signUpErrors(errorArray))
     }
     
     }
@@ -57,7 +61,6 @@ export default function reducer (state ={}, action) {
     Object.freeze(state);
     let newState = Object.assign({}, state)
     switch(action.type) {
-    
         default :
             return state
     }

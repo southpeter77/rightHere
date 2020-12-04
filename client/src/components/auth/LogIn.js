@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,11 +12,18 @@ import Grid from '@material-ui/core/Grid';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import {login} from "../store/actions/user"
+import { login } from "../store/actions/user"
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from 'react-router-dom';
+import Image from 'material-ui-image'
+import MovingImages from "./MovingImages"
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+    // margin: theme.spacing(5),
+    margin: theme.spacing(5, 30)
   },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -27,112 +34,119 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(5, 2),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: '80%', // Fix IE 11 issue.
+    margin: theme.spacing(5),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    width: "100%",
+    margin: theme.spacing(1, 0, 2),
   },
 }));
 
-const Login = ()=> {
+const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
-
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
-  
-  const handleSubmit = async (e)=> {
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const payload = {
       email, password
     }
     dispatch(login(payload))
   }
-
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in
-          </Typography>
-          <form className={classes.form} noValidate>
-          {/* <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>" /> */}
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              value={email}
-              onChange={updateProperty(setEmail)}
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={password}
-              onChange={updateProperty(setPassword)}
+      <Grid container
+        spacing={0}
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: "100vh" }}  >
 
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handleSubmit}
-            >
-              Log In
+
+        <Grid item xs={false} sm={12} md={4} elevation={0} >
+<MovingImages></MovingImages>
+        </Grid>
+
+
+
+        <Grid item xs={false} sm={6} md={4}  elevation={1} square >
+          <div className={classes.paper}>
+            <img style={{ height: 100, width: "auto", margin: "auto" }} src="/rightHereLogo.png" />
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                value={email}
+                onChange={updateProperty(setEmail)}
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={password}
+                onChange={updateProperty(setPassword)}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={handleSubmit}
+              >
+                Log In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-            <Typography variant="body2" color="textSecondary" align="center">
-            Right Here{`  ${new Date().getFullYear()}`}
+              <Grid container>
+                <Grid item xs />
 
-      {new Date().getFullYear()}
-      {'.'}
+                <Grid item xs={8}>
+                  <Typography variant="body2" color="textSecondary" align="center">
+
+                    <Link href="/signup" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Typography>
+
+                </Grid>
+                <Grid item xs />
+
+              </Grid>
+              <Box mt={5}>
+                <Typography variant="body2" color="textSecondary" align="center">
+                  Right Here 2020
     </Typography>
-            </Box>
-          </form>
-        </div>
+              </Box>
+            </form>
+          </div>
+        </Grid>
+
       </Grid>
     </Grid>
   );

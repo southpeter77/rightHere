@@ -34,7 +34,7 @@ const validateUserEmailAndPassword = [
 ]
 
 const validateSignUpUser = [
-    check("aboutMe")
+    check("biography")
         .exists({checkFalsy:true})
         .withMessage("Please provide a short description about you"),
     check("firstName")

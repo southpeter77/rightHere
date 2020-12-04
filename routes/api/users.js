@@ -53,10 +53,10 @@ router.post("/login", validateUserEmailAndPassword, handleValidationErrors, asyn
 }))
 ////////////sign up/////////////////////////
 router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(async(req,res,next) => {
-    const {firstName, lastName, email, aboutMe, password} = req.body
+    const {firstName, lastName, email, biography, password} = req.body
     const hashed_password = await bcrypt.hash(password, 10);
-    const newUser = await db.User.create({firstName, lastName, email, aboutMe, hashed_password})
-    const token = getUserToken(user);
+    const newUser = await db.User.create({firstName, lastName, email, biography, hashed_password})
+    const token = getUserToken(newUser);
 
     res.json({
         token, userId:newUser.id
