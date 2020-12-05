@@ -5,22 +5,25 @@ import App from './App';
 import { Provider } from 'react-redux';
 import configureStore from "./components/store/configureStore"
 
-const initialState={
-  entities:{
-
+const initialState = {
+  entities: {
+    posts: {
+      byId: {},
+      allId: []
+    }
   },
-  errors:{
-    loginErrors:[],
-    signUpErrors:[],
+  errors: {
+    loginErrors: [],
+    signUpErrors: [],
   }
 }
 const store = configureStore(initialState);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store ={store}>
-    <App />
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );

@@ -31,7 +31,43 @@ module.exports = {
         place_id: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
+      },{
+        url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDrQtq9y5qqW32kJbmoQ-4NkZoJbr16TReMQ&usqp=CAU',
+        user_id: null,
+        post_id: 1,
+        place_id: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiUqQGnhb6Qkz__5Gh_iZPDDSGf_GojnQomg&usqp=CAU',
+        user_id: null,
+        post_id: 2,
+        place_id: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTTEEu39kYTJdRLZP1C3EKGz9xWbfPvxYRbw&usqp=CAU',
+        user_id: null,
+        post_id: 3,
+        place_id: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZfGgOAfmuL2ASC1EAgj9v7NEkthgzh8f4UA&usqp=CAU',
+        user_id: null,
+        post_id: 4,
+        place_id: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzv_Yv0TSydkToe3l6JjK5tuX88hkaeWvdsg&usqp=CAU',
+        user_id: null,
+        post_id: 5,
+        place_id: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+
     ], {});
     
   },

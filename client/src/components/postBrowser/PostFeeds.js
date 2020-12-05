@@ -46,10 +46,14 @@ const PostFeeds = () => {
     const classes = styles()
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch()
+    const datasArray = useSelector(state=>state.entities.posts.allId)
+    const datas = useSelector(state=>state.entities.posts.byId)
+
 
     useEffect(() => {
-        setLoaded(true)
         dispatch(grabAllPostsThunk())
+        setLoaded(true)
+  
     }, []);
 
     if (!loaded){
@@ -58,13 +62,15 @@ const PostFeeds = () => {
 
     return (
         <>
+
             <Paper className={classes.paper} elevation={1}>
+{datas ?
+datasArray.map(each=>{
+    return(
+<PostCards data={datas[each]}></PostCards>)})
+:null}
 
 
-<PostCards></PostCards>
-<PostCards></PostCards>
-<PostCards></PostCards>
-<PostCards></PostCards>
 
 
             </Paper>
