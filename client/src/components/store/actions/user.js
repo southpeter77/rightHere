@@ -1,5 +1,5 @@
 import {logInErrors, signUpErrors} from "./errors/errors"
-import {currentUserId, saveToken, loadToken} from "./sessions/currentUser"
+import {currentUser, saveToken, loadToken, saveCurrentUserData} from "./sessions/currentUser"
 export const TOKEN_KEY = "TOKEN_KEY";
 
 
@@ -17,7 +17,8 @@ export const login = ({email, password}) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(logInErrors([]))
-        dispatch(currentUserId(data.userId))
+        console.log(data)
+        dispatch(saveCurrentUserData(data))
         dispatch(saveToken(data.token))
       } 
       if (!response.ok){
@@ -41,7 +42,7 @@ export const signUp = (payload) => async (dispatch) => {
            if(response.ok) {
                 const data = await response.json()
                 dispatch(signUpErrors([]))
-                dispatch(currentUserId(data.userId))
+                dispatch(currentUser(data.userId))
                 dispatch(saveToken(data.token))
 
         } else {

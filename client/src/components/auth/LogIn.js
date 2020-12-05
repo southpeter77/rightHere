@@ -99,7 +99,6 @@ const Login = () => {
                 name="email"
                 value={email}
                 onChange={updateProperty(setEmail)}
-                autoFocus
               />
               <TextField
                 variant="outlined"

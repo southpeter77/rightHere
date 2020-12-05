@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { handleValidationErrors, validateSignUpUser, validateUserEmailAndPassword } = require('../utils/utils');
 const db = require('../../db/models');
+const {Post, Place, Photo, Relationship, Comment} = require('../../db/models');
 const router = express.Router();
 const {getUserToken} = require("../utils/auth");
 const bcrypt = require("bcryptjs");
@@ -24,7 +25,8 @@ router.post("/login", validateUserEmailAndPassword, handleValidationErrors, asyn
     const email = req.body.email;
     const password = req.body.password;
     const user = await db.User.findOne({
-        where: { email: email }
+        where: { email: email },
+        include:[Post, Place, Photo]
     });
 
     if (user === null) {
@@ -48,7 +50,15 @@ router.post("/login", validateUserEmailAndPassword, handleValidationErrors, asyn
 
     const token = getUserToken(user);
     res.json({
-      token, userId:user.id
+      token, 
+      userId:user.id, 
+      email: user.email, 
+      firstName:user.firstName, 
+      lastName:user.lastName, 
+      biography:user.biography,
+      posts: user.Posts,
+      places: user.Places,
+      photos: user.Photos
     })
 }))
 ////////////sign up/////////////////////////

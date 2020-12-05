@@ -14,6 +14,10 @@ module.exports = {
       coordinates: {
         type: Sequelize.STRING(255)
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {model: "Users"}
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

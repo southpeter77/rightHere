@@ -17,19 +17,20 @@
 .emptyPhone{
  width: 350pt;
  height: 500pt;
+ margin-top: 75pt;
  background-size: cover;
 }
 .individualPhoto{
-    height: 515px;
+    height: 565px;
     width: 203pt;
     object-fit: cover;
     border: 1px solid black;
     border-top: none;
-    margin-top: 25%;
-    /* border-radius: 18pt; */
+    margin-top: 10%;
+    border-radius: 18pt;
     opacity: 0.9;
-    border-bottom-left-radius: 18pt;
-    border-bottom-right-radius: 18pt;
+    /* border-bottom-left-radius: 18pt; */
+    /* border-bottom-right-radius: 18pt; */
 }
 .individualPhotoContainer{
     margin-left: 29.5%;
@@ -41,14 +42,134 @@
 .logoPhotoContainer{
     position: absolute;
     margin-left: 11em;
-    top: 3em;
+    top: 9%;
 }
 .cameraPhoto{
     width: 20pt;
     margin-left:50pt;
 }
 
+
+.emptyPhone2{
+    width: 175pt;
+    height: 250pt;
+    background-size: cover;
+    margin-left: 40pt;
+    margin-top: 230pt;
+    position: fixed;
+    bottom: 0;
+   }
+   .individualPhoto2{
+       height: 280px;
+       width: 101.5pt;
+       object-fit: cover;
+       border: 1px solid black;
+       border-top: none;
+       margin-top: 11%;
+       border-radius: 9pt;
+       opacity: 0.9;
+       z-index: 50;
+       /* border-bottom-left-radius: 9pt;
+       border-bottom-right-radius: 9pt; */
+   }
+   .blackBackground{
+       position: absolute;
+    height: 280px;
+    width: 101.5pt;
+    border-top: none;
+    margin-top: 7%;
+    border-radius: 9pt;
+    color:white;
+    background-color: black;
+   }
+
+   .individualPhotoContainer2{
+       margin-left: 29.5%;
+   }
+   
+   .logoPhoto2{
+       width: 15pt;
+   }
+   .logoPhotoContainer2{
+       position: absolute;
+       margin-left: 5em;
+   }
+   .cameraPhoto2{
+       width: 10pt;
+       /* margin-left: 10%; */
+   }
+.blackBackgroundLogo{
+    width: 50pt;
+    margin-left: 25pt;
+    margin-top: 70pt;
+
+}
+   
 .signUpForm{
-    border: 5px solid red;
-    position: sticky;
+    /* border: 5px solid red; */
+    position: fixed;
+}
+
+
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1.5s;
+}
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.fade {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+	animation-duration: 2s;
+}
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.fade-out {
+	opacity: 1;
+	animation-name: fadeOutOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+    animation-duration: 1.5s;
+
+}
+@keyframes fadeOutOpacity {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+
+.elementToFadeInAndOut {
+    opacity: 1;
+    animation: fade 7s ease;
+	animation-iteration-count: 999;
+}
+
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
 }

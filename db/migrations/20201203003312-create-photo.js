@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       url: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.TEXT
       },
       user_id: {
         type: Sequelize.INTEGER,

@@ -32,6 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Comment, {foreignKey:"user_id"})
     User.hasMany(models.Post, {foreignKey:"user_id"})
     User.hasMany(models.Photo, {foreignKey:"user_id"})
+    User.hasMany(models.Place, {foreignKey:"user_id"})
+
 
 
   };

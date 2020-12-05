@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
 import {signUp} from "../store/actions/user"
 import MovingImages2 from "./MovingImages2"
-
+import Info from "./Info"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,10 +37,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: "center",
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
   form: {
     width: '80%', // Fix IE 11 issue.
     margin: theme.spacing(5),
@@ -49,6 +45,17 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     margin: theme.spacing(1, 0, 2),
   },
+  sticky: {
+    background: 'white',
+    position: '-webkit-sticky',
+    position: 'fixed',
+    left: '70%',
+    top: 0,
+    bottom: 0, 
+    // paddingTop: '40px',
+    // paddingBottom: '40px',
+    zIndex: 5,
+},
 }));
 
 const SignUp = () => {
@@ -76,7 +83,7 @@ const SignUp = () => {
 
   }
   return (
-    <Grid container>
+    <Grid container style={{position: "relative"}}>
       <CssBaseline />
       <Grid container
         spacing={0}
@@ -85,14 +92,20 @@ const SignUp = () => {
         style={{ minHeight: "100vh" }}  >
 
 
-        <Grid item xs={false} sm={12} md={6} elevation={0} >
-{/* <MovingImages></MovingImages> */}
+        <Grid item xs={false} sm={12} md={14} elevation={4} >
+        <img
+          src="./signUpMain.jpg"
+          width="100%"
+          height="100%"
+        />
+<MovingImages2></MovingImages2>
+<Info></Info>
         </Grid>
 
 
 
-        <Grid item xs={false} sm={6} md={4}  elevation={1} square className="signUpForm">
-          <div className={classes.paper}>
+        <Grid item xs={12} sm={6} md={4}  elevation={1} square className={classes.sticky}>
+          <div className={classes.paper} >
             <img style={{ height: 100, width: "auto", margin: "auto" }} src="/rightHereLogo.png" />
                   <form className={classes.form} noValidate>
          <Grid container spacing={2}>
@@ -105,7 +118,6 @@ const SignUp = () => {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
                 value={firstName}
                 onChange={updateProperty(setFirstName)}
               />

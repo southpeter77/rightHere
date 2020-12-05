@@ -10,15 +10,19 @@ import ProtectedRoute from "./utils/ProtectedRoute"
 import Theme from './Theme';
 import { CssBaseline } from "@material-ui/core";
 import Home from "./components/Home"
-import { loadToken } from "./components/store/actions/sessions/currentUser"
+import { loadToken,loadCurrentUser } from "./components/store/actions/sessions/currentUser"
 import Login from './components/auth/LogIn';
-import LogOut from "./components/auth/LogOut"
-function App({ needLogin, loadToken }) {
+import NavBar from "./components/navigationBar/NavBar"
+import PostFeeds from "./components/postBrowser/PostFeeds"
+function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
+    const dispatch = useDispatch()
 
     useEffect(() => {
+        loadToken()
+        loadCurrentUser();
         setLoaded(true);
-        loadToken();
+
     }, []);
 
     if (!loaded) {
@@ -42,8 +46,9 @@ function App({ needLogin, loadToken }) {
 
                         </ul>
                     </nav> */}
+                    {!needLogin ? <NavBar></NavBar> : null}
                     <Switch>
-                        <PrivateRoute exact path="/" needLogin={needLogin} component={Home} />
+                        <PrivateRoute exact path="/" needLogin={needLogin} component={PostFeeds} />
 
 
                         {/*             
@@ -63,7 +68,7 @@ function App({ needLogin, loadToken }) {
 const AppContainer = () => {
     const needLogin = useSelector((state) => !state.sessions.currentToken);
     const dispatch = useDispatch();
-    return <App needLogin={needLogin} loadToken={() => dispatch(loadToken())} />;
+    return <App needLogin={needLogin} loadCurrentUser={()=> dispatch(loadCurrentUser())} loadToken={() => dispatch(loadToken())} />;
 };
 
 export default AppContainer
