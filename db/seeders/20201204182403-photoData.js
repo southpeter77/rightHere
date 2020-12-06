@@ -66,7 +66,35 @@ module.exports = {
         place_id: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-      },
+      },{
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP93ENz-ikvzNk8Tt53nbVfFJmNRCN4SyjTeQISRi1rdqQiP8JrOeR4ogUaJssvCUyFpKhF765RRynbGaQN0v8Ohof-cd6008o3g&usqp=CAU&ec=45732300',
+        user_id: null,
+        post_id: null,
+        place_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX2J-FBcpFlzGZud1bZ2jbL6VPa_RWq-Odbg&usqp=CAU',
+        user_id: null,
+        post_id: null,
+        place_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS96taey3VppyXrD9CCMd4pWLNb72xkSf3bPQ&usqp=CAU',
+        user_id: null,
+        post_id: null,
+        place_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRywddaQU6mr4Epys6Y_d4yZSa6DveoLH2L4w&usqp=CAU',
+        user_id: null,
+        post_id: null,
+        place_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
 
     ], {});
     
