@@ -14,6 +14,7 @@ import { loadToken,loadCurrentUser } from "./components/store/actions/sessions/c
 import Login from './components/auth/LogIn';
 import NavBar from "./components/navigationBar/NavBar"
 import PostFeeds from "./components/postBrowser/PostFeeds"
+import Place from "./components/placeBrowser/Place"
 function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch()
@@ -49,6 +50,7 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
                     {!needLogin ? <NavBar></NavBar> : null}
                     <Switch>
                         <PrivateRoute exact path="/" needLogin={needLogin} component={PostFeeds} />
+                        <PrivateRoute exact path="/place/:placeId" needLogin={needLogin} component={Place} />
 
 
                         {/*             

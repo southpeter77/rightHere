@@ -14,10 +14,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import LogOut from "../auth/LogOut"
 import Avatar from '@material-ui/core/Avatar';
-import { useSelector } from 'react-redux';
 import {loadCurrentUser} from "../store/actions/sessions/currentUser"
+import { useDispatch, useSelector } from "react-redux";
+import {logOutThunk} from "../store/actions/sessions/currentUser"
+import navBarStyling from "./navBarStyling.css"
+
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -90,7 +93,10 @@ const NavBar =()=> {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const dispatch = useDispatch()
+  const handleLogOut = ()=> {
+  dispatch(logOutThunk())
+  }
 //   useEffect(() => {
 //     console.log(window.localStorage.getItem("CURRENT_USER_ID"))
 //     loadCurrentUser();
@@ -125,7 +131,7 @@ const NavBar =()=> {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
     </Menu>
   );
 
@@ -177,18 +183,15 @@ const NavBar =()=> {
     <div className={classes.grow}>
       <AppBar position="fixed" color="none" elevation={1}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
-          </Typography>
-          <LogOut></LogOut>
+          </IconButton> */}
+          <div onClick={()=>window.location.href="/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

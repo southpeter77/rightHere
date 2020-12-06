@@ -21,15 +21,16 @@ import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Button } from '@material-ui/core';
+import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 800,
-    maxHeight: 600
+    width: 800,
+    height: 1000
   },
   media: {
     height: 0,
-    paddingTop: '40%', // 16:9
+    paddingTop: '100%', // 16:9
   },
 }));
 
@@ -50,74 +51,23 @@ export default function PostCard({ data }) {
           >
           </Avatar>
         }
-        action={<Tooltip title={<h2>?</h2>}>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ top: "2.5em" }}
-          // onClick={() => window.location.replace(`/users/${window.localStorage.getItem("currentUser")}/workout/${data.id}`)}
-          >??</Button></Tooltip>
-        }
+        // action={<Tooltip title={<h2>?</h2>}>
+        //   <Button
+        //     variant="contained"
+        //     color="secondary"
+        //     style={{ top: "2.5em" }}
+        //   >??</Button></Tooltip>
+        // }
       title={`${data.user.firstName} ${data.user.lastName}`}
-      subheader="location"
+      subheader={<NavLink to={`/place/${data.places.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.places.name}`}</NavLink>}
+
       />
-      <Typography style={{ marginLeft: "1em" }} variant="h5" component="h5">asdfasdfasdf</Typography>
+      <Typography style={{ marginLeft: "1em" }} variant="h5" component="h5" align="center">{data.name}</Typography>
 
-      <Grid container>
-        <Grid item xs={3}
-          align="center">
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6"
-            component="h6"
-            align="left"
-            style={{ color: "gray" }}
-          >?
-              </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6"
-            component="h6"
-            align="left"
-            style={{ color: "gray" }}
-          >?
-              </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6"
-            component="h6"
-            align="left"
-            style={{ color: "gray" }}
-          >?
-              </Typography>
-        </Grid>
-        <Grid item xs={3} align="center"></Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6"
-            component="h6"
-            align="left"
-          >999
-              </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6"
-            component="h6"
-            align="left"
-          >999
-              </Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6"
-            component="h6"
-            align="left"
-          >123123
-              </Typography>
-        </Grid>
-
-      </Grid>
+    
       <CardMedia
         className={classes.media}
-      // image={data.route.staticImageURL}
+      image={data.photos[0].url}
       />
       <CardContent>
         {/* <Typography variant="h6" color="textSecondary" component="h6">

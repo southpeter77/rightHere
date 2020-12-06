@@ -10,6 +10,10 @@ const initialState = {
     posts: {
       byId: {},
       allId: []
+    },
+    places: {
+      byId: {},
+      allId: []
     }
   },
   errors: {
