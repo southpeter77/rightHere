@@ -9,7 +9,7 @@ import {grabPlaceByIdThunk} from "../store/actions/entities/entities"
 import { useParams } from "react-router-dom";
 import Gallery from "./Gallery"
 import Typography from '@material-ui/core/Typography';
-
+import SwipeAbleContainer from "./swipeableCarousel/SwipeAble"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,24 +57,26 @@ const Place = () => {
     const dispatch = useDispatch()
     const {placeId} = useParams()
     const data = useSelector((state)=>state.entities.places)
+    // dispatch(grabPlaceByIdThunk(placeId))
+
     useEffect(()=> {
     dispatch(grabPlaceByIdThunk(placeId))
+
     },[])
 
     return (
         <>
             <Paper className={classes.paper} elevation={1}>
-                {/* <button
-                onClick={()=>console.log(data)}
-                >asdfasdfasdf</button> */}
                 <Typography
                 variant="h4"
                 component="h4"
                 style={{color:"gray"}}
                 >{`@${data.byId.name}`}</Typography>
-            <Gallery data={data}></Gallery>
+            {/* <Gallery data={data}></Gallery>
+             */}
             {/* <Map></Map> */}
-
+            <SwipeAbleContainer data={data}></SwipeAbleContainer>
+           
  <Grid container>
  <CssBaseline />
  <Grid container

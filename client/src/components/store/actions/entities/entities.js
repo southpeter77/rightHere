@@ -21,7 +21,7 @@ export const grabAllPostsThunk = () => async (dispatch) => {
     const response = await fetch("/api/posts");
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
         dispatch(grabAllPosts(data))
     }
 }
@@ -32,6 +32,7 @@ export const grabPlaceByIdThunk = (id) => async (dispatch) => {
         const data = await response.json();
         // console.log(id)
         dispatch(grabPlaceById(data))
+        window.localStorage.setItem(GRAB_PLACE_BY_ID, JSON.stringify(data))
     }
 }
 

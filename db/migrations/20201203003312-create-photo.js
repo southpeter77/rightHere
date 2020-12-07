@@ -7,6 +7,8 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },name: {
+        type: Sequelize.STRING(255),
       },
       url: {
         type: Sequelize.TEXT
