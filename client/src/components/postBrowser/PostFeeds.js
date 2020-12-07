@@ -14,7 +14,7 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Redirect,useParams } from "react-router-dom"
 import PostCards from "./PostCards"
 import {grabAllPostsThunk} from "../store/actions/entities/entities"
-
+import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
 const styles = makeStyles((theme) => ({
     paper: {
         maxWidth: 750,
@@ -48,27 +48,30 @@ const PostFeeds = () => {
     const dispatch = useDispatch()
     const datasArray = useSelector(state=>state.entities.posts.allId)
     const datas = useSelector(state=>state.entities.posts.byId)
+    const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_POSTS))
 
+    useEffect( () => {
 
-    useEffect(() => {
-        dispatch(grabAllPostsThunk())
+         dispatch(grabAllPostsThunk())
+        
         setLoaded(true)
   
     }, []);
 
-    if (!loaded){
-        return null
-    }
 
     return (
         <>
 
             <Paper className={classes.paper} elevation={1}>
-{datas ?
+                {/* <button
+                onClick={()=>console.log(datas)}
+                >console</button> */}
+{/* {datas ?
 datasArray.map(each=>{
     return(
 <PostCards data={datas[each]}></PostCards>)})
-:null}
+:null} */}
+{data.map(each=><PostCards data={each}></PostCards>)}
 
 
 

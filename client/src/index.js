@@ -4,23 +4,8 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import configureStore from "./components/store/configureStore"
+import {initialState} from "./initialState"
 
-const initialState = {
-  entities: {
-    posts: {
-      byId: {},
-      allId: []
-    },
-    places: {
-      byId: {},
-      allId: []
-    }
-  },
-  errors: {
-    loginErrors: [],
-    signUpErrors: [],
-  }
-}
 const store = configureStore(initialState);
 
 ReactDOM.render(

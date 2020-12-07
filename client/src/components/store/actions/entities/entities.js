@@ -1,6 +1,7 @@
 import merge from 'lodash'
 export const GRAB_ALL_POSTS = "GRAB_ALL_POSTS"
 export const GRAB_PLACE_BY_ID = "GRAB_PLACE_BY_ID"
+export const GRAB_ALL_POSTS_BY_PLACE_ID='GRAB_ALL_POSTS_BY_PLACE_ID'
 ///////////////////////////////////////////////
 export const grabAllPosts = (data) => {
     return {
@@ -15,6 +16,13 @@ export const grabPlaceById = (data) => {
         data
     }
 }
+
+export const grabAllPostsByPlaceId = (data) => {
+    return {
+        type: GRAB_ALL_POSTS_BY_PLACE_ID,
+        data
+    }
+}
 //////////////////////////////////////////////
 
 export const grabAllPostsThunk = () => async (dispatch) => {
@@ -22,7 +30,8 @@ export const grabAllPostsThunk = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         // console.log(data)
-        dispatch(grabAllPosts(data))
+        window.localStorage.setItem(GRAB_ALL_POSTS,JSON.stringify(data))
+       await dispatch(grabAllPosts(data))
     }
 }
 
@@ -30,9 +39,17 @@ export const grabPlaceByIdThunk = (id) => async (dispatch) => {
     const response = await fetch(`/api/places/${id}`)
     if (response.ok) {
         const data = await response.json();
-        // console.log(id)
-        dispatch(grabPlaceById(data))
-        window.localStorage.setItem(GRAB_PLACE_BY_ID, JSON.stringify(data))
+        window.localStorage.setItem(GRAB_PLACE_BY_ID,JSON.stringify(data))
+        await dispatch(grabPlaceById(data))
+        // window.localStorage.setItem(GRAB_PLACE_BY_ID, JSON.stringify(data))
+    }
+}
+
+export const grabPostsByPlaceIdThunk = (id) => async (dispatch) => {
+    const response = await fetch(`/api/posts/place/${id}`)
+    if (response.ok) {
+        const data= await response.json();
+       await dispatch(grabAllPostsByPlaceId(data))
     }
 }
 
@@ -56,10 +73,12 @@ export default function reducer(state = {}, action) {
                 }
 
             })
-            mappedData.forEach(each=>{
-                newState.posts.byId[each.id]={...each}
-                newState.posts.allId=[...newState.posts.allId, each.id]
-            })
+            // mappedData.forEach(each=>{
+            //     newState.posts.byId[each.id]={...each}
+            //     newState.posts.allId=[...newState.posts.allId, each.id]
+            // })
+                newState.posts.byId=mappedData
+
             return newState
 
         case GRAB_PLACE_BY_ID:
@@ -67,6 +86,7 @@ export default function reducer(state = {}, action) {
             let placeGrabbedById = {
                     id: action.data.id,
                     name:action.data.name,
+                    description: action.data.description,
                     coordinates: JSON.parse(action.data.coordinates),
                     photos: action.data.Photos,
                     posts: action.data.Posts,
@@ -74,10 +94,28 @@ export default function reducer(state = {}, action) {
                 }
 
                 newState.places.byId=placeGrabbedById
-
+                newState.places.allId=[...newState.places.allId,placeGrabbedById.id]
      
             return newState
 
+        case GRAB_ALL_POSTS_BY_PLACE_ID:
+            newState["posts"] = {byId:{}, allId:[]}
+            let postsByPlaceId = action.data.map(each => {
+                return {
+                id: each.id,
+                name: each.name,
+                description: each.description,
+                coordinates: JSON.parse(each.coordinates),
+                place_id: each.place_id,
+                user_id: each.user_id,
+                photos: each.Photos,
+                users: each.User
+            }})
+            postsByPlaceId.forEach(each=>{
+                newState.posts.byId[each.id]={...each}
+                newState.posts.allId=[...newState.posts.allId, each.id]
+            })
+            return newState
         default:
             return state
     }

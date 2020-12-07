@@ -22,6 +22,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Button } from '@material-ui/core';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,14 @@ const useStyles = makeStyles((theme) => ({
 export default function PostCard({ data }) {
   const [loaded, setLoaded] = useState(false)
   const classes = useStyles();
+  // const [data2, setData2] = useState(data)
+  useEffect(()=>{
+    setLoaded(!loaded)
+
+  },[])
+  if (!loaded) {
+    return null
+  }
   return (<>
     {/* <h1>{data? data.user.Photos[0].url: "asdf"}</h1> */}
     <Card className={classes.root}>
@@ -47,7 +56,7 @@ export default function PostCard({ data }) {
         avatar={
           <Avatar
             aria-label="recipe"
-            src={data.user.Photos[0] ? data.user.Photos[0].url : null}
+            src={data.User.Photos[0] ? data.User.Photos[0].url : null}
           >
           </Avatar>
         }
@@ -58,8 +67,9 @@ export default function PostCard({ data }) {
         //     style={{ top: "2.5em" }}
         //   >??</Button></Tooltip>
         // }
-      title={`${data.user.firstName} ${data.user.lastName}`}
-      subheader={<NavLink to={`/place/${data.places.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.places.name}`}</NavLink>}
+      title={`${data.User.firstName} ${data.User.lastName}`}
+      // title={data2.User.email.split("@")[0]}
+      subheader={<NavLink to={`/place/${data.Place.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.Place.name}`}</NavLink>}
 
       />
       <Typography style={{ marginLeft: "1em" }} variant="h5" component="h5" align="center">{data.name}</Typography>
@@ -67,14 +77,14 @@ export default function PostCard({ data }) {
     
       <CardMedia
         className={classes.media}
-      image={data.photos[0].url}
+      image={data.Photos[0].url}
       />
       <CardContent>
         {/* <Typography variant="h6" color="textSecondary" component="h6">
                     About this Route: {data.route.description}
         </Typography> */}
         <Typography variant="h6" color="textSecondary" component="h6">
-          Description:
+          {/* Description: {data2.description} */}
         </Typography>
       </CardContent>
     </Card>

@@ -5,12 +5,12 @@ import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import { useSelector, useDispatch } from 'react-redux';
-import {grabPlaceByIdThunk} from "../store/actions/entities/entities"
+import {grabPlaceByIdThunk, grabPostsByPlaceIdThunk,GRAB_PLACE_BY_ID} from "../store/actions/entities/entities"
 import { useParams } from "react-router-dom";
 import Gallery from "./Gallery"
 import Typography from '@material-ui/core/Typography';
 import SwipeAbleContainer from "./swipeableCarousel/SwipeAble"
-
+import Preview from "./swipeableCarousel/Previews"
 const useStyles = makeStyles((theme) => ({
     root: {
       height: '100vh',
@@ -56,27 +56,46 @@ const Place = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch()
     const {placeId} = useParams()
-    const data = useSelector((state)=>state.entities.places)
-    // dispatch(grabPlaceByIdThunk(placeId))
+    const data = useSelector((state)=>state.entities.places.byId)
+    const id = Number(placeId)
+    // const data2= JSON.parse(window.localStorage.getItem(GRAB_PLACE_BY_ID))
 
     useEffect(()=> {
-    dispatch(grabPlaceByIdThunk(placeId))
-
+   dispatch(grabPlaceByIdThunk(placeId))
+   dispatch(grabPostsByPlaceIdThunk(placeId))
+      // setLoaded(true)
     },[])
+  // if(!loaded) {
+  //   return null
+  // }    
 
     return (
         <>
             <Paper className={classes.paper} elevation={1}>
-                <Typography
+      <button onClick={()=>console.log(data)}>console1</button>
+      {/* <button onClick={()=>console.log(data2)}>console2</button> */}
+      {/* <Typography
                 variant="h4"
                 component="h4"
                 style={{color:"gray"}}
-                >{`@${data.byId.name}`}</Typography>
+                >{`@${data.name}`}
+                </Typography> */}
+<Typography
+                variant="h4"
+                component="h4"
+                style={{color:"gray"}}
+                >{`@${data.name}`}
+                </Typography>
+                            <Typography
+                variant="h6"
+                component="h6"
+                style={{color:"gray"}}
+                ><img src="/crown.png" style={{width:"20pt", height:"auto"}}></img>{`${data.User.firstName}`}</Typography>
             {/* <Gallery data={data}></Gallery>
              */}
             {/* <Map></Map> */}
             <SwipeAbleContainer data={data}></SwipeAbleContainer>
-           
+            <Preview></Preview>
  <Grid container>
  <CssBaseline />
  <Grid container

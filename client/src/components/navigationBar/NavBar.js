@@ -191,7 +191,8 @@ const NavBar =()=> {
           >
             <MenuIcon />
           </IconButton> */}
-          <div onClick={()=>window.location.href="/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
+ 
+          <div style={{ cursor: "pointer"}} onClick={()=>window.location.href="/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

@@ -16,21 +16,20 @@ const SwipeAbleContainer = ({data}) => {
 // const IMG_4 = `https://unsplash.it/342/252`;
 // const IMG_5 = `https://unsplash.it/342/253`;
 // const IMAGES = [IMG_1, IMG_2, IMG_3, IMG_4, IMG_5];
-const [loaded, setLoaded] = useState(false)
+// const [loaded, setLoaded] = useState(false)
 
 
-// console.log(data)
-useEffect(()=>{
-  setLoaded(true)
+console.log(data)
+// useEffect(()=>{
+//   setLoaded(true)
 
-},[])
+// },[])
 
-if (!loaded) {
-  return false
-}
+// if (!loaded) {
+//   return false
+// }
  return ( <div style={styles}>  
-
-    {data.byId.photos && <Carousel images={data.byId.photos.map(each=>each.url)} names={data.byId.photos.map(each=>each.name)} />}
+  <Carousel images={data.photos.map(each=>each.url)} names={data.photos.map(each=>each.name)} />
   </div>)
 }
 
