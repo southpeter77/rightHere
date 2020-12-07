@@ -19,7 +19,6 @@ const Map = ({coordinates}) => {
     
     
     },[])
-    console.log(coordinates)
     return (
         <>
         <button

@@ -2,25 +2,25 @@ export const initialState = {
   entities: {
     posts: {
       byId: {
-        id: null,
-        name: null,
-        description: null,
-        coordinates: null,
-        user_id: null,
-        place_id: null,
+        id: "",
+        name: "",
+        description: "",
+        coordinates: "",
+        user_id: "",
+        place_id: "",
         Photos: [],
         Place: {
-          id: null,
-          name: null,
-          description: null,
-          user_id: null
+          id: "",
+          name: "",
+          description: "",
+          user_id: ""
         },
         User: {
-          id: null,
-          biography: null,
-          firstName: null,
-          lastName: null,
-          email: null,
+          id: "",
+          biography: "",
+          firstName: "",
+          lastName: "",
+          email: "",
           Photos: []
         }
 
@@ -29,19 +29,42 @@ export const initialState = {
     },
     places: {
       byId: {
-        id: null,
-        name: null,
+        id: "",
+        name: "",
         coordinates: {},
         User: {
-          id: null,
-          firstName: null,
-          lastName: null,
-          email: null,
-          biography: null,
+          id: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          biography: "",
           Photos: []
         },
         photos: [],
-        posts: []
+        posts: [{
+          id: "",
+          name:"",
+          description: "",
+          coordinates:"",
+          user_id: "",
+          place_id:"",
+          Photos:[{
+            id:'',
+            url:''
+          }],
+          User:{
+            id:"",
+            biography: "",
+            firstName:"",
+            lastName:"",
+            email:"",
+            Photos:[{
+              id:"",
+              name:"",
+              url:""
+            }]
+          }
+        }]
       },
 
       allId: []
