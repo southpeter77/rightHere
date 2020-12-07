@@ -1,6 +1,8 @@
 import React,{useState, useRef,useCallback} from "react";
 import Webcam from "react-webcam";
-
+import IconButton from '@material-ui/core/IconButton';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CancelIcon from '@material-ui/icons/Cancel';
 const videoConstraints = {
     width: 1280,
     height: 720,
@@ -9,10 +11,10 @@ const videoConstraints = {
   
 
   
-  const WebcamCapture = () => {
+  const Camera = () => {
     const webcamRef = useRef(null);
     const [data, setData] = useState("")
-    const capture = React.useCallback(
+    const capture = useCallback(
       () => {
         const imageSrc = webcamRef.current.getScreenshot({width: 500, height: 600});
         console.log(imageSrc)
@@ -22,65 +24,24 @@ const videoConstraints = {
   
     return (
       <>
-      <h1>helloooooooooo</h1>
         <Webcam
           audio={false}
-          height={400}
+          height={500}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
-          width={500}
+          width={600}
           videoConstraints={videoConstraints}
         />
-        <button onClick={capture}>Capture photo</button>
+        {/* <button onClick={capture}>Capture photo</button> */}
+        <IconButton>
+          <RadioButtonCheckedIcon fontSize="large"></RadioButtonCheckedIcon>
+        </IconButton>
+        <IconButton>
+          <CancelIcon onClick={()=>window.location.replace("/create/post")} fontSize="large"></CancelIcon>
+        </IconButton>
+        
       </>
     );
   };
 
-export default WebcamCapture
-
-// state structure
-// state ={
-//   entities:{
-//     users:{
-//       1:{
-//         id:1,
-//         email: "email.com",
-//       },
-//       3:{
-//         id:3,
-//         email: '3email.com'
-//       }
-//     },
-//     markers:{
-//       1:{
-//         id:1,
-//         coordinate: 12345,
-//         photoID:2
-//       }
-//     },
-//     location: {
-//       1:{
-//         id:1,
-//         name: "good place"
-//       }
-//     },
-//     photos: {
-//       2:{
-//         id:2,
-//         url: "asdfasdfasdf"
-//       }
-//     }
-//   },
-//   session:{
-//     currentUserId:1,
-//     currentMarkerId: 1,
-//   },
-//   errors:{
-//     loginError:[],
-//     signUperror:[],
-//   },
-//   ui:{ //optional flag for conditionally render certain component
-//     signUpModual: true // true = modual appear, false = disappear
-//   }
-
-// }
+export default Camera

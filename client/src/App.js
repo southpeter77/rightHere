@@ -61,9 +61,9 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
                 <Route exact={true} path="/users">
                     <UserList />
                 </Route> */}
-                        <Route exact={true} path="/camera">
+                        {/* <Route exact={true} path="/camera">
                             <WebcamCapture></WebcamCapture>
-                        </Route>
+                        </Route> */}
                     </Switch>
                 </BrowserRouter>
             </Theme>

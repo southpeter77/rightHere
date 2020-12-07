@@ -11,12 +11,15 @@ import Paper from '@material-ui/core/Paper';
 import { Redirect,useParams } from "react-router-dom"
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ImageGridList from "./CreatePostIntro"
+import Camera from "../Camera"
 const styles = makeStyles((theme) => ({
     paper: {
         maxWidth: 750,
         margin: 'auto',
         marginTop:"5%",
         display:"flex",
+        // flexDirection:"column",
         justifyContent:'center'
 
     },
@@ -44,7 +47,8 @@ const styles = makeStyles((theme) => ({
 const CreatePost = () => {
     const classes = styles()
     const dispatch = useDispatch()
-
+    const [showGallery, setShowGallery]=useState(true)
+    const [showCamera, setShowCamera] = useState(false)
     useEffect( () => {
 
     }, []);
@@ -53,23 +57,36 @@ const CreatePost = () => {
         <>
 
             <Paper className={classes.paper} elevation={1}>
-            <Grid container
+            {showCamera? <Camera></Camera> : null}
+            {showGallery?<Grid container
         spacing={0}
         alignItems="center"
         display="flex"
         justify="center"
         style={{ minHeight: "100vh" }}>
+            
+        <Grid item xs={false} sm={12} md={4} elevation={3} style={{margin:'auto', display:"flex", justifyContent:"center"}}>
+            
+        <IconButton 
+        onClick={()=>{
+            setShowGallery(!showGallery)
+            setShowCamera(!showCamera)
+        }}
+        >
+            <CameraAltIcon fontSize="large"/>
+            <Typography variant="subtitle1" component="subtitle1">Take a picture</Typography>
+            </IconButton>
+        </Grid>
+        <Grid item xs={false} sm={12} md={4} elevation={3} style={{margin:'auto', display:"flex", justifyContent:"center"}}>
 
-        <Grid item xs={false} sm={12} md={4} elevation={0} style={{margin:'auto', display:"flex", justifyContent:"center"}}>
-            <Typography>add picture</Typography>
-        <IconButton ><CameraAltIcon fontSize="large"/></IconButton>
+        <IconButton><AddCircleIcon fontSize="large"/>
+                 <Typography variant="subtitle1" component="subtitle1">add picture from your device</Typography>   
+            
+        </IconButton>
         </Grid>
-        <Grid item xs={false} sm={12} md={4} elevation={0} style={{margin:'auto', display:"flex", justifyContent:"center"}}>
-        <Typography>add picture</Typography>
-        <IconButton><AddCircleIcon fontSize="large"/></IconButton>
-        </Grid>
-        
-        </Grid>
+        {/* <img src="/uploadPicture.jpg" style={{maxWidth:"700px"}}></img> */}
+        <ImageGridList></ImageGridList>
+        </Grid> : null}
             </Paper>
         </>
     )
