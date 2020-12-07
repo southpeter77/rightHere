@@ -5,14 +5,16 @@ const theme = createMuiTheme({
   gradientBackground: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
   fontFamily: "Helvetica",
   
+  
     palette: {
       primary: {
-        main: '#311b92',
+        main: '#1a237e',
       },
       secondary: {
-        main: '#5e35b1',
+        main: '#3949ab',
       },
     },
+  
   
   typography: {
     fontFamily: "Helvetica"

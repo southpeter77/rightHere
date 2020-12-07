@@ -1,5 +1,6 @@
+/*global google*/
 import React, {useState, useEffect} from "react"
-import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, Polyline, DirectionsRenderer} from "react-google-maps"
+import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, Polyline, DirectionsRenderer, Polygon} from "react-google-maps"
 import mapStyles from "./mapStyle"
 import mapCss from "./mapCss.css"
 const options = {
@@ -8,22 +9,29 @@ const options = {
   zoomControl: true,
 }
 const Map = ({coordinates}) => {
-    // const [myLocation, setMyLocation] = useState("")
-    // const [placeLatLng, setPlaceLatLng] = useState({})
+//lat: 41.505493 // lat diff 0.0014 = 0.1 miles or 0.0015
+//lng: -81.68129 // lng dif 0.002 = 0.1 miles
 
+const square = [
+  // { lat: 41.505243, lng: -81.681640 },
+  // { lat: 41.505243, lng: -81.681040},
+  // { lat: 41.505743, lng: -81.681040 },
+  // { lat: 41.505743, lng: -81.681640 },
+{lat:coordinates.lat-0.0035, lng: coordinates.lng-0.005},
+{lat:coordinates.lat-0.0035, lng: coordinates.lng+0.005},
+{lat:coordinates.lat+0.0035, lng: coordinates.lng+0.005},
+{lat:coordinates.lat+0.0035, lng: coordinates.lng-0.005},
 
+];
+
+// console.log(coordinates)
     useEffect(()=> {
-    //         navigator.geolocation.getCurrentPosition((position)=>{
-    //     setMyLocation({lat: position.coords.latitude, lng: position.coords.longitude})
-    //   }, ()=>null)
-    
-    
     },[])
     return (
         <>
-        <button
+        {/* <button
         onClick={()=>console.log(coordinates)}
-        >asdfasdf</button>
+        >asdfasdf</button> */}
          <GoogleMap
 
 mapContainerStyle={{
@@ -36,8 +44,19 @@ options={options}
 <Marker
 position={coordinates}
 ></Marker>
-</GoogleMap>
 
+</GoogleMap>
+<Polygon
+            path={square}
+            //key={1}
+            options={{
+                fillColor: "white",
+                fillOpacity: 0.1,
+                strokeColor: "white",
+                strokeOpacity: 1,
+                strokeWeight: 1
+            }}
+></Polygon>
         </>
     )
 }

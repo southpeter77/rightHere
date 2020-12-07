@@ -15,6 +15,9 @@ import Login from './components/auth/LogIn';
 import NavBar from "./components/navigationBar/NavBar"
 import PostFeeds from "./components/postBrowser/PostFeeds"
 import Place from "./components/placeBrowser/Place"
+import CreatePost from "./components/createPost/CreatePost"
+import {grabAllPostsThunk} from "./components/store/actions/entities/entities"
+
 function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch()
@@ -23,6 +26,7 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
         loadToken()
         loadCurrentUser();
         setLoaded(true);
+        // dispatch(grabAllPostsThunk())
 
     }, []);
 
@@ -51,7 +55,7 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
                     <Switch>
                         <PrivateRoute exact path="/" needLogin={needLogin} component={PostFeeds} />
                         <PrivateRoute exact path="/place/:placeId" needLogin={needLogin} component={Place} />
-
+                        <PrivateRoute exact path="/create/post" needLogin={needLogin} component={CreatePost}/>
 
                         {/*             
                 <Route exact={true} path="/users">

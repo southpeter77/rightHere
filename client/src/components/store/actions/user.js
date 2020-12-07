@@ -1,5 +1,6 @@
 import {logInErrors, signUpErrors} from "./errors/errors"
 import {currentUser, saveToken, loadToken, saveCurrentUserData} from "./sessions/currentUser"
+import {grabAllPostsThunk} from "../actions/entities/entities"
 export const TOKEN_KEY = "TOKEN_KEY";
 
 
@@ -17,9 +18,9 @@ export const login = ({email, password}) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(logInErrors([]))
-        console.log(data)
         dispatch(saveCurrentUserData(data))
         dispatch(saveToken(data.token))
+        dispatch(grabAllPostsThunk())
       } 
       if (!response.ok){
           throw response
@@ -44,6 +45,7 @@ export const signUp = (payload) => async (dispatch) => {
                 dispatch(signUpErrors([]))
                 dispatch(currentUser(data.userId))
                 dispatch(saveToken(data.token))
+                dispatch(grabAllPostsThunk())
 
         } else {
             throw response

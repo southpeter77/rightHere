@@ -19,7 +19,7 @@ import {loadCurrentUser} from "../store/actions/sessions/currentUser"
 import { useDispatch, useSelector } from "react-redux";
 import {logOutThunk} from "../store/actions/sessions/currentUser"
 import navBarStyling from "./navBarStyling.css"
-
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+
 }));
 
 const NavBar =()=> {
@@ -191,8 +192,16 @@ const NavBar =()=> {
           >
             <MenuIcon />
           </IconButton> */}
- 
+  
           <div style={{ cursor: "pointer"}} onClick={()=>window.location.href="/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
+                   <IconButton
+                   onClick={()=>window.location.href="/create/post"}
+                   >
+            <AddAPhotoIcon
+            color="secondary"
+            fontSize="large"
+            ></AddAPhotoIcon>
+          </IconButton>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -206,6 +215,10 @@ const NavBar =()=> {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+
+ 
+
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">

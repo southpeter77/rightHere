@@ -40,7 +40,7 @@ export const grabPlaceByIdThunk = (id) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         // window.localStorage.setItem(GRAB_PLACE_BY_ID,JSON.stringify(data))
-        console.log(data)
+        // console.log(data)
         await dispatch(grabPlaceById(data))
         // window.localStorage.setItem(GRAB_PLACE_BY_ID, JSON.stringify(data))
     }
