@@ -20,16 +20,20 @@ const buttonStyles = {
   // backgroundColor: "rgba(230,230,230,.1)",
   // border: "0",
   cursor: "pointer",
-  marginTop: "200px"
+  // marginTop: "100px"
 };
 const buttonLeft = { ...buttonStyles, float: "left" };
 const buttonRight = { ...buttonStyles, float: "right" };
 
-const SimpleCarousel = ({ images, names }) => {
+const SimpleCarousel = ({ images }) => {
   const [imageIdx, setImageIdx] = useState(0)
   const divStyle = {
     display:'flex',
-    justifyContent:"center"
+    justifyContent:"center",
+    alignItems:"center"
+    // width:"430px",
+    // height:"450px",
+    // border: "1px solid red"
   };
 
   const imageSrc = `${images[imageIdx]})`
@@ -66,8 +70,9 @@ const SimpleCarousel = ({ images, names }) => {
         backgroundSize:'cover',
         width:"500px",
         height:"auto",
-        maxWidth:"500px",
-        maxHeight:"450px"
+        maxWidth:"370px",
+        maxHeight:"450px",
+        
       }}
         ></img>
                 <IconButton onClick={() => onSwiped(LEFT)} style={buttonRight} fontSize="large">
@@ -80,7 +85,7 @@ const SimpleCarousel = ({ images, names }) => {
             </Button> */}
       </div>
     </div>
-    <Typography  variant="h6" component="h6" align="center">{names[imageIdx]}</Typography>   
+    {/* <Typography  variant="h6" component="h6" align="center">{description[imageIdx]}</Typography>    */}
   </>)
 }
 

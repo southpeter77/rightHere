@@ -2,8 +2,12 @@ import React, {useState, useEffect} from "react"
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, Polyline, DirectionsRenderer} from "react-google-maps"
 import mapStyles from "./mapStyle"
 import mapCss from "./mapCss.css"
-
-const Map = () => {
+const options = {
+  styles: mapStyles, 
+  disableDefaultUI: true, 
+  zoomControl: true,
+}
+const Map = ({coordinates}) => {
     // const [myLocation, setMyLocation] = useState("")
     // const [placeLatLng, setPlaceLatLng] = useState({})
 
@@ -15,37 +19,43 @@ const Map = () => {
     
     
     },[])
+    console.log(coordinates)
     return (
         <>
-        {/* <button
-        onClick={()=>console.log(myLocation)}
-        >asdfasdf</button> */}
+        <button
+        onClick={()=>console.log(coordinates)}
+        >asdfasdf</button>
          <GoogleMap
 
 mapContainerStyle={{
   border: '5px solid red'
 }}
 defaultZoom={14}
-// center={myLocation ? myLocation : null}
+center={coordinates}
+options={options}
 >
-
+<Marker
+position={coordinates}
+></Marker>
 </GoogleMap>
+
         </>
     )
 }
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
-const MapContainer = () => {
+const MapContainer = ({coordinates}) => {
 
 
   return (
     <>
-          <div className="googleMap" style={{ width: '450px', height: '350px', margin: "auto" }}>
+          <div  style={{ width: '400px', height: '450px', margin: "auto" }}>
     <WrappedMap 
     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
     loadingElement={<div style={{height: '100%'}}/> }
     containerElement={<div style={{height:"100%"}}/>}
     mapElement={<div style={{height: "100%"}}/>}
+    coordinates={coordinates}
     >
     </WrappedMap>
     </div>

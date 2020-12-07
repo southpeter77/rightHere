@@ -72,19 +72,20 @@ export default function PostCard({ data }) {
       subheader={<NavLink to={`/place/${data.Place.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.Place.name}`}</NavLink>}
 
       />
-      <Typography style={{ marginLeft: "1em" }} variant="h5" component="h5" align="center">{data.name}</Typography>
+      <Typography  variant="h5" component="h5" style={{  borderTop:'1px solid black', width:"96%", margin:"auto"}} >{data.name}</Typography>
 
     
       <CardMedia
         className={classes.media}
       image={data.Photos[0].url}
+      style={{maxWidth:"800px", maxHeight:"500px"}}
       />
       <CardContent>
         {/* <Typography variant="h6" color="textSecondary" component="h6">
                     About this Route: {data.route.description}
         </Typography> */}
-        <Typography variant="h6" color="textSecondary" component="h6">
-          {/* Description: {data2.description} */}
+        <Typography variant="h6" color="textSecondary" component="h6" style={{  borderBottom:'1px solid gray' }} >
+          {data.description}
         </Typography>
       </CardContent>
     </Card>

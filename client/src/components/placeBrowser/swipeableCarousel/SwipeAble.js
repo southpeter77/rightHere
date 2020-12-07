@@ -6,6 +6,7 @@ import { preLoadImages } from './utils';
 
 const styles = {
   fontFamily: 'sans-serif',
+
 };
 
 
@@ -18,8 +19,6 @@ const SwipeAbleContainer = ({data}) => {
 // const IMAGES = [IMG_1, IMG_2, IMG_3, IMG_4, IMG_5];
 // const [loaded, setLoaded] = useState(false)
 
-
-console.log(data)
 // useEffect(()=>{
 //   setLoaded(true)
 
@@ -29,7 +28,7 @@ console.log(data)
 //   return false
 // }
  return ( <div style={styles}>  
-  <Carousel images={data.photos.map(each=>each.url)} names={data.photos.map(each=>each.name)} />
+  <Carousel images={data.photos.map(each=>each.url)} />
   </div>)
 }
 
