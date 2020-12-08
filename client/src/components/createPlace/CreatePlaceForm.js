@@ -53,7 +53,7 @@ const CreatePlace = ({currentCoordinates,image}) => {
     const data = new FormData();
     data.append("name", name)
     data.append("description", description)
-    data.append("currentCoordinates", currentCoordinates)
+    data.append("currentCoordinates", JSON.stringify(currentCoordinates))
     data.append("user_id", user_id)
     data.append("image", image)
 

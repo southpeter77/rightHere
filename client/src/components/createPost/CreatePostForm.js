@@ -59,7 +59,7 @@ const CreatePostForm = ({currentCoordinates,image}) => {
     data.append("currentCoordinates", currentCoordinates)
     data.append("user_id", user_id)
     data.append("place_id", place_id)
-    data.append("image", image)
+    data.append("file", image)
 
     
     

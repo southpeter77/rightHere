@@ -72,16 +72,16 @@ router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(
     });
 
     const token = getUserToken(user);
-    console.log({
-        token, 
-        userId:user.id, 
-        email: user.firstName, 
-        lastName:user.lastName, 
-        biography:user.biography,
-        posts: user.Posts,
-        places: user.Places,
-        photos: user.Photos
-      })
+    // console.log({
+    //     token, 
+    //     userId:user.id, 
+    //     email: user.firstName, 
+    //     lastName:user.lastName, 
+    //     biography:user.biography,
+    //     posts: user.Posts,
+    //     places: user.Places,
+    //     photos: user.Photos
+    //   })
     res.json({
         token, 
         userId:user.id, 

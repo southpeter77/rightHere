@@ -104,23 +104,33 @@ const fileFilter = (req, res, next) => {
     }
   };
 
-router.post("/create", 
+router.put("/create", 
 upload.any(),
 fileFilter, 
 asyncHandler(async(req,res,next) => {
     const file = req.files[0];
 
     const params = {
-        Bucket: "athlete101image",
-        Key: Date.now().toString() + file.originalname, // UNIQUELY IDENTIFIES AN OBJECT IN THE BUCKET
+        Bucket: "right-here-app",
+        Key: Date.now().toString() + file.originalname,
         Body: file.buffer,
         ACL: "public-read",
         ContentType: file.mimetype,
       };
-    // const promise = s3.upload(params).promise(); // CREATE A PROMISE FROM THE UPLOAD
-    // const uploadedImage = await promise;  
-    console.log("here")
-    console.log(file)
+    const promise = s3.upload(params).promise(); 
+    const uploadedImage = await promise;  
+    const url = uploadedImage.Location
+    console.log(url)
+    const place = await Place.create({
+        name:req.body.name, coordinates:req.body.currentCoordinates,description:req.body.description, user_id:req.body.user_id
+    })
+    console.log(place.id)
+    const image = await Photo.create({
+        place_id:place.id,
+        url
+    })
+
+    res.json({place, image})
 }))
 
 

@@ -77,7 +77,7 @@ const CreatePost = () => {
                 </>}
                 {showUpload && placeExist &&
                 <>
-                    <UploadImage setShowUpload={setShowUpload} setShowGallery={setShowGallery}></UploadImage>
+                    <UploadImage setShowUpload={setShowUpload} setShowGallery={setShowGallery} setImage={setImage}></UploadImage>
                     {/* <Grid container className={classes.containerRoot}> */}
                             <CreatePostForm currentCoordinates={currentCoordinates} image={image}></CreatePostForm>
                     {/* </Grid> */}
