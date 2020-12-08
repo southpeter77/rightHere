@@ -4,7 +4,15 @@ const db = require('../../db/models');
 const { User, Post, Place, Photo, Relationship, Comment } = require('../../db/models');
 const router = express.Router();
 
+//check if the place exist 
+router.put("/check", asyncHandler(async (req, res, next) => {
+    console.log('hi')
+    res.json({message:"ok"})
+}))
 
+
+
+//grab by id
 router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
     const placeId = Number(req.params.id)

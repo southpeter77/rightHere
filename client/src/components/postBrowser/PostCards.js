@@ -27,7 +27,7 @@ import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 800,
-    height: 1000
+    height: 700
   },
   media: {
     height: 0,

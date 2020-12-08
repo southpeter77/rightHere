@@ -13,6 +13,11 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ImageGridList from "./CreatePostIntro"
 import Camera from "../Camera"
+import UploadImage from "./UploadImage"
+import Map from "./Map"
+import CreatePlaceForm from "../createPlace/CreatePlaceForm"
+import CreatePostForm from "./CreatePostForm"
+import {checkPlaceExist} from "../../components/store/actions/post"
 const styles = makeStyles((theme) => ({
     paper: {
         maxWidth: 750,
@@ -23,22 +28,14 @@ const styles = makeStyles((theme) => ({
         justifyContent:'center'
 
     },
-    root: {
-        padding: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 400,
-    },
-    input: {
-        marginLeft: theme.spacing(1),
-        flex: 1,
-    },
+    containerRoot: {
+        margin: theme.spacing(5, 2),
+        // display: 'flex',
+        // flexDirection: 'column',
+        // justifyContent: "center",
+      },
     iconButton: {
         padding: 10,
-    },
-    divider: {
-        height: 28,
-        margin: 4,
     },
 }));
 
@@ -49,15 +46,39 @@ const CreatePost = () => {
     const dispatch = useDispatch()
     const [showGallery, setShowGallery]=useState(true)
     const [showCamera, setShowCamera] = useState(false)
+    const [showUpload, setShowUpload] = useState(false)
+    const [currentCoordinates, setCurrentCoordinates]= useState({})
+    const [placeExist, setPlaceExist] = useState(false)
     useEffect( () => {
+        ////THIS IS FOR PRODUCTION///////
+        navigator.geolocation.getCurrentPosition((position)=>{
+            setCurrentCoordinates({lat: position.coords.latitude, lng: position.coords.longitude})
+          }, ()=>null)
+          //////
+
+          dispatch(checkPlaceExist(currentCoordinates))
 
     }, []);
-
+console.log("current coordinates",currentCoordinates)
     return (
         <>
+        {showUpload && !placeExist ?
+        <>
+         <UploadImage setShowUpload={setShowUpload} setShowGallery={setShowGallery}></UploadImage>
+         <Grid container className={classes.containerRoot}>
+         <Grid item xs={12} sm={12} md={6} elevation={4} >
+                      <Map coordinates={currentCoordinates}></Map> 
+        </Grid>
+        <Grid item xs={12} sm={6} md={6}  elevation={4}>
+<CreatePlaceForm></CreatePlaceForm>
+             </Grid>
+       
+         </Grid>
 
+         </> 
+        : null}
             <Paper className={classes.paper} elevation={1}>
-            {showCamera? <Camera></Camera> : null}
+            {showCamera? <Camera setShowCamera={setShowCamera} setShowGallery={setShowGallery}></Camera> : null}
             {showGallery?<Grid container
         spacing={0}
         alignItems="center"
@@ -69,8 +90,8 @@ const CreatePost = () => {
             
         <IconButton 
         onClick={()=>{
-            setShowGallery(!showGallery)
-            setShowCamera(!showCamera)
+            setShowGallery(false)
+            setShowCamera(true)
         }}
         >
             <CameraAltIcon fontSize="large"/>
@@ -79,7 +100,12 @@ const CreatePost = () => {
         </Grid>
         <Grid item xs={false} sm={12} md={4} elevation={3} style={{margin:'auto', display:"flex", justifyContent:"center"}}>
 
-        <IconButton><AddCircleIcon fontSize="large"/>
+        <IconButton
+                onClick={()=>{
+                    setShowGallery(false)
+                    setShowUpload(true)
+                }}
+        ><AddCircleIcon fontSize="large"/>
                  <Typography variant="subtitle1" component="subtitle1">add picture from your device</Typography>   
             
         </IconButton>

@@ -38,12 +38,12 @@ const tileData = [
      featured: true,
    },   {
     img: "/uploadPicture2.jpg",
-    title: 'Take a Photo',
+    // title: 'Take a Photo',
     author: 'author',
   },    
    {
     img: "/uploadPicture4.jpg",
-    title: 'or Upload a Photo',
+    // title: 'or Upload a Photo',
     author: 'author',
 
   },
@@ -59,12 +59,12 @@ export default function AdvancedGridList() {
         {tileData.map((tile) => (
           <GridListTile key={tile.img} cols={tile.featured ? 2 : 1} rows={tile.featured ? 2 : 1}>
             <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
+            {tile.title? <GridListTileBar
             title={tile.title}
               titlePosition="bottom"
               actionPosition="left"
               className={classes.titleBar}
-            />
+            />:null}
           </GridListTile>
         ))}
       </GridList>

@@ -1,3 +1,4 @@
+import {GRAB_ALL_POSTS} from "../entities/entities"
 export const CURRENT_USER = "CURRENT_USER"
 export const SET_TOKEN = "SET_TOKEN";
 export const REMOVE_TOKEN = "REMOVE_TOKEN";
@@ -57,6 +58,7 @@ export const saveToken = (tokendata) => async (dispatch) => {
 export const logOutThunk = () => async (dispatch)=> {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.removeItem(CURRENT_USER);
+    window.localStorage.removeItem(GRAB_ALL_POSTS)
     dispatch(removeToken())
     dispatch(removeCurrentUser())
 }

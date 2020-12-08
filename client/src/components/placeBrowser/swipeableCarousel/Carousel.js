@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const IMG_WIDTH = "500px";
 const IMG_HEIGHT = "450px";
@@ -13,10 +14,10 @@ const RIGHT = "-1";
 const LEFT = "+1";
 
 const buttonStyles = {
-  height: "25px",
-  width: "10px",
-  color: "black",
-  fontSize: "2em",
+  height: "55px",
+  width: "30px",
+  color: "white",
+  fontSize: "10pt",
   // backgroundColor: "rgba(230,230,230,.1)",
   // border: "0",
   cursor: "pointer",
@@ -25,12 +26,12 @@ const buttonStyles = {
 const buttonLeft = { ...buttonStyles, float: "left" };
 const buttonRight = { ...buttonStyles, float: "right" };
 
-const SimpleCarousel = ({ images }) => {
+const SimpleCarousel = ({ images, setOpenSwipeable }) => {
   const [imageIdx, setImageIdx] = useState(0)
   const divStyle = {
     display:'flex',
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
     // width:"430px",
     // height:"450px",
     // border: "1px solid red"
@@ -53,7 +54,7 @@ const SimpleCarousel = ({ images }) => {
 
   return (<>
     <div>
-      <div style={divStyle}>
+      <div className="popup-content">
         <IconButton onClick={() => onSwiped(RIGHT)} style={buttonLeft} fontSize="large">
         <ArrowLeftIcon ></ArrowLeftIcon>
         </IconButton>
@@ -70,13 +71,15 @@ const SimpleCarousel = ({ images }) => {
         backgroundSize:'cover',
         width:"500px",
         height:"auto",
-        maxWidth:"370px",
-        maxHeight:"450px",
-        
+        maxWidth:"500px",
+        maxHeight:"600px",
       }}
         ></img>
                 <IconButton onClick={() => onSwiped(LEFT)} style={buttonRight} fontSize="large">
         <ArrowRightIcon ></ArrowRightIcon>
+        </IconButton>
+        <IconButton onClick={() => setOpenSwipeable(false)} style={buttonRight} fontSize="large">
+        <CancelIcon ></CancelIcon>
         </IconButton>
 
   {/* <Button             variant="contained"

@@ -15,7 +15,7 @@ import mapCss from "./mapCss.css"
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import PostCard from "./PostCard"
-
+import Gallery2 from "./Gallery2"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   root2: {
     display: 'flex',
     flexWrap: 'wrap',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     marginTop:'5%',
     backgroundColor: theme.palette.background.paper,
   },
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Place = () => {
   const classes = useStyles()
-  const [loaded, setLoaded] = useState(false)
+  const [openSwipeable, setOpenSwipeable] = useState(false)
   const dispatch = useDispatch()
   const { placeId } = useParams()
   const data = useSelector((state) => state.entities.places.byId)
@@ -80,6 +80,8 @@ const Place = () => {
 
   return (
     <>
+    {/* <SwipeAbleContainer data={data}></SwipeAbleContainer> */}
+    {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer>:null}
       <Paper className={classes.paper} elevation={1}>
         <button onClick={() => console.log(data)}>console1</button>
         {/* <button onClick={()=>console.log(data2)}>console2</button> */}
@@ -108,13 +110,14 @@ const Place = () => {
              */}
 
         <Grid container>
-          <Grid item xs={12} sm={12} md={6} elevation={0} style={{ display: "flex", alignItems: "center" }}>
+          {/* <Grid item xs={12} sm={12} md={6} elevation={0} style={{ display: "flex", alignItems: "center" }}>
             <SwipeAbleContainer data={data}></SwipeAbleContainer>
           </Grid>
           <Grid item xs={12} sm={12} md={3} elevation={0}>
             <Map coordinates={data.coordinates}></Map>
-          </Grid>
-          <Preview data={data} images={data.photos.map(each => each.url)} names={data.photos.map(each => each.name)}></Preview>
+          </Grid> */}
+          {/* <Preview data={data} images={data.photos.map(each => each.url)} names={data.photos.map(each => each.name)}></Preview> */}
+        <Gallery2 data={data.photos} setOpenSwipeable={setOpenSwipeable}></Gallery2>
         </Grid>
         <Grid container>
           <CssBaseline />
@@ -127,7 +130,9 @@ const Place = () => {
 
         </Grid>
       </Paper>
-
+      {/* <div className="popup">
+      asdf
+    </div> */}
     </>
   )
 

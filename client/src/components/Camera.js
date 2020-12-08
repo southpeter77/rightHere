@@ -11,7 +11,7 @@ const videoConstraints = {
   
 
   
-  const Camera = () => {
+  const Camera = ({setShowCamera,setShowGallery}) => {
     const webcamRef = useRef(null);
     const [data, setData] = useState("")
     const capture = useCallback(
@@ -22,6 +22,11 @@ const videoConstraints = {
       [webcamRef]
     );
   
+      const handelCancel= () => {
+        setShowCamera(false)
+        setShowGallery(true)
+      }
+
     return (
       <>
         <Webcam
@@ -33,11 +38,15 @@ const videoConstraints = {
           videoConstraints={videoConstraints}
         />
         {/* <button onClick={capture}>Capture photo</button> */}
-        <IconButton>
+        <IconButton
+        style={{height:"40pt"}}
+        >
           <RadioButtonCheckedIcon fontSize="large"></RadioButtonCheckedIcon>
         </IconButton>
-        <IconButton>
-          <CancelIcon onClick={()=>window.location.replace("/create/post")} fontSize="large"></CancelIcon>
+        <IconButton
+        style={{height:"40pt"}}
+        >
+          <CancelIcon onClick={()=>handelCancel()} fontSize="large"></CancelIcon>
         </IconButton>
         
       </>
