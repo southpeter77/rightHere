@@ -27,6 +27,9 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
         loadCurrentUser();
         setLoaded(true);
         // dispatch(grabAllPostsThunk())
+        navigator.geolocation.getCurrentPosition((position)=>{
+            window.localStorage.setItem("CURRENT_LOCATION_COORDINATES",JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
+          }, ()=>null)
 
     }, []);
 

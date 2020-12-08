@@ -4,12 +4,14 @@ import user from "./actions/user"
 import error from "./actions/errors/errors"
 import currentUser from "./actions/sessions/currentUser"
 import entities from "./actions/entities/entities"
+import ui from "./actions/ui/ui"
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers ({
     entities:entities,
     errors:error,
-    sessions:currentUser
+    sessions:currentUser,
+    ui:ui
 })
 
 const configureStore = (initialState) => {

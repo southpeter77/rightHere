@@ -3,7 +3,7 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import style from "./style.css"
-const UploadImage = ({setShowUpload,setShowGallery}) => {
+const UploadImage = ({setShowUpload,setShowGallery, setImage}) => {
 
 
     return (
@@ -22,7 +22,7 @@ const UploadImage = ({setShowUpload,setShowGallery}) => {
         <DropzoneArea
   acceptedFiles={['image/*']}
   dropzoneText={"Drag and drop an image here or click"}
-  onChange={(files) => console.log('Files:', files)}
+  onChange={(files) => setImage(files[0])}
 />    </div>
 </>
     )

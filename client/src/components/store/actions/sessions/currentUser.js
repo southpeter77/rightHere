@@ -4,6 +4,8 @@ export const SET_TOKEN = "SET_TOKEN";
 export const REMOVE_TOKEN = "REMOVE_TOKEN";
 export const TOKEN_KEY = "TOKEN_KEY";
 export const REMOVE_CURRENT_USER = "REMOVE_CURRENT_USER"
+export const CURRENT_LOCATION_COORDINATES = "CURRENT_LOCATION_COORDINATES"
+
 ////////ACTION CREATORS////////////////////
 export const currentUser = (data) => {
     return {
@@ -28,6 +30,13 @@ export const removeCurrentUser = (data) => {
         data
     }
 }
+export const currentLocationCoordinates = (data) =>{
+    return {
+        type: CURRENT_LOCATION_COORDINATES,
+        data
+    }
+}
+
 
 /////////THUNKS///////////
 export const saveCurrentUserData=(data)=> (dispatch) => {
@@ -59,8 +68,28 @@ export const logOutThunk = () => async (dispatch)=> {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.removeItem(CURRENT_USER);
     window.localStorage.removeItem(GRAB_ALL_POSTS)
+    window.localStorage.removeItem(CURRENT_LOCATION_COORDINATES)
     dispatch(removeToken())
     dispatch(removeCurrentUser())
+}
+
+export const currentLocationCoordinatesThunk = (coordinates)=> async(dispatch) => {
+    const response = await fetch("/api/places/current", {
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(coordinates)
+    })
+    if (response.ok) {
+        const data = await response.json()
+        // console.log(data)
+        if (data.length > 0) {
+            dispatch(currentLocationCoordinates(data))
+        }
+        
+    }
+
 }
 
 ///////////REDUCER////////////////////////
@@ -90,6 +119,10 @@ export default function reducer(state = {}, action) {
         case REMOVE_TOKEN:
             newState["currentToken"] = null
             return newState
+        case CURRENT_LOCATION_COORDINATES:
+            newState["currentLocation"]=action.data[0]
+            return newState
+    
         default:
             return state
     }

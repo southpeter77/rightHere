@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
-
+import {createPlace} from "../store/actions/place"
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -36,8 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreatePlace = () => {
+const CreatePlace = ({currentCoordinates,image}) => {
   const classes = useStyles();
+  const user_id = useSelector(state=> state.sessions.currentUser.id)
+
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
 
@@ -48,13 +50,25 @@ const CreatePlace = () => {
 
   const handleSubmit = async (e)=> {
     e.preventDefault()
-   
+    const data = new FormData();
+    data.append("name", name)
+    data.append("description", description)
+    data.append("currentCoordinates", currentCoordinates)
+    data.append("user_id", user_id)
+    data.append("image", image)
 
+    // const payload={
+    //   name, description, currentCoordinates,user_id,image
+    // }
+    
+    dispatch(createPlace(data))
   }
   return (
 
-          <div className={classes.paper} >
-                  <form className={classes.form} noValidate>
+          <div className={classes.paper} ><form className={classes.form} noValidate>
+            <Typography variant="h5" component="h5" align="left">Claim this Place!</Typography>
+            <Typography align="left">You will be able to manage this place</Typography>
+                  
          <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

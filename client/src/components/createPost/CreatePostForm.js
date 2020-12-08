@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   form: {
-    width: '80%', // Fix IE 11 issue.
-    margin: theme.spacing(5),
+    width: '60%',
+    margin: theme.spacing(5,35),
   },
   submit: {
     width: "100%",
@@ -36,20 +36,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreatePostForm = () => {
+const CreatePostForm = ({currentCoordinates,image}) => {
   const classes = useStyles();
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
-
+    // const place_id = useSelector(state=> state.)
   const dispatch = useDispatch()
+  const place_id = useSelector(state=> state.sessions.currentLocation.id)
+  const user_id = useSelector(state=> state.sessions.currentUser.id)
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
 
   const handleSubmit = async (e)=> {
+    // const payload={
+    //   name, description, currentCoordinates, place_id,user_id,image
+    // } console.log(data)
     e.preventDefault()
-   
+    const data = new FormData();
+    data.append("name", name)
+    data.append("description", description)
+    data.append("currentCoordinates", currentCoordinates)
+    data.append("user_id", user_id)
+    data.append("place_id", place_id)
+    data.append("image", image)
 
+    
+    
+  
   }
   return (
 

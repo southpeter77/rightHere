@@ -1,4 +1,4 @@
-export const checkPlaceExist = (coordinates)=> async(dispatch)=> {
+export const checkPlaceExist = async(coordinates)=> {
     const response =await fetch("/api/places/check", {
         method:"PUT",
         headers:{
@@ -6,4 +6,13 @@ export const checkPlaceExist = (coordinates)=> async(dispatch)=> {
         },
         body:JSON.stringify(coordinates)
     })
+    if (response.ok) {
+        const exist = await response.json()
+        return exist.message
+    }
+}
+
+
+export const createPost = (data) => async (dispatch) => {
+    console.log(data)
 }

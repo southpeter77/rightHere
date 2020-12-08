@@ -43,7 +43,10 @@ export const signUp = (payload) => async (dispatch) => {
            if(response.ok) {
                 const data = await response.json()
                 dispatch(signUpErrors([]))
-                dispatch(currentUser(data.userId))
+                // dispatch(currentUser(data.userId))
+                // dispatch(saveToken(data.token))
+                // dispatch(grabAllPostsThunk())
+                dispatch(saveCurrentUserData(data))
                 dispatch(saveToken(data.token))
                 dispatch(grabAllPostsThunk())
 

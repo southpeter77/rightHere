@@ -73,5 +73,29 @@ export const initialState = {
   errors: {
     loginErrors: [],
     signUpErrors: [],
+  },
+  sessions:{
+    currentToken:"",
+    currentUser:{
+      id:'',
+      email:'',
+      firstName:'',
+      lastName:'',
+      biography:'',
+      posts:[],
+      places:[],
+      photos:[{
+        id:'',
+        name:'',
+        url:''
+      }]
+    },
+    currentLocation:{
+      id:'',
+      name:'',
+      coordinates:'',
+      description:'',
+      user_id:''
+    }
   }
 }
