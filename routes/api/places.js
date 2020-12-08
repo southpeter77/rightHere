@@ -4,6 +4,10 @@ const db = require('../../db/models');
 const { User, Post, Place, Photo, Relationship, Comment } = require('../../db/models');
 const router = express.Router();
 const {requireAuth} = require("../utils/auth");
+const AWS = require("aws-sdk");
+const { awsKeys } = require("../../config")
+const multer = require("multer");
+const upload = multer();
 
 //check if the place exist 
 router.put("/check", asyncHandler(async (req, res, next) => {
@@ -83,11 +87,40 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
     res.json(data)
 }));
 
+////////////////create place with uploaded picture///////////////
+AWS.config.update({
+    secretAccessKey: awsKeys.secretAccessKey,
+    accessKeyId: awsKeys.accessKeyId,
+    region: awsKeys.region,
+  });
 
+const s3 = new AWS.S3(); 
+const fileFilter = (req, res, next) => {
+    const file = req.files[0];
+    if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+      next();
+    } else {
+      next({ status: 422, errors: ["Invalid Mime Type, only JPEG and PNG"] });
+    }
+  };
 
+router.post("/create", 
+upload.any(),
+fileFilter, 
+asyncHandler(async(req,res,next) => {
+    const file = req.files[0];
 
-router.post("/create", requireAuth, asyncHandler(async(req,res,next) => {
-
+    const params = {
+        Bucket: "athlete101image",
+        Key: Date.now().toString() + file.originalname, // UNIQUELY IDENTIFIES AN OBJECT IN THE BUCKET
+        Body: file.buffer,
+        ACL: "public-read",
+        ContentType: file.mimetype,
+      };
+    // const promise = s3.upload(params).promise(); // CREATE A PROMISE FROM THE UPLOAD
+    // const uploadedImage = await promise;  
+    console.log("here")
+    console.log(file)
 }))
 
 
