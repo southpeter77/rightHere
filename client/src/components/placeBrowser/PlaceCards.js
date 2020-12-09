@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,45 +7,49 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import mapCss from "./mapCss.css"
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 360,
+    width: 360,
+    height: 320
   },
   media: {
-    height: 140,
+    height: 320,
   },
 });
 
-export default function PlaceCards() {
+export default function PlaceCards({data}) {
   const classes = useStyles();
-
+    const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root}
+    onMouseOver={()=>setMouseHover({raised:true, shadow:3})}
+    onMouseOut={()=>setMouseHover({raised:false, shadow:1})}
+    raised={mouseHover.raised}
+    shadow={mouseHover.shadow}
+    onClick={()=>window.location.href=`/place/${data.id}`}
+    >
       <CardActionArea>
+      <div class="img__wrap">
         <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+        //   className={classes.media}
+          className="imgTag"
+          image={data.Photos.length > 0 ? data.Photos[0].url: null}
         />
+         {/* <p class="img__description"></p> */}
+         <div className="img__description">
+             <Typography
+             variant="h6"
+             className="onHoverText"
+  >{data.Posts.length >1 ?`${data.Posts.length} posts` : `${data.Posts.length} post` } </Typography>
+         </div>
+        </div>
+          
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
+
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   );
 }

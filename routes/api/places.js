@@ -59,7 +59,18 @@ router.put("/current", asyncHandler(async (req, res, next) => {
 
     }
 }))
-
+//grab all places
+router.get("/all", asyncHandler(async (req, res, next) => {
+    const allPlaces = await db.Place.findAll({
+        include:[
+            {model:Photo},
+            {model:User,attributes: ["id", "biography", "firstName", "lastName", "email"]},
+            {model:Post}
+        
+        ]
+    })
+    res.json(allPlaces)
+}))
 
 
 //grab by id

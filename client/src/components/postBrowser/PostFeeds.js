@@ -13,8 +13,8 @@ import Paper from '@material-ui/core/Paper';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Redirect,useParams } from "react-router-dom"
 import PostCards from "./PostCards"
-import {grabAllPostsThunk} from "../store/actions/entities/entities"
-import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
+import {GRAB_ALL_POSTS,grablAllPlacesThunk, grabAllPostsThunk} from "../store/actions/entities/entities"
+
 const styles = makeStyles((theme) => ({
     paper: {
         maxWidth: 750,
@@ -53,6 +53,7 @@ const PostFeeds = () => {
     useEffect( () => {
 
          dispatch(grabAllPostsThunk())
+         dispatch(grablAllPlacesThunk())
         
         setLoaded(true)
   

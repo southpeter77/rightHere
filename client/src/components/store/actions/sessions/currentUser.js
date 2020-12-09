@@ -1,4 +1,4 @@
-import {GRAB_ALL_POSTS} from "../entities/entities"
+import {GRAB_ALL_POSTS, GRAB_ALL_PLACES} from "../entities/entities"
 export const CURRENT_USER = "CURRENT_USER"
 export const SET_TOKEN = "SET_TOKEN";
 export const REMOVE_TOKEN = "REMOVE_TOKEN";
@@ -69,6 +69,9 @@ export const logOutThunk = () => async (dispatch)=> {
     window.localStorage.removeItem(CURRENT_USER);
     window.localStorage.removeItem(GRAB_ALL_POSTS)
     window.localStorage.removeItem(CURRENT_LOCATION_COORDINATES)
+    window.localStorage.removeItem(GRAB_ALL_PLACES)
+
+    
     dispatch(removeToken())
     dispatch(removeCurrentUser())
 }

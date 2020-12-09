@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const [profileUrl, setProfilUrl] = useState("")
-  const profilePhoto = useSelector(state => state.sessions.currentUser.photos[0].url)
+  const profilePhoto = useSelector(state => state.sessions.currentUser)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -173,7 +173,7 @@ const NavBar = () => {
           <Avatar
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
             // src={profilePhoto.photos.length >0? profilePhoto.photos[0].url: null}
-            src={profilePhoto}
+            src={profilePhoto.photos.length> 0 ? profilePhoto.photos[0].url : null}
           />
         </IconButton>
         <p>Profile</p>
@@ -251,7 +251,7 @@ const NavBar = () => {
             >
               <Avatar
                 // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
-                src={profilePhoto}
+                src={profilePhoto.photos.length> 0 ? profilePhoto.photos[0].url : null}
 
                 style={{ width: '30pt', height: '30pt' }}
               />

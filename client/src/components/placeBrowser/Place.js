@@ -127,7 +127,7 @@ const Place = () => {
         <CardHeader
           avatar={
             <Avatar
-              src={data.User.Photos[0].url}
+              src={data.User.Photos.length > 0 ? data.User.Photos[0].url: null}
 
             >
 
