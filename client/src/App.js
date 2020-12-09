@@ -17,7 +17,7 @@ import PostFeeds from "./components/postBrowser/PostFeeds"
 import Place from "./components/placeBrowser/Place"
 import CreatePost from "./components/createPost/CreatePost"
 import {grabAllPostsThunk} from "./components/store/actions/entities/entities"
-
+import PlaceFeeds from "./components/placeBrowser/PlaceFeeds"
 function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch()
@@ -37,36 +37,18 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
         return null;
     }
 
-
-    //          <PrivateRoute exact={true} path="/users" needLogin={needLogin} component={UserList}/>
     return (
         <CssBaseline>
             <Theme>
                 <BrowserRouter>
                     <ProtectedRoute exact={true} path="/logIn" needLogin={needLogin} component={Login} />
                     <ProtectedRoute exact={true} path="/signup" needLogin={needLogin} component={SignUp} />
-                    {/* <nav>
-                        <LogOut></LogOut>
-                        <ul>
-                            <li><NavLink to="/" activeClass="active">Home</NavLink></li>
-                            <li><NavLink to="/users" activeClass="active">Users</NavLink></li>
-                            <li><NavLink to="/camera" activeClass="active">camera</NavLink></li>
-
-                        </ul>
-                    </nav> */}
                     {!needLogin ? <NavBar></NavBar> : null}
                     <Switch>
                         <PrivateRoute exact path="/" needLogin={needLogin} component={PostFeeds} />
+                        <PrivateRoute exact path="/place/all" needLogin={needLogin} component={PlaceFeeds}/>
                         <PrivateRoute exact path="/place/:placeId" needLogin={needLogin} component={Place} />
                         <PrivateRoute exact path="/create/post" needLogin={needLogin} component={CreatePost}/>
-
-                        {/*             
-                <Route exact={true} path="/users">
-                    <UserList />
-                </Route> */}
-                        {/* <Route exact={true} path="/camera">
-                            <WebcamCapture></WebcamCapture>
-                        </Route> */}
                     </Switch>
                 </BrowserRouter>
             </Theme>

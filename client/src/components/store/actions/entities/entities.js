@@ -1,11 +1,19 @@
 import merge from 'lodash'
 export const GRAB_ALL_POSTS = "GRAB_ALL_POSTS"
 export const GRAB_PLACE_BY_ID = "GRAB_PLACE_BY_ID"
+export const GRAB_ALL_PLACES = "GRAB_ALL_PLACES"
 export const GRAB_ALL_POSTS_BY_PLACE_ID='GRAB_ALL_POSTS_BY_PLACE_ID'
 ///////////////////////////////////////////////
 export const grabAllPosts = (data) => {
     return {
         type: GRAB_ALL_POSTS,
+        data
+    }
+}
+
+export const grablAllPlaces = (data) => {
+    return {
+        type:GRAB_ALL_PLACES,
         data
     }
 }
@@ -32,6 +40,14 @@ export const grabAllPostsThunk = () => async (dispatch) => {
         // console.log(data)
         window.localStorage.setItem(GRAB_ALL_POSTS,JSON.stringify(data))
        await dispatch(grabAllPosts(data))
+    }
+}
+
+export const grablAllPlacesThunk = () => async (dispatch) => {
+    const response = await fetch("/api/places");
+    if (response.ok) {
+        const data= await response.json();
+        await dispatch(grablAllPlaces(data))
     }
 }
 

@@ -120,11 +120,9 @@ asyncHandler(async(req,res,next) => {
     const promise = s3.upload(params).promise(); 
     const uploadedImage = await promise;  
     const url = uploadedImage.Location
-    console.log(url)
     const place = await Place.create({
         name:req.body.name, coordinates:req.body.currentCoordinates,description:req.body.description, user_id:req.body.user_id
     })
-    console.log(place.id)
     const image = await Photo.create({
         place_id:place.id,
         url

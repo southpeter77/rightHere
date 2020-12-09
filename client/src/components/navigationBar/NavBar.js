@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,12 +15,12 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
-import {loadCurrentUser} from "../store/actions/sessions/currentUser"
+import { loadCurrentUser } from "../store/actions/sessions/currentUser"
 import { useDispatch, useSelector } from "react-redux";
-import {logOutThunk} from "../store/actions/sessions/currentUser"
+import { logOutThunk } from "../store/actions/sessions/currentUser"
 import navBarStyling from "./navBarStyling.css"
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-
+import ExploreIcon from '@material-ui/icons/Explore';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -86,22 +86,22 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const NavBar =()=> {
+const NavBar = () => {
   const [profileUrl, setProfilUrl] = useState("")
-  const profilePhoto = useSelector(state=> state.sessions.currentUser.photos[0].url)
+  const profilePhoto = useSelector(state => state.sessions.currentUser.photos[0].url)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const dispatch = useDispatch()
-  const handleLogOut = ()=> {
-  dispatch(logOutThunk())
+  const handleLogOut = () => {
+    dispatch(logOutThunk())
   }
-//   useEffect(() => {
-//     console.log(window.localStorage.getItem("CURRENT_USER_ID"))
-//     loadCurrentUser();
-// }, []);
+  //   useEffect(() => {
+  //     console.log(window.localStorage.getItem("CURRENT_USER_ID"))
+  //     loadCurrentUser();
+  // }, []);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -170,10 +170,10 @@ const NavBar =()=> {
           aria-haspopup="true"
           color="inherit"
         >
-          <Avatar 
-          // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
-          // src={profilePhoto.photos.length >0? profilePhoto.photos[0].url: null}
-          src={profilePhoto}
+          <Avatar
+            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
+            // src={profilePhoto.photos.length >0? profilePhoto.photos[0].url: null}
+            src={profilePhoto}
           />
         </IconButton>
         <p>Profile</p>
@@ -193,16 +193,25 @@ const NavBar =()=> {
           >
             <MenuIcon />
           </IconButton> */}
-  
-          <div style={{ cursor: "pointer"}} onClick={()=>window.location.href="/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
-                   <IconButton
-                   onClick={()=>window.location.href="/create/post"}
-                   >
+
+          <div style={{ cursor: "pointer" }} onClick={() => window.location.href = "/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
+          <IconButton
+            onClick={() => window.location.href = "/create/post"}
+          >
             <AddAPhotoIcon
-            color="secondary"
-            fontSize="large"
+              color="secondary"
+              fontSize="large"
             ></AddAPhotoIcon>
           </IconButton>
+          <IconButton
+          onClick={() => window.location.href = "/place/all"}
+          >
+            <ExploreIcon
+              color="secondary"
+              fontSize="large"
+            ></ExploreIcon>
+          </IconButton>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -217,7 +226,7 @@ const NavBar =()=> {
             />
           </div>
 
- 
+
 
 
           <div className={classes.grow} />
@@ -241,10 +250,10 @@ const NavBar =()=> {
               color="inherit"
             >
               <Avatar
-          // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
-          src={profilePhoto}
+                // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
+                src={profilePhoto}
 
-          style={{width:'30pt', height: '30pt'}}
+                style={{ width: '30pt', height: '30pt' }}
               />
             </IconButton>
           </div>

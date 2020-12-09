@@ -20,7 +20,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
-
+import MapIcon from '@material-ui/icons/Map';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -154,7 +154,7 @@ const Place = () => {
           align="right"
           variant="subtitle1"
           style={{ color: "gray", marginRight: "30pt", cursor: "pointer" }}
-        >View Map</Typography>
+        >View Map<MapIcon/></Typography>
         {/* <Gallery data={data}></Gallery>
              */}
 
