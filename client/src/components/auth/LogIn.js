@@ -58,6 +58,11 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
+  const demoLogin = () => {
+    setEmail("demo@demo.com")
+    setPassword('123')
+  }
+
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
@@ -80,12 +85,12 @@ const Login = () => {
 
 
         <Grid item xs={false} sm={12} md={4} elevation={0} >
-<MovingImages></MovingImages>
+          <MovingImages></MovingImages>
         </Grid>
 
 
 
-        <Grid item xs={false} sm={6} md={4}  elevation={1} square >
+        <Grid item xs={false} sm={6} md={4} elevation={1} square >
           <div className={classes.paper}>
             <img style={{ height: 100, width: "auto", margin: "auto" }} src="/rightHereLogo.png" />
             <form className={classes.form} noValidate>
@@ -132,7 +137,9 @@ const Login = () => {
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Typography>
-
+                  <Typography variant="body2" color="textSecondary" align="center" onClick={()=>demoLogin()} style={{cursor:"pointer"}}>
+                    {"Demo Login"}
+                  </Typography>
                 </Grid>
                 <Grid item xs />
 

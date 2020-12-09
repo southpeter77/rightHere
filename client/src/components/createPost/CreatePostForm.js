@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
-
+import {createPost} from "../store/actions/post"
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -56,12 +56,12 @@ const CreatePostForm = ({currentCoordinates,image}) => {
     const data = new FormData();
     data.append("name", name)
     data.append("description", description)
-    data.append("currentCoordinates", currentCoordinates)
+    data.append("currentCoordinates", JSON.stringify(currentCoordinates))
     data.append("user_id", user_id)
     data.append("place_id", place_id)
     data.append("file", image)
 
-    
+    dispatch(createPost(data))
     
   
   }

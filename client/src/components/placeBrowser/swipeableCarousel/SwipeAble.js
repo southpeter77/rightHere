@@ -7,7 +7,7 @@ import swipeStyle from "./swipeStyle.css"
 
 
 const SwipeAbleContainer = ({data,setOpenSwipeable}) => {
-
+console.log(data)
  return ( 
  <> 
  <div className="popup">  

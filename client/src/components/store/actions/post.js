@@ -14,5 +14,12 @@ export const checkPlaceExist = async(coordinates)=> {
 
 
 export const createPost = (data) => async (dispatch) => {
-    console.log(data)
+    const response = await fetch("/api/posts/create", {
+        method:"PUT",
+        body:data
+    })
+    if (response.ok) {
+        const data = await response.json()
+        return data
+    }
 }

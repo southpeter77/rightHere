@@ -36,7 +36,7 @@ const SimpleCarousel = ({ images, setOpenSwipeable }) => {
     // height:"450px",
     // border: "1px solid red"
   };
-
+console.log(images)
   const imageSrc = `${images[imageIdx]})`
   const onSwiped = (direction) => {
     const change = direction === RIGHT ? RIGHT : LEFT;
