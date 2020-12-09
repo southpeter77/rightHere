@@ -22,6 +22,7 @@ const styles = makeStyles((theme) => ({
         padding: '2px 4px',
         alignItems: 'center',
         width: 650,
+        marginTop:"5%"
     },
     paper: {
         maxWidth: 950,
@@ -32,7 +33,7 @@ const styles = makeStyles((theme) => ({
     profile: {
         padding: '2px 4px',
         alignItems: 'center',
-        width: 300,
+        width: 350,
         position: "fixed"
     },
     input: {
@@ -75,31 +76,15 @@ const PostFeeds = () => {
                 <Grid container>
                     <Grid item>
                         <Card className={classes.feed}>
-                            <CardHeader
-                                avatar={
-                                    <Avatar
-                                        style={{ width: '100pt', height: '100pt' }}
-                                    >
-                                    </Avatar>
-                                }
-                                action={
-                                    <IconButton aria-label="settings">
-                                        <Button>Edit</Button>
-                                    </IconButton>
-                                }
-                                title={`${data.firstName} ${data.lastName}`}
-                                subheader={data.email}
 
-                            />
 
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {data.biography}
-                                </Typography>
+                                    post
+    </Typography>
                             </CardContent>
 
                         </Card>
-
                     </Grid>
                     <Grid item>
                         <Card className={classes.profile}>
@@ -112,9 +97,7 @@ const PostFeeds = () => {
                                     </Avatar>
                                 }
                                 action={
-                                    <IconButton aria-label="settings">
                                         <Button>Edit</Button>
-                                    </IconButton>
                                 }
                                 title={`${data.firstName} ${data.lastName}`}
                                 subheader={data.email}
