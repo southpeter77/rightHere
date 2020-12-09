@@ -38,7 +38,10 @@ export const initialState = {
           lastName: "",
           email: "",
           biography: "",
-          Photos: []
+          Photos: [{
+            id:'',
+            url:''
+          }]
         },
         photos: [],
         posts: [{

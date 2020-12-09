@@ -16,6 +16,10 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import PostCard from "./PostCard"
 import Gallery2 from "./Gallery2"
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginTop:'5%',
+    marginTop: '5%',
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
@@ -67,6 +71,7 @@ const Place = () => {
   const { placeId } = useParams()
   const data = useSelector((state) => state.entities.places.byId)
   const id = Number(placeId)
+  const [showMap, setShowMap] = useState(false)
   // const data2= JSON.parse(window.localStorage.getItem(GRAB_PLACE_BY_ID))
 
   useEffect(() => {
@@ -80,8 +85,25 @@ const Place = () => {
 
   return (
     <>
-    {/* <SwipeAbleContainer data={data}></SwipeAbleContainer> */}
-    {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer>:null}
+      {/* <SwipeAbleContainer data={data}></SwipeAbleContainer> */}
+      {showMap ? <div className="popup">
+        <div className="popup-content">
+          <Map coordinates={data.coordinates}></Map>
+          <IconButton
+            onClick={() => setShowMap(false)}
+            style={{
+              height: "55px",
+              width: "30px",
+              color: "white",
+              fontSize: "10pt",
+              cursor: "pointer",
+              right: '30%',
+            }} fontSize="large">
+            <CancelIcon />
+          </IconButton></div>
+
+      </div> : null}
+      {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer> : null}
       <Paper className={classes.paper} elevation={1}>
         <button onClick={() => console.log(data)}>console1</button>
         {/* <button onClick={()=>console.log(data2)}>console2</button> */}
@@ -93,19 +115,46 @@ const Place = () => {
                 </Typography> */}
         <Typography variant="h4"
           component="h4"
-          style={{ color: "gray", borderBottom:'1px solid gray',width:"96%", margin:"auto" }}
-        >{`@${data.name}`}<Typography variant="subtitle1" component="subtitle1" style={{marginLeft:"5%"}}>{`${data.description}`}</Typography></Typography>
+          style={{ color: "gray", borderBottom: '1px solid gray', width: "96%", margin: "auto" }}
+        >{`@${data.name}`}
+
+          {/* <Typography 
+        variant="subtitle1" 
+        component="subtitle1" 
+        style={{marginLeft:"5%"}}>{`${data.description}`}
+        </Typography> */}
+        </Typography>
+        <CardHeader
+          avatar={
+            <Avatar
+              src={data.User.Photos[0].url}
+
+            >
+
+            </Avatar>
+          }
+
+          title={<Typography
+            variant="h6"
+            component="h6"
+            style={{ color: "gray", width: "96%", margin: "auto" }}
+          ><img src="/crown.png" style={{ width: "20pt", height: "auto" }}></img>{`${data.User.firstName}`}</Typography>}
+          subheader={data.description}
+        />
+        {/* 
+         */}
         <Typography
+          align="right"
           variant="h6"
           component="h6"
-          style={{ color: "gray",width:"96%", margin:"auto" }}
-        ><img src="/crown.png" style={{ width: "20pt", height: "auto" }}></img>{`${data.User.firstName}`}</Typography>
+          style={{ color: "gray", marginRight: "30pt" }}
+        >Total Posts: {`${data.posts.length}`}</Typography>
         <Typography
-        align="right"
-          variant="h6"
-          component="h6"
-          style={{ color: "gray", marginRight:"30pt" }}
-              >Total Posts: {`${data.posts.length}`}</Typography>
+          onClick={() => setShowMap(true)}
+          align="right"
+          variant="subtitle1"
+          style={{ color: "gray", marginRight: "30pt", cursor: "pointer" }}
+        >View Map</Typography>
         {/* <Gallery data={data}></Gallery>
              */}
 
@@ -117,15 +166,15 @@ const Place = () => {
             <Map coordinates={data.coordinates}></Map>
           </Grid> */}
           {/* <Preview data={data} images={data.photos.map(each => each.url)} names={data.photos.map(each => each.name)}></Preview> */}
-        <Gallery2 data={data.photos} setOpenSwipeable={setOpenSwipeable}></Gallery2>
+          <Gallery2 data={data.photos} setOpenSwipeable={setOpenSwipeable}></Gallery2>
         </Grid>
         <Grid container>
           <CssBaseline />
           <Grid container className={classes.root2}
             spacing={0}
-             >
-              
-{data.posts.map(each=><PostCard data={each}></PostCard>)}
+          >
+
+            {data.posts.map(each => <PostCard data={each}></PostCard>)}
           </Grid>
 
         </Grid>
