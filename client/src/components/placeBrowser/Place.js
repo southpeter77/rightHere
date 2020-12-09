@@ -67,9 +67,10 @@ const useStyles = makeStyles((theme) => ({
 const Place = () => {
   const classes = useStyles()
   const [openSwipeable, setOpenSwipeable] = useState(false)
+  const[loaded, setLoaded]= useState(false)
   const dispatch = useDispatch()
   const { placeId } = useParams()
-  const data = useSelector((state) => state.entities.places.byId)
+  const data = useSelector((state) => state.entities.place.byId)
   const id = Number(placeId)
   const [showMap, setShowMap] = useState(false)
   // const data2= JSON.parse(window.localStorage.getItem(GRAB_PLACE_BY_ID))
@@ -77,12 +78,8 @@ const Place = () => {
   useEffect(() => {
     dispatch(grabPlaceByIdThunk(placeId))
     dispatch(grabPostsByPlaceIdThunk(placeId))
-    // setLoaded(true)
+    setLoaded(true)
   }, [])
-  // if(!loaded) {
-  //   return null
-  // }    
-
   return (
     <>
       {/* <SwipeAbleContainer data={data}></SwipeAbleContainer> */}
@@ -105,7 +102,7 @@ const Place = () => {
       </div> : null}
       {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer> : null}
       <Paper className={classes.paper} elevation={1}>
-        <button onClick={() => console.log(data)}>console1</button>
+        <button onClick={() => console.log(data.User.Photos[0].url)}>console1</button>
         {/* <button onClick={()=>console.log(data2)}>console2</button> */}
         {/* <Typography
                 variant="h4"

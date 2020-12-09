@@ -27,6 +27,7 @@ const buttonLeft = { ...buttonStyles, float: "left" };
 const buttonRight = { ...buttonStyles, float: "right" };
 
 const SimpleCarousel = ({ images, setOpenSwipeable }) => {
+
   const [imageIdx, setImageIdx] = useState(0)
   const divStyle = {
     display:'flex',
@@ -36,8 +37,7 @@ const SimpleCarousel = ({ images, setOpenSwipeable }) => {
     // height:"450px",
     // border: "1px solid red"
   };
-console.log(images)
-  const imageSrc = `${images[imageIdx]})`
+  const imageSrc = `${images[imageIdx]}`
   const onSwiped = (direction) => {
     const change = direction === RIGHT ? RIGHT : LEFT;
     const adjustedIdx = imageIdx + Number(change);

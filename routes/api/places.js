@@ -14,8 +14,10 @@ router.put("/check", asyncHandler(async (req, res, next) => {
     const coordinates = req.body
     let lat = coordinates.lat
     let lng = coordinates.lng
-    //  lat = 41.505493
+    //  lat = 41.505493 // strongsville
     //  lng = -81.681290
+    //  lat = 40.7128 // new york
+    //  lng =  -74.0060
     const allPlaces = await Place.findAll()
     const filteredPlaces = allPlaces.filter(each=>{
         if (JSON.parse(each.coordinates).lat+0.0035 >= lat
@@ -39,8 +41,10 @@ router.put("/current", asyncHandler(async (req, res, next) => {
     const coordinates = req.body
     let lat = coordinates.lat
     let lng = coordinates.lng
-    //  lat = 41.505493
+    //  lat = 41.505493 // strongsville
     //  lng = -81.681290
+    //  lat = 40.7128 // new york
+    //  lng =  -74.0060
     const allPlaces = await Place.findAll()
     const filteredPlaces = allPlaces.filter(each=>{
         if (JSON.parse(each.coordinates).lat+0.0035 >= lat
@@ -139,7 +143,7 @@ asyncHandler(async(req,res,next) => {
         url
     })
 
-    res.json({place, image})
+    res.json({id: place.id})
 }))
 
 

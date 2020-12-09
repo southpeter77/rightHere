@@ -52,11 +52,12 @@ export const grablAllPlacesThunk = () => async (dispatch) => {
         const data= await response.json();
         window.localStorage.setItem(GRAB_ALL_PLACES,JSON.stringify(data))
         await dispatch(grablAllPlaces(data))
-        console.log(data)
+        // console.log(data)
     }
 }
 
 export const grabPlaceByIdThunk = (id) => async (dispatch) => {
+    console.log("grabp place b id")
     const response = await fetch(`/api/places/${id}`)
     if (response.ok) {
         const data = await response.json();
@@ -104,7 +105,7 @@ export default function reducer(state = {}, action) {
             return newState
 
         case GRAB_PLACE_BY_ID:
-            newState["places"]={byId:{}, allId:[]}
+            newState["place"]={byId:{}, allId:[]}
             let placeGrabbedById = {
                     id: action.data.id,
                     name:action.data.name,
@@ -115,8 +116,8 @@ export default function reducer(state = {}, action) {
                     User: action.data.User
                 }
 
-                newState.places.byId=placeGrabbedById
-                newState.places.allId=[...newState.places.allId,placeGrabbedById.id]
+                newState.place.byId=placeGrabbedById
+                newState.place.allId=[...newState.places.allId,placeGrabbedById.id]
      
             return newState
 

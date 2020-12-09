@@ -21,6 +21,7 @@ import { logOutThunk } from "../store/actions/sessions/currentUser"
 import navBarStyling from "./navBarStyling.css"
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExploreIcon from '@material-ui/icons/Explore';
+import {CURRENT_USER} from "../store/actions/sessions/currentUser"
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -131,7 +132,7 @@ const NavBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={()=>{window.location.href=`/profile/${JSON.parse(window.localStorage.getItem(CURRENT_USER)).userId}`}}>Profile</MenuItem>
       <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
     </Menu>
   );
