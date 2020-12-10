@@ -17,36 +17,36 @@ import CardContent from '@material-ui/core/CardContent';
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
+import ProfileNavBar from "./ProfileNavBar"
+import PlaceCard from "./PlaceCard"
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
         alignItems: 'center',
-        width: 650,
-        marginTop:"5%"
+        width: 730,
+        marginTop: "5%",
+        display:'flex',
+        flexWrap:'wrap',
+        marginLeft:'3%'
     },
     paper: {
-        maxWidth: 950,
+        maxWidth: 750,
         margin: 'auto',
-        marginTop: "5%",
-        position: "relative"
+        marginTop:"5%",
+        display:'flex',
+        flexWrap:"wrap",
+        justifyContent: 'center',
     },
     profile: {
         padding: '2px 4px',
         alignItems: 'center',
         width: 350,
-        position: "fixed"
-    },
-    input: {
-        marginLeft: theme.spacing(1),
-        flex: 1,
+        position: "fixed",
     },
     iconButton: {
         padding: 10,
     },
-    divider: {
-        height: 28,
-        margin: 4,
-    }, sticky: {
+sticky: {
         background: 'white',
         position: '-webkit-sticky',
         position: 'fixed',
@@ -72,19 +72,17 @@ const PostFeeds = () => {
     return (
         <>
 
-            <Paper className={classes.paper} elevation={1}>
+            <Paper className={classes.paper} elevation={0}>
                 <Grid container>
                     <Grid item>
+                        <ProfileNavBar></ProfileNavBar>
                         <Card className={classes.feed}>
-
-
-                            <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    post
-    </Typography>
-                            </CardContent>
+                            {data.places.map(each=>
+                                <PlaceCard data={each}></PlaceCard>
+                                )}
 
                         </Card>
+                        
                     </Grid>
                     <Grid item>
                         <Card className={classes.profile}>
@@ -97,15 +95,47 @@ const PostFeeds = () => {
                                     </Avatar>
                                 }
                                 action={
-                                        <Button>Edit</Button>
+                                    <Button>Edit</Button>
                                 }
                                 title={`${data.firstName} ${data.lastName}`}
                                 subheader={data.email}
-
                             />
-
                             <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p">
+                                <Grid container>
+                                    <Grid item xs={4}
+                                        align="right">
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Typography variant="body2"
+                                            align="right"
+                                            style={{ color: "gray" }}
+                                        >Posts
+              </Typography>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Typography variant="body2"
+                                            align="right"
+                                            style={{ color: "gray" }}
+                                        >Place</Typography>
+                                    </Grid>
+                                    <Grid item xs={4} align="center"></Grid>
+                                    <Grid item xs={4}>
+                                        <Typography variant="body2"
+                                            align="right"
+                                        >{data.posts.length}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Typography variant="body2"
+                                            align="right"
+                                        >{data.places.length}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+
+
+
+                                <Typography variant="body1" color="textSecondary" component="p">
                                     {data.biography}
                                 </Typography>
                             </CardContent>

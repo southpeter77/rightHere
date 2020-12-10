@@ -52,7 +52,7 @@ export default function PostCard({data}) {
         {/* <button onClick={() => console.log(data)}>asdfasdf</button> */}
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe"
+          <Avatar
           src={data.User.Photos[0]? data.User.Photos[0].url : null}
           >
             

@@ -49,13 +49,9 @@ export default function PostCard({ data }) {
   return (<>
     {/* <h1>{data? data.user.Photos[0].url: "asdf"}</h1> */}
     <Card className={classes.root}>
-      <Button
-        onClick={() => console.log(data)}
-      >heeeeeee</Button>
       <CardHeader
         avatar={
           <Avatar
-            aria-label="recipe"
             src={data.User.Photos[0] ? data.User.Photos[0].url : null}
           >
           </Avatar>
@@ -67,12 +63,19 @@ export default function PostCard({ data }) {
         //     style={{ top: "2.5em" }}
         //   >??</Button></Tooltip>
         // }
-      title={`${data.User.firstName} ${data.User.lastName}`}
+        title={data.name}
+        subheader={<Typography variant="body2">{`${data.User.firstName} ${data.User.lastName} `}<NavLink to={`/place/${data.Place.id}`} 
+        style={{ color:'gray',textDecoration: 'none' }}>
+          {`@${data.Place.name}`}</NavLink></Typography>}
+  
+
+
+      // title={`${data.User.firstName} ${data.User.lastName}`}
       // title={data2.User.email.split("@")[0]}
-      subheader={<NavLink to={`/place/${data.Place.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.Place.name}`}</NavLink>}
+      // subheader={<NavLink to={`/place/${data.Place.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.Place.name}`}</NavLink>}
 
       />
-      <Typography  variant="h5" component="h5" style={{  borderTop:'1px solid black', width:"96%", margin:"auto"}} >{data.name}</Typography>
+      {/* <Typography  variant="h5" component="h5" style={{  borderTop:'1px solid black', width:"96%", margin:"auto"}} >{data.name}</Typography> */}
 
     
       <CardMedia
