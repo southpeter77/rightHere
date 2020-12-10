@@ -1,8 +1,17 @@
-import React from "react"
+import React,{useState, useEffect} from "react"
 import style from "./style.css"
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
+import { useDispatch, useSelector } from "react-redux";
+import {grabAllCommentsByPlaceIdThunk} from "../../components/store/actions/entities/entities"
+import { Typography } from "@material-ui/core";
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+// import {createComment} from "../../components/store/actions/comment"
+import {createComment} from "../../components/store/actions/entities/entities"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,25 +45,71 @@ const useStyles = makeStyles((theme) => ({
       }
   }));
 
-const Comment = ({modalClass, setShowComment, comments}) => {
+const Comment = ({modalClass, setShowComment, postId, comments}) => {
   const classes = useStyles();
+  const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+  const dispatch = useDispatch()
+  const [comment, setComment] = useState('')
+  const updateProperty = (callback) => (e) => {
+    callback(e.target.value);
+  };
+  const handleCommentSubmit = () => {
+    const payload = {
+      postId, userId:currentUser.userId,comment:comment
+    }
+    dispatch(createComment(payload))
+    setComment("")
+  }
+
+  // useEffect(()=>{
+
+    // dispatch(grabAllCommentsByPlaceIdThunk(postId))
+    // setLoaded(!loaded)
+
+  // },[])
+
   if (modalClass) {
     return (
         <>
     <div className={classes.modalActive} id="modal">
     <div className="modal-header">
-      <div className="title">Example Modal</div>
+      <div className="title">Comments</div>
       {/* <button data-close-button className="close-button">&times;</button> */}
       <IconButton className="close-button" onClick={()=>setShowComment(false)}>
-          <CancelIcon>asdf</CancelIcon>
+          <CancelIcon></CancelIcon>
       </IconButton>
     </div>
     <button
     onClick={()=>console.log(comments)}
-    > comments</button>
+    > postId</button>
     <div className="modal-body">
-              comments here
+        {comments.map(each=>{
+          return (
+            <Typography>hi</Typography>
+          )
+        })}
+    <Grid>
+          <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Comment"
+                name="comment"
+                value={comment}
+                onChange={updateProperty(setComment)}
+              /><IconButton
+              onClick={()=>handleCommentSubmit()}
+              >
+                <CheckCircleIcon/>
+                </IconButton>
+                <IconButton>
+          <CancelIcon/>
+      </IconButton>
+    </Grid>
+
     </div>
+    
   </div>
   </>
     )
@@ -63,15 +118,15 @@ const Comment = ({modalClass, setShowComment, comments}) => {
         <>
     <div className={classes.modal} id="modal">
     <div className="modal-header">
-      <div className="title">Example Modal</div>
+      <div className="title">Comments</div>
       {/* <button data-close-button className="close-button">&times;</button> */}
       <IconButton className="close-button" onClick={()=>setShowComment(false)}>
 
-          <CancelIcon>asdf</CancelIcon>
+          <CancelIcon></CancelIcon>
       </IconButton>
     </div>
     <div className="modal-body">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod alias ut illo doloremque eum ipsum obcaecati distinctio debitis reiciendis quae quia soluta totam doloribus quos nesciunt necessitatibus, consectetur quisquam accusamus ex, dolorum, dicta vel? Nostrum voluptatem totam, molestiae rem at ad autem dolor ex aperiam. Amet assumenda eos architecto, dolor placeat deserunt voluptatibus tenetur sint officiis perferendis atque! Voluptatem maxime eius eum dolorem dolor exercitationem quis iusto totam! Repudiandae nobis nesciunt sequi iure! Eligendi, eius libero. Ex, repellat sapiente!
+      <Typography>asdf</Typography>
     </div>
   </div>
   </>

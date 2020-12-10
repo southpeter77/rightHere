@@ -7,6 +7,8 @@ export const GRAB_ALL_PLACES = "GRAB_ALL_PLACES"
 export const GRAB_ALL_POSTS_BY_PLACE_ID = 'GRAB_ALL_POSTS_BY_PLACE_ID'
 export const GRAB_ALL_PLACES_BY_USER_ID = "GRAB_ALL_PLACES_BY_USER_ID"
 export const GRAB_ALL_POSTS_BY_USER_ID = "GRAB_ALL_POSTS_BY_USER_ID"
+export const GRAB_ALL_COMMENTS_BY_PLACE_ID = "GRAB_ALL_COMMENTS_BY_PLACE_ID"
+export const CREATE_AND_DISPATCH_ALL_COMMENTS = "CREATE_AND_DISPATCH_ALL_COMMENTS"
 
 ///////////////////////////////////////////////
 export const grabAllPosts = (data) => {
@@ -47,6 +49,20 @@ export const grabAllPlacesByUserId = (data) => {
 export const grabAllPostsByUserId = (data) => {
     return {
         type: GRAB_ALL_POSTS_BY_USER_ID,
+        data
+    }
+}
+
+export const grabAllCommentsByPlaceId = (data) => {
+    return {
+        type:GRAB_ALL_COMMENTS_BY_PLACE_ID,
+        data
+    }
+}
+
+export const createAndDispatchAllComments = (data) => {
+    return {
+        type:CREATE_AND_DISPATCH_ALL_COMMENTS,
         data
     }
 }
@@ -112,9 +128,28 @@ export const grabAllPostsByUserIdThunk = (userId) => async (dispatch) => {
     }
 }
 
+export const grabAllCommentsByPlaceIdThunk = (postId) => async (dispatch) => {
+    const response = await fetch(`/api/comments/post/${postId}`)
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+    }
+}
 
+export const createComment = (data) => async(dispatch) => {
+    const response = await fetch("/api/comments/create", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(data)
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(createAndDispatchAllComments(data))
+        console.log(data)
+    }
+}
 
-
+//////////////////////////////////////////////////////////
 export default function reducer(state = {}, action) {
     Object.freeze(state);
     let newState = Object.assign({}, state)
@@ -131,7 +166,8 @@ export default function reducer(state = {}, action) {
                     place_id: each.place_id,
                     photos: each.Photos,
                     places: each.Place,
-                    user: each.User
+                    user: each.User,
+                    comments: each.Comments
                 }
 
             })
@@ -240,8 +276,23 @@ export default function reducer(state = {}, action) {
             })
             return newState
 
-
-
+            case CREATE_AND_DISPATCH_ALL_COMMENTS:
+                newState["comments"] = { byId: {}, allId: [] }
+                let allComments = action.data.map(each => {
+                    return {
+                        id: each.id,
+                        user_id: each.user_id,
+                        description: each.description,
+                        post_id: each.post_id,
+                        user_id: each.user_id,
+                        User: each.User,
+                    }
+                })
+                allComments.forEach(each => {
+                    newState.comments.byId[each.id] = { ...each }
+                    newState.comments.allId = [...newState.comments.allId, each.id]
+                })
+                return newState
         default:
             return state
     }

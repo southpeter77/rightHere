@@ -195,7 +195,11 @@ const NavBar = () => {
             <MenuIcon />
           </IconButton> */}
 
-          <div style={{ cursor: "pointer" }} onClick={() => window.location.href = "/"}><img src="/rightHereLogo.png" className="navBarLogo"></img></div>
+          <div 
+          style={{ cursor: "pointer" }} 
+          onClick={() => window.location.href = "/"}>
+            <img src="/rightHereLogo.png" className="navBarLogo"></img>
+            </div>
           <IconButton
             onClick={() => window.location.href = "/create/post"}
           >

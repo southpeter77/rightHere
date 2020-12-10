@@ -15,7 +15,8 @@ router.get('/', asyncHandler(async (req, res, next) => {
         include:[
             {model:Place},
             {model:Photo},
-            {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}}
+            {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}},
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}}
         ]
     })
 

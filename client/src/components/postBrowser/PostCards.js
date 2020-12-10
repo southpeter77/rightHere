@@ -24,6 +24,9 @@ import { Button } from '@material-ui/core';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
 import Comment from "../comment/Comment"
+import { useDispatch, useSelector } from "react-redux";
+import {grabAllCommentsByPlaceIdThunk} from "../../components/store/actions/entities/entities"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 800,
@@ -78,9 +81,15 @@ export default function PostCard({ data }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
+  const [postId, setPostId] = useState(null)
+ 
   // const [data2, setData2] = useState(data)
+  const dispatch = useDispatch()
   useEffect(()=>{
+    if(data) {
+      setPostId(data.id)
+    }
+    // dispatch(grabAllCommentsByPlaceIdThunk(postId))
     setLoaded(!loaded)
 
   },[])
@@ -90,6 +99,7 @@ export default function PostCard({ data }) {
   return (<>
     {/* <h1>"asdf"</h1> */}
     <Card className={classes.root}>
+      <button onClick={()=> console.log(data.Comments)}>click</button>
       <CardHeader
         avatar={
           <Avatar
@@ -131,7 +141,7 @@ export default function PostCard({ data }) {
                   variant="contained"
             color="primary"
         > Comments</Button>
-        <Comment modalClass={showComment} setShowComment={setShowComment} comments={data}></Comment>
+        <Comment modalClass={showComment} setShowComment={setShowComment} postId={postId} comments={data.Comments}></Comment>
       </CardContent>
         
 
