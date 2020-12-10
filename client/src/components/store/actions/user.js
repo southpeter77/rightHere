@@ -1,7 +1,8 @@
 import {logInErrors, signUpErrors} from "./errors/errors"
-import {currentUser, saveToken, loadToken, saveCurrentUserData} from "./sessions/currentUser"
+import {currentUser, saveToken, loadToken, saveCurrentUserData, CURRENT_USER} from "./sessions/currentUser"
 import {grabAllPostsThunk} from "../actions/entities/entities"
 export const TOKEN_KEY = "TOKEN_KEY";
+const currentuserId = JSON.parse(window.localStorage.getItem(CURRENT_USER)).userId
 
 
 
@@ -62,8 +63,28 @@ export const signUp = (payload) => async (dispatch) => {
     }
     
 export const updateBiography = (data) => async(dispatch) => {
-    // const response = await fetch(`/`)
-    console.log(data)
+    const response = await fetch(`/api/users/biography/edit`,{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(data)
+    })
+    // console.log("asdf")
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(saveCurrentUserData(data))
+        window.location.href=`/profile/${data.userId}`
+      }
+}
+
+export const updateProfilePicture = (data) => async(dispatch) =>{
+    const response = await fetch(`/api/users/profilephoto/edit`,{
+        method:"PUT",
+        body:data
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(saveCurrentUserData(data))
+      }
 }
     
 

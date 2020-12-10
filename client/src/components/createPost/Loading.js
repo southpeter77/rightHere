@@ -90,7 +90,7 @@ export default function CircularIntegration({handleSubmit}) {
               handleButtonClick() 
               handleSubmit()}}
         >
-          Creat Post
+          Create
         </Button>
         {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
       </div>

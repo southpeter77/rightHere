@@ -215,7 +215,7 @@ const PostFeeds = () => {
                             </CardActions>
                             <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <CardContent>
-                                    <EditProfile showBioEdit={showBioEdit} showPhotoEdit={showPhotoEdit}></EditProfile>
+                                    <EditProfile showBioEdit={showBioEdit} showPhotoEdit={showPhotoEdit} setShowPhotoEdit={setShowPhotoEdit} setShowBioEdit={setShowBioEdit}></EditProfile>
                                 </CardContent>
                             </Collapse>
                         </Card> : <Button className={classes.profileButton} onClick={() => setShowProfilePopUp(true)}>View</Button>}

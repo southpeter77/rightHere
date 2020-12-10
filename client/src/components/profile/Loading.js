@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CircularIntegration() {
+export default function CircularIntegration({handleImageUpdate,setShowPhotoEdit}) {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -63,7 +63,8 @@ export default function CircularIntegration() {
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-      }, 500);
+        // setTimeout(()=>{window.location.href="/profile/2"},500)
+      }, 3500);
     }
   };
 
@@ -74,7 +75,9 @@ export default function CircularIntegration() {
           aria-label="save"
           color="primary"
           className={buttonClassname}
-          onClick={handleButtonClick}
+          onClick={()=>{handleButtonClick()
+            handleImageUpdate()
+          }}
         >
           {success ? <CheckIcon /> : <SaveIcon />}
         </Fab>
@@ -87,7 +90,9 @@ export default function CircularIntegration() {
           className={buttonClassname}
           disabled={loading}
           onClick={()=>{
-              handleButtonClick() }}
+              handleButtonClick()
+              handleImageUpdate()
+            }}
         >
           Update
         </Button>

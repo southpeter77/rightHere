@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DropzoneArea } from 'material-ui-dropzone';
 import Loading from "./Loading"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
-import {updateBiography} from "../../components/store/actions/user"
+import {updateBiography, updateProfilePicture} from "../../components/store/actions/user"
 const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%',
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const EditProfile = ({ showBioEdit, showPhotoEdit }) => {
+const EditProfile = ({ showBioEdit, showPhotoEdit, setShowPhotoEdit,setShowBioEdit }) => {
     const classes = useStyles();
     const data = JSON.parse(window.localStorage.getItem(CURRENT_USER))
     const [biography, setBiography] = useState("")
@@ -26,6 +26,13 @@ const EditProfile = ({ showBioEdit, showPhotoEdit }) => {
         callback(e.target.value);
     };
 
+    const handleImageUpdate = async () => {
+        const formData = new FormData()
+        formData.append("file", image)
+        formData.append("user_id", data.userId)
+        dispatch(updateProfilePicture(formData))
+    }
+
     const handleBiographyUpdate = async (e) => {
         e.preventDefault()
         const payload = {
@@ -33,6 +40,7 @@ const EditProfile = ({ showBioEdit, showPhotoEdit }) => {
             userId:data.userId
         }
         dispatch(updateBiography(payload))
+        
     }
     return (<>
         <CssBaseline />
@@ -42,8 +50,8 @@ const EditProfile = ({ showBioEdit, showPhotoEdit }) => {
                 dropzoneText={"Drag and drop an image here or click"}
                 onChange={(files) => setImage(files[0])}
             />
-            <div style={{ height: '30pt' }}>
-                <Loading /></div>
+            {image && <div style={{ height: '30pt' }}>
+                <Loading handleImageUpdate={handleImageUpdate} setShowPhotoEdit={setShowPhotoEdit}/></div>}
         </div> : null}
         {showBioEdit ? <form className={classes.form} noValidate>
             <TextField

@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
 import {createPlace} from "../store/actions/place"
+import Loading from "../createPost/Loading"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -97,16 +99,10 @@ const CreatePlace = ({currentCoordinates,image}) => {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
-            Create Place
-          </Button>
+          <div style={{display:'flex', justifyContent:"center"}}>
+{name&&description&&image ?<Loading handleSubmit={handleSubmit}></Loading>:null}
+        </div>
+
    
             <Grid item>
 
