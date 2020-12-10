@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import style from "./style.css"
 import { useSelector, useDispatch } from 'react-redux';
-import {grabPlaceById, grabPlaceByIdThunk} from "../../components/store/actions/entities/entities"
+// import {grabPlaceById, grabPlaceByIdThunk} from "../../components/store/actions/entities/entities"
 const useStyles = makeStyles({
   root: {
     width: 350,
@@ -25,12 +25,9 @@ export default function PlaceCards({data}) {
 
   const classes = useStyles();
     const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})
-  const placeId = data.id
 
   useEffect(()=>{
  
-    dispatch(grabPlaceByIdThunk(placeId))
-
   },[])
 
   return (
@@ -44,16 +41,16 @@ export default function PlaceCards({data}) {
       <CardActionArea>
       <div class="img__wrap">
         <CardMedia
-        //   className={classes.media}
+          className={classes.media}
           className="imgTag"
-        //   image={data.Photos.length > 0 ? data.Photos[0].url: null}
+          image={data.Photos? data.Photos[0].url: null}
         />
          {/* <p class="img__description"></p> */}
-         <div className="img__description">
+         <div className="img__description__profile">
              <Typography
              variant="h6"
              className="onHoverText"
-  >
+  > {data.name ? data.name: ""}
       {/* {data.Posts.length >1 ?`${data.Posts.length} posts` : `${data.Posts.length} post` }  */}
       </Typography>
          </div>

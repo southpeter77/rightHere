@@ -154,6 +154,10 @@ const Place = () => {
         >View Map<MapIcon/></Typography>
         {/* <Gallery data={data}></Gallery>
              */}
+         <Typography
+         variant="h6"
+         align="center"
+         >{data.name}'s Recommended places</Typography>
 
         <Grid container>
           {/* <Grid item xs={12} sm={12} md={6} elevation={0} style={{ display: "flex", alignItems: "center" }}>

@@ -76,6 +76,21 @@ router.get("/all", asyncHandler(async (req, res, next) => {
     res.json(allPlaces)
 }))
 
+//grab all places by UserId
+router.get("/user/:userId(\\d+)", asyncHandler(async (req, res, next) => {
+    const userId = Number(req.params.userId)
+    console.log(userId)
+    const allPlaces = await db.Place.findAll({
+        where:{
+            user_id: userId
+        },
+        include:[Photo]
+    })
+
+    res.json(allPlaces)
+}))
+
+
 
 //grab by id
 router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {

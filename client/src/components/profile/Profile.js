@@ -19,6 +19,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import ProfileNavBar from "./ProfileNavBar"
 import PlaceCard from "./PlaceCard"
+import {grabAllPlacesByUserIdThunk} from "../../components/store/actions/entities/entities"
+import PostCard from "./PostCard"
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
@@ -64,23 +66,27 @@ const PostFeeds = () => {
     const classes = styles()
     const dispatch = useDispatch()
     const data = JSON.parse(window.localStorage.getItem(CURRENT_USER))
-    useEffect(() => {
+    const places = Object.values(useSelector(state=>state.entities.places.byId))
+    const [showPlaces, setShowPlaces] = useState(false)
+    const [showPosts, setShowPosts] = useState(true)
 
+    useEffect(() => {
+        dispatch(grabAllPlacesByUserIdThunk(data.userId))
 
     }, []);
-    console.log(data)
+    // console.log(places)
     return (
         <>
-
+ 
             <Paper className={classes.paper} elevation={0}>
                 <Grid container>
                     <Grid item>
-                        <ProfileNavBar></ProfileNavBar>
+                        <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces}></ProfileNavBar>
                         <Card className={classes.feed}>
-                            {data.places.map(each=>
+                            {showPlaces?places.map(each=>
                                 <PlaceCard data={each}></PlaceCard>
-                                )}
-
+                                ): null}
+                            {showPosts ? <PostCard/> : null}
                         </Card>
                         
                     </Grid>
@@ -90,7 +96,7 @@ const PostFeeds = () => {
                                 avatar={
                                     <Avatar
                                         style={{ width: '100pt', height: '100pt' }}
-                                        src={data.photos[0].url}
+                                        src={data.photos.length >0 ? data.photos[0].url : null}
                                     >
                                     </Avatar>
                                 }

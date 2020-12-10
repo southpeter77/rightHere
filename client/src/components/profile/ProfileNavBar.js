@@ -15,17 +15,27 @@ const useStyles = makeStyles((theme) => ({
 
   }));
 
-const ProfileNavBar = () => {
+const ProfileNavBar = ({setShowPosts, setShowPlaces}) => {
     const classes = useStyles();
 
     return (
 <Grid className={classes.root}>
-    <IconButton>
+    <IconButton
+    onClick={()=>{
+        setShowPosts(true)
+        setShowPlaces(false)
+    }}
+    >
 <PhotoLibraryIcon
 fontSize="large"
 /> <Typography variant="subtitle1" component="subtitle1">View my posts</Typography>
     </IconButton>
-    <IconButton>
+    <IconButton
+        onClick={()=>{
+            setShowPosts(false)
+            setShowPlaces(true)
+        }}
+    >
 <ExploreIcon
 fontSize="large"
 /><Typography variant="subtitle1" component="subtitle1">View my places</Typography>
