@@ -23,7 +23,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Button } from '@material-ui/core';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
-
+import Comment from "../comment/Comment"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 800,
@@ -31,13 +31,54 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '100%', // 16:9
+    paddingTop: '65%', // 16:9
+  }, expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),modalActive: {
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%) scale(0)",
+      transition: "500ms ease-in-out",
+      border: "1px solid black",
+      borderRadius: "10px",
+      backgroundColor: "white",
+      width: "500px",
+      maxWidth: "80%",
+      zIndex: "10",
+      transform: "translate(-50%, -50%) scale(1)"
+    }
+  },modal: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%) scale(0)",
+    transition: "500ms ease-in-out",
+    border: "1px solid black",
+    borderRadius: "10px",
+    backgroundColor: "white",
+    width: "500px",
+    maxWidth: "80%",
+    zIndex: "10",
   },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+
 }));
 
 export default function PostCard({ data }) {
   const [loaded, setLoaded] = useState(false)
   const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+  const[showComment, setShowComment] = useState(false)
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+  
   // const [data2, setData2] = useState(data)
   useEffect(()=>{
     setLoaded(!loaded)
@@ -47,7 +88,7 @@ export default function PostCard({ data }) {
     return null
   }
   return (<>
-    {/* <h1>{data? data.user.Photos[0].url: "asdf"}</h1> */}
+    {/* <h1>"asdf"</h1> */}
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -69,15 +110,7 @@ export default function PostCard({ data }) {
           {`@${data.Place.name}`}</NavLink></Typography>}
   
 
-
-      // title={`${data.User.firstName} ${data.User.lastName}`}
-      // title={data2.User.email.split("@")[0]}
-      // subheader={<NavLink to={`/place/${data.Place.id}`} style={{ color:'gray',textDecoration: 'none' }}>{`@${data.Place.name}`}</NavLink>}
-
       />
-      {/* <Typography  variant="h5" component="h5" style={{  borderTop:'1px solid black', width:"96%", margin:"auto"}} >{data.name}</Typography> */}
-
-    
       <CardMedia
         className={classes.media}
       image={data.Photos[0].url}
@@ -87,10 +120,47 @@ export default function PostCard({ data }) {
         {/* <Typography variant="h6" color="textSecondary" component="h6">
                     About this Route: {data.route.description}
         </Typography> */}
-        <Typography variant="h6" color="textSecondary" component="h6" style={{  borderBottom:'1px solid gray' }} >
-          {data.description}
+        <Typography variant="body2" color="textSecondary" component="p">
+        {data.description}
         </Typography>
+        <Button
+        style={{left:"80%"}}
+        onClick={()=>{setShowComment(true)
+
+      }}
+                  variant="contained"
+            color="primary"
+        > Comments</Button>
+        <Comment modalClass={showComment} setShowComment={setShowComment} comments={data}></Comment>
       </CardContent>
+        
+
+
+      {/* <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Comments:</Typography>
+
+        </CardContent>
+      </Collapse> */}
+
+
+
+      
     </Card>
   </>);
 }
