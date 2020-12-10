@@ -60,6 +60,12 @@ export const signUp = (payload) => async (dispatch) => {
     }
     
     }
+    
+export const updateBiography = (data) => async(dispatch) => {
+    // const response = await fetch(`/`)
+    console.log(data)
+}
+    
 
 ///////////REDUCER////////////////////////
 

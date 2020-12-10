@@ -15,6 +15,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,26 +51,20 @@ export default function PostCard({data}) {
   return (
     <Card className={classes.root}>
         {/* <button onClick={() => console.log(data)}>asdfasdf</button> */}
-      <CardHeader
-        avatar={
-          <Avatar
-        //   src={data.User.Photos[0]? data.User.Photos[0].url : null}
-          >
-            
-          </Avatar>
-        }
-        // title={data.name}
-        // subheader={`${data.User.firstName} ${data.User.lastName}`} 
-      />
+
       <CardMedia
         className={classes.media}
-        // image={data.Photos[0].url}
+        image={data.photos && data.photos[0].url}
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-        {/* {data.description} */}
+      <Typography variant="h6" color="textSecondary" component="p">
+        {data.name}
         </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+        {data.description}
+        </Typography>
+        <Button>Edit Post</Button>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">

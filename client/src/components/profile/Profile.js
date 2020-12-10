@@ -19,24 +19,30 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import ProfileNavBar from "./ProfileNavBar"
 import PlaceCard from "./PlaceCard"
-import {grabAllPlacesByUserIdThunk} from "../../components/store/actions/entities/entities"
+import { grabAllPostsByUserIdThunk, grabAllPlacesByUserIdThunk } from "../../components/store/actions/entities/entities"
 import PostCard from "./PostCard"
+import CancelIcon from '@material-ui/icons/Cancel';
+import EditIcon from '@material-ui/icons/Edit';
+import clsx from 'clsx';
+import Collapse from '@material-ui/core/Collapse';
+import EditProfile from "./EditProfile"
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
         alignItems: 'center',
         width: 730,
         marginTop: "5%",
-        display:'flex',
-        flexWrap:'wrap',
-        marginLeft:'3%'
+        display: 'flex',
+        flexWrap: 'wrap',
+        marginLeft: '3%'
     },
     paper: {
         maxWidth: 750,
         margin: 'auto',
-        marginTop:"5%",
-        display:'flex',
-        flexWrap:"wrap",
+        marginTop: "5%",
+        display: 'flex',
+        flexWrap: "wrap",
         justifyContent: 'center',
     },
     profile: {
@@ -44,11 +50,17 @@ const styles = makeStyles((theme) => ({
         alignItems: 'center',
         width: 350,
         position: "fixed",
+    }, profileButton: {
+        alignItems: 'right',
+        width: 30,
+        marginLeft: '20%',
+        marginTop: '1%',
+        position: "fixed",
     },
     iconButton: {
         padding: 10,
     },
-sticky: {
+    sticky: {
         background: 'white',
         position: '-webkit-sticky',
         position: 'fixed',
@@ -59,6 +71,16 @@ sticky: {
         // paddingBottom: '40px',
         zIndex: 5,
     },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
 }));
 
 
@@ -66,42 +88,54 @@ const PostFeeds = () => {
     const classes = styles()
     const dispatch = useDispatch()
     const data = JSON.parse(window.localStorage.getItem(CURRENT_USER))
-    const places = Object.values(useSelector(state=>state.entities.places.byId))
+    const places = Object.values(useSelector(state => state.entities.places.byId))
+    const posts = Object.values(useSelector(state => state.entities.posts.byId))
     const [showPlaces, setShowPlaces] = useState(false)
     const [showPosts, setShowPosts] = useState(true)
+    const [showProfilePopUp, setShowProfilePopUp] = useState(true)
+    const [expanded, setExpanded] = useState(false);
+    const [showPhotoEdit, setShowPhotoEdit] = useState(false)
+    const [showBioEdit, setShowBioEdit] = useState(false)
 
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
     useEffect(() => {
         dispatch(grabAllPlacesByUserIdThunk(data.userId))
-
+        dispatch(grabAllPostsByUserIdThunk(data.userId))
     }, []);
-    // console.log(places)
+    // console.log(posts)
     return (
         <>
- 
+
             <Paper className={classes.paper} elevation={0}>
                 <Grid container>
                     <Grid item>
                         <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces}></ProfileNavBar>
                         <Card className={classes.feed}>
-                            {showPlaces?places.map(each=>
+                            {showPlaces ? places.map(each =>
                                 <PlaceCard data={each}></PlaceCard>
-                                ): null}
-                            {showPosts ? <PostCard/> : null}
+                            ) : null}
+                            {showPosts ? posts.map(each => <PostCard data={each} />) : null}
                         </Card>
-                        
+
                     </Grid>
                     <Grid item>
-                        <Card className={classes.profile}>
+                        {showProfilePopUp ? <Card className={classes.profile}>
                             <CardHeader
                                 avatar={
                                     <Avatar
                                         style={{ width: '100pt', height: '100pt' }}
-                                        src={data.photos.length >0 ? data.photos[0].url : null}
+                                        src={data.photos.length > 0 ? data.photos[0].url : null}
                                     >
                                     </Avatar>
                                 }
                                 action={
-                                    <Button>Edit</Button>
+                                    <IconButton>
+                                        <CancelIcon
+                                            onClick={() => setShowProfilePopUp(false)}
+                                        ></CancelIcon>
+                                    </IconButton>
                                 }
                                 title={`${data.firstName} ${data.lastName}`}
                                 subheader={data.email}
@@ -145,8 +179,46 @@ const PostFeeds = () => {
                                     {data.biography}
                                 </Typography>
                             </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton
+                                    className={clsx(classes.expand, {
+                                        [classes.expandOpen]: expanded,
+                                    })}
+                                    onClick={()=>{handleExpandClick()
+                                    setShowBioEdit(false)
+                                    if(!showPhotoEdit){
+                                        setShowPhotoEdit(true)
+                                    }
+                                    }}
+                                    aria-expanded={expanded}
+                                    aria-label="show more"
+                                >
+                                    <InsertPhotoIcon />
+                                </IconButton>
+                                <IconButton
+                                    className={clsx(classes.expand, {
+                                        [classes.expandOpen]: expanded,
+                                    })}
+                                    onClick={()=>{handleExpandClick()
+                                        setShowPhotoEdit(false)
+                                        if(!showBioEdit){
+                                            setShowBioEdit(true)
+                                        }
+                                    }}
+                                    aria-expanded={expanded}
+                                    aria-label="show more"
+                                >
+                                    <EditIcon />
+                                </IconButton>
 
-                        </Card>
+
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    <EditProfile showBioEdit={showBioEdit} showPhotoEdit={showPhotoEdit}></EditProfile>
+                                </CardContent>
+                            </Collapse>
+                        </Card> : <Button className={classes.profileButton} onClick={() => setShowProfilePopUp(true)}>View</Button>}
                     </Grid>
                 </Grid>
             </Paper>

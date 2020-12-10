@@ -46,7 +46,7 @@ export const grabAllPlacesByUserId = (data) => {
 
 export const grabAllPostsByUserId = (data) => {
     return {
-        type:GRAB_ALL_POSTS_BY_USER_ID,
+        type: GRAB_ALL_POSTS_BY_USER_ID,
         data
     }
 }
@@ -107,7 +107,8 @@ export const grabAllPostsByUserIdThunk = (userId) => async (dispatch) => {
     const response = await fetch(`/api/posts/user/${userId}`)
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
+        dispatch(grabAllPostsByUserId(data))
     }
 }
 
@@ -217,6 +218,29 @@ export default function reducer(state = {}, action) {
                 newState.places.allId = [...newState.places.allId, each.id]
             })
             return newState
+
+
+//
+        case GRAB_ALL_POSTS_BY_USER_ID:
+            newState["posts"] = { byId: {}, allId: [] }
+            let postsByUserId = action.data.map(each => {
+                return {
+                    id: each.id,
+                    name: each.name,
+                    description: each.description,
+                    coordinates: JSON.parse(each.coordinates),
+                    place_id: each.place_id,
+                    user_id: each.user_id,
+                    photos: each.Photos,
+                }
+            })
+            postsByUserId.forEach(each => {
+                newState.posts.byId[each.id] = { ...each }
+                newState.posts.allId = [...newState.posts.allId, each.id]
+            })
+            return newState
+
+
 
         default:
             return state

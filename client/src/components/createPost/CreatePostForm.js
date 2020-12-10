@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
 import {createPost} from "../store/actions/post"
+import Loading from "./Loading"
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -52,7 +53,7 @@ const CreatePostForm = ({currentCoordinates,image}) => {
     // const payload={
     //   name, description, currentCoordinates, place_id,user_id,image
     // } console.log(data)
-    e.preventDefault()
+    // e.preventDefault()
     const data = new FormData();
     data.append("name", name)
     data.append("description", description)
@@ -62,13 +63,14 @@ const CreatePostForm = ({currentCoordinates,image}) => {
     data.append("file", image)
 
     dispatch(createPost(data))
-    
+    // console.log(data)
   
   }
   return (
-
+    
           <div className={classes.paper} >
-                  <form className={classes.form} noValidate>
+
+                  <form className={classes.form} noValidate> 
          <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -97,7 +99,7 @@ const CreatePostForm = ({currentCoordinates,image}) => {
               />
             </Grid>
           </Grid>
-          <Button
+          {/* <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -106,12 +108,18 @@ const CreatePostForm = ({currentCoordinates,image}) => {
             onClick={handleSubmit}
           >
             Create Post
-          </Button>
-   
+          </Button> */}
+          
             <Grid item>
 
           </Grid>
+          
         </form>
+        <div style={{display:'flex', justifyContent:"center"}}>
+{name&&description&&image ?<Loading handleSubmit={handleSubmit}></Loading>:null}
+        </div>
+
+        
           </div>
 
   );

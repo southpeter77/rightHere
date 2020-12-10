@@ -39,6 +39,24 @@ router.get('/place/:id(\\d+)', asyncHandler(async (req, res, next) => {
     res.json(data)
 }))
 
+////grab all post by user id ///
+router.get('/user/:id(\\d+)', asyncHandler(async (req, res, next) => {
+    const userId = Number(req.params.id)
+
+    const data = await db.Post.findAll({
+        where:{
+            user_id:userId
+        },
+        include:[
+            {model:Photo}
+        ]
+    })
+    res.json(data)
+}))
+
+
+
+
 //create post//
 AWS.config.update({
     secretAccessKey: awsKeys.secretAccessKey,

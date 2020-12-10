@@ -95,4 +95,9 @@ router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(
 
 }))
 
+///edit biography//
+router.put("/brography/edit/:id(\\d+)", asyncHandler(async (req,res,next)=>{
+    console.log(req.body)
+}))
+
 module.exports = router;

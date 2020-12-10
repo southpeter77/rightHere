@@ -1,3 +1,4 @@
+import {CURRENT_USER} from "../actions/sessions/currentUser"
 export const checkPlaceExist = async(coordinates)=> {
     const response =await fetch("/api/places/check", {
         method:"PUT",
@@ -20,6 +21,6 @@ export const createPost = (data) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        return data
+        window.location.href=`/profile/${CURRENT_USER}`
     }
 }
