@@ -67,12 +67,12 @@ const MapContainer = ({coordinates}) => {
 
   return (
     <>
-          <div  style={{ width: '400px', height: '450px', margin: "auto" }}>
+          <div  style={{ width: '400px', height: '450px', margin: "auto",borderRadius:'20pt' }}>
     <WrappedMap 
     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-    loadingElement={<div style={{height: '100%'}}/> }
-    containerElement={<div style={{height:"100%"}}/>}
-    mapElement={<div style={{height: "100%"}}/>}
+    loadingElement={<div style={{height: '100%',borderRadius:'20pt'}}/> }
+    containerElement={<div style={{height:"100%",borderRadius:'20pt'}}/>}
+    mapElement={<div style={{height: "100%",borderRadius:'20pt'}}/>}
     coordinates={coordinates}
     >
     </WrappedMap>

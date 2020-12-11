@@ -46,9 +46,10 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: "80%",
         zIndex: "10",
         transform: "translate(-50%, -50%) scale(1)",
-        maxHeight:"400pt",
+        height:"400pt",
         display: "flex", /*added*/
         flexDirection: "column", /*added*/
+        borderRadius:"20pt"
       }
   }));
 

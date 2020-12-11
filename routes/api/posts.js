@@ -49,7 +49,7 @@ router.get('/user/:id(\\d+)', asyncHandler(async (req, res, next) => {
             user_id:userId
         },
         include:[
-            {model:Photo}
+            {model:Photo}, {model:Place, attributes:["id","name"]}
         ]
     })
     res.json(data)

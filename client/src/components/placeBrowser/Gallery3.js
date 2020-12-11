@@ -8,7 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import mapCss from "./mapCss.css"
-
+import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 const useStyles = makeStyles({
   root: {
     width: 360,
@@ -23,15 +24,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PlaceCards({data}) {
+export default function PlaceCards({data, setting}) {
   const classes = useStyles();
     const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})
   return (<>
-  <div
-//   style={{
-//     display:"flex"  
-//   }}
-  >
+  <div>
+    <button
+    onClick={()=>console.log(data)}
+    >asdf</button>    
+    
+    { setting ? <IconButton>
+  <CancelIcon></CancelIcon>
+</IconButton> : null}
     <Card className={classes.root}
     onMouseOver={()=>setMouseHover({raised:true, shadow:3})}
     onMouseOut={()=>setMouseHover({raised:false, shadow:1})}
@@ -39,6 +43,9 @@ export default function PlaceCards({data}) {
     shadow={mouseHover.shadow}
 
     >
+
+  
+
       <CardActionArea>
       <div class="img__wrap">
         <CardMedia
@@ -48,6 +55,7 @@ export default function PlaceCards({data}) {
         />
          {/* <p class="img__description"></p> */}
         </div>
+
 
       </CardActionArea>
     </Card>

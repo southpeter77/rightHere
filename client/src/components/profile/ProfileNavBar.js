@@ -26,9 +26,7 @@ const ProfileNavBar = ({setShowPosts, setShowPlaces}) => {
         setShowPlaces(false)
     }}
     >
-<PhotoLibraryIcon
-fontSize="large"
-/> <Typography variant="subtitle1" component="subtitle1">View my posts</Typography>
+ <Typography variant="subtitle1" component="subtitle1">View my posts</Typography>
     </IconButton>
     <IconButton
         onClick={()=>{
@@ -36,9 +34,7 @@ fontSize="large"
             setShowPlaces(true)
         }}
     >
-<ExploreIcon
-fontSize="large"
-/><Typography variant="subtitle1" component="subtitle1">View my places</Typography>
+<Typography variant="subtitle1" component="subtitle1">View my places</Typography>
     </IconButton>
 </Grid>
     )

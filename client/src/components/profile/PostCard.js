@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -16,41 +16,74 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
+import Comment from "../comment/Comment"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 800,
-    height: 700
+    width: 330,
+    height: 500,
+    borderRadius:'20pt',
+    margin:10
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    height: 300,
+    paddingTop: '80%', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
-    }),
+    }),modalActive: {
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%) scale(0)",
+      transition: "500ms ease-in-out",
+      border: "1px solid black",
+      borderRadius: "10px",
+      backgroundColor: "white",
+      width: "500px",
+      maxWidth: "80%",
+      zIndex: "10",
+      transform: "translate(-50%, -50%) scale(1)"
+    }
+  },modal: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%) scale(0)",
+    transition: "500ms ease-in-out",
+    border: "1px solid black",
+    borderRadius: "10px",
+    backgroundColor: "white",
+    width: "500px",
+    maxWidth: "80%",
+    zIndex: "10",
   },
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-//   avatar: {
-//     backgroundColor: red[500],
-//   },
 }));
 
 export default function PostCard({data}) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const[showComment, setShowComment] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  useEffect(()=>{
+    setLoaded(!loaded)
+  },[])
+  if(!loaded) {
+    return null
+  }
   return (
     <Card className={classes.root}>
-        {/* <button onClick={() => console.log(data)}>asdfasdf</button> */}
+        {/* <button onClick={() => console.log(data)}>123</button> */}
 
       <CardMedia
         className={classes.media}
@@ -61,9 +94,16 @@ export default function PostCard({data}) {
       <Typography variant="h6" color="textSecondary" component="p">
         {data.name}
         </Typography>
+        
         <Typography variant="body2" color="textSecondary" component="p">
         {data.description}
         </Typography>
+        
+        <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`} 
+        style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
+          {`@${data.Places.name}`}</Typography>
+          
+
         <Button>Edit Post</Button>
       </CardContent>
       <CardActions disableSpacing>
@@ -74,22 +114,15 @@ export default function PostCard({data}) {
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={handleExpandClick}
+          onClick={()=>{setShowComment(!showComment)}}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Comments:</Typography>
+      {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
 
-
-
-
-        </CardContent>
-      </Collapse>
     </Card>
   );
 }

@@ -286,6 +286,7 @@ export default function reducer(state = {}, action) {
                     place_id: each.place_id,
                     user_id: each.user_id,
                     photos: each.Photos,
+                    Places:each.Place
                 }
             })
             postsByUserId.forEach(each => {

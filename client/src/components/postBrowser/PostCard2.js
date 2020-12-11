@@ -11,11 +11,16 @@ import { Button } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import Comment from "../comment/Comment"
 import { useDispatch, useSelector } from "react-redux";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import clsx from 'clsx';
+import IconButton from '@material-ui/core/IconButton';
+import CardActions from '@material-ui/core/CardActions';
 
 const useStyles = makeStyles((theme) => ({
   root1: {
     width: 330,
-    height: 500,
+    height: 530,
     borderRadius:'20pt',
     margin:10
   },
@@ -89,13 +94,13 @@ export default function PostCard({ data }) {
       <CardHeader
         avatar={
           <Avatar
-            src={data && data.User.Photos[0].url}
+            src={data.User && data.User.Photos[0].url}
           >
           </Avatar>
         }
         title={<Typography variant="subtitle1">{data.name}</Typography>}
         subheader={<Typography variant="body2">
-          {`${data.User.firstName}`}
+          {`${data.User && data.User.firstName}`}
           <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`} 
         style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
           {`@${data.Places.name}`}</Typography>
@@ -111,16 +116,24 @@ export default function PostCard({ data }) {
         <Typography variant="body2" color="textSecondary" component="p">
         {data.description}
         </Typography>
-        <Button
-        fontSize="small"
-        style={{left:"50%"}}
-        onClick={()=>{setShowComment(true)
-      }}
-                  // variant="outlined"
-            // color="primary"
-        >comments</Button>
-        {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
-      </CardContent>      
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={()=>{setShowComment(!showComment)}}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
+      
     </Card>
   </>);
 }

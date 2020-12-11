@@ -69,8 +69,8 @@ const EditProfile = ({ showBioEdit, showPhotoEdit, setShowPhotoEdit,setShowBioEd
             />
             <Button
                 type="submit"
-                variant="contained"
-                color="primary"
+                variant="outlined"
+                // color="primary"
                 onClick={handleBiographyUpdate}
             >update</Button>
         </form> : null}

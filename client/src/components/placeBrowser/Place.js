@@ -17,12 +17,15 @@ import GridListTile from '@material-ui/core/GridListTile';
 import PostCard from "./PostCard"
 import Gallery2 from "./Gallery2"
 import Gallery3 from "./Gallery3"
-
+import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+import SettingsIcon from '@material-ui/icons/Settings';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import MapIcon from '@material-ui/icons/Map';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import UploadImage from "./UploadImage"
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -78,8 +81,9 @@ const Place = () => {
   const data = useSelector((state) => state.entities.place.byId)
   const id = Number(placeId)
   const [showMap, setShowMap] = useState(false)
+  const [setting, setSetting] = useState(false)
   // const data2= JSON.parse(window.localStorage.getItem(GRAB_PLACE_BY_ID))
-
+  const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
   useEffect(() => {
     dispatch(grabPlaceByIdThunk(placeId))
     dispatch(grabPostsByPlaceIdThunk(placeId))
@@ -105,10 +109,10 @@ const Place = () => {
           </IconButton></div>
 
       </div> : null}
-      {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer> : null}
+      {/* {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer> : null} */}
       <Paper className={classes.paper} elevation={1}>
-        {/* <button onClick={() => console.log(data)}>console1</button> */}
-        {/* <button onClick={()=>console.log(data2)}>console2</button> */}
+        <button onClick={() => console.log(data)}>console1</button>
+        <button onClick={()=>console.log(currentUser)}>console2</button>
         {/* <Typography
                 variant="h4"
                 component="h4"
@@ -137,13 +141,28 @@ const Place = () => {
                 style={{ color: "gray", width: "96%", margin: "auto" }}
               ><img src="/crown.png" style={{ width: "20pt", height: "auto" }}></img>{`${data.User.firstName}`}</Typography>}
               subheader={data.description}
+
             />
           </Grid>
           <Grid xs>
-            <Typography
+            
+            {currentUser.userId == data.User.id ?<Typography
               variant="h6"
               align="center"
-            >{data.name}'s Recommended places</Typography>
+            >{data.name}'s Recommended places
+            <IconButton aria-label="settings"
+            onClick={()=>setSetting(!setting)}
+            >
+                <SettingsIcon />
+              </IconButton></Typography>
+
+             : <Typography
+              variant="h6"
+              align="center"
+            >{data.name}'s Recommended places</Typography>}
+
+
+
           </Grid>
           <Grid xs>
             <Typography
@@ -152,6 +171,7 @@ const Place = () => {
               variant="subtitle1"
               style={{ color: "gray", marginRight: "30pt", cursor: "pointer" }}
             >View Map<MapIcon /></Typography>
+        
           </Grid>
 
         </Grid>
@@ -182,14 +202,23 @@ const Place = () => {
           return (
             <Gallery3
             data={each}
+            setting={setting}
             >
 
             </Gallery3>
           )
         })}
-
+   {setting && data.photos.length < 5? 
+           <UploadImage placeId={data.id}></UploadImage>
+          //  <IconButton aria-label="settings">
+          //       <AddCircleIcon 
+          //       fontSize="large"
+          //       />
+          //     </IconButton> 
+              : null}
         
         <Grid container>
+          
           <CssBaseline />
           <Grid container className={classes.root2}
             spacing={0}

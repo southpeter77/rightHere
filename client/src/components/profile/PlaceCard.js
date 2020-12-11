@@ -12,8 +12,10 @@ import { useSelector, useDispatch } from 'react-redux';
 // import {grabPlaceById, grabPlaceByIdThunk} from "../../components/store/actions/entities/entities"
 const useStyles = makeStyles({
   root: {
-    width: 350,
-    height: 320
+    width: 360,
+    height: 320,
+    borderRadius:'20pt',
+    margin:10
   },
   media: {
     height: 320,

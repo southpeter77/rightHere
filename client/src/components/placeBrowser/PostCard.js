@@ -110,18 +110,23 @@ export default function PostCard({data}) {
         <Typography variant="body2" color="textSecondary" component="p">
         {data.description}
         </Typography>
-        <Button
-        fontSize="small"
-        style={{left:"50%"}}
-        onClick={()=>{setShowComment(true)
-      }}
-                  // variant="outlined"
-            // color="primary"
-        >comments</Button>
-        {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
-      
-      
       </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={()=>{setShowComment(!showComment)}}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
       
     </Card>
   );

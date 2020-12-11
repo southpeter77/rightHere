@@ -72,7 +72,7 @@ const styles = makeStyles((theme) => ({
         zIndex: 5,
     },
     expand: {
-        transform: 'rotate(0deg)',
+        // transform: 'rotate(0deg)',
         marginLeft: 'auto',
         transition: theme.transitions.create('transform', {
             duration: theme.transitions.duration.shortest,
@@ -120,13 +120,16 @@ const PostFeeds = () => {
                     >
 
                 </Avatar>
-                <CardActions
-                >
-                                <IconButton
+
+                            <CardActions        
+                        style={{marginRight:"-12pt"}}
+
+                                >
+                        <IconButton
+                        // style={{marginRight:"0pt"}}
                                     className={clsx(classes.expand, {
                                         [classes.expandOpen]: expanded,
                                     })}
-                                    style={{right: "40%"}}
                                     onClick={()=>{handleExpandClick()
                                     setShowBioEdit(false)
                                     if(!showPhotoEdit){
@@ -142,7 +145,7 @@ const PostFeeds = () => {
                                     className={clsx(classes.expand, {
                                         [classes.expandOpen]: expanded,
                                     })}
-                                    style={{right: "20%"}}
+
 
                                     onClick={()=>{handleExpandClick()
                                         setShowPhotoEdit(false)
@@ -159,6 +162,9 @@ const PostFeeds = () => {
 
                             </CardActions>
 
+                
+
+
 
                 <Typography 
                 align="center"
@@ -169,14 +175,13 @@ const PostFeeds = () => {
                 align="center"
                 variant="h6"
                 >{data.email}</Typography>
-                    <Typography variant="body1" >
+                    <Typography align="center" variant="body1" >
                                     {data.biography}
                                 </Typography>
-  <Typography variant="body2" style={{ color: "gray", display:"inline", marginLeft:"20%" }}>Posts</Typography>
-    <Typography variant="body2" style={{ color: "gray", display:"inline" }}>{` ${data.posts.length}`}</Typography>
-    <Typography variant="body2" style={{ color: "gray", display:"inline", marginLeft:"20%"}}>Places</Typography>
-    <Typography variant="body2" style={{ color: "gray", display:"inline" }}>{` ${data.places.length}`}</Typography>
 
+                               
+                                <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${data.posts.length} Places ${data.places.length}`}</Typography>
+                                <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces}></ProfileNavBar>
     <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <CardContent>
                                     <EditProfile showBioEdit={showBioEdit} showPhotoEdit={showPhotoEdit} setShowPhotoEdit={setShowPhotoEdit} setShowBioEdit={setShowBioEdit}></EditProfile>
@@ -184,6 +189,14 @@ const PostFeeds = () => {
                             </Collapse>         
 
                 </Card>
+                <Grid container style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>    
+
+               
+                            {showPlaces ? places.map(each =>
+                                <PlaceCard data={each}></PlaceCard>
+                            ) : null}
+                            {showPosts ? posts.map(each => <PostCard data={each} />) : null}
+</Grid>
                 {/* <Grid container>    
                     <Grid item>
                         <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces}></ProfileNavBar>
