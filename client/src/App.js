@@ -19,6 +19,8 @@ import CreatePost from "./components/createPost/CreatePost"
 import {grabAllPostsThunk} from "./components/store/actions/entities/entities"
 import PlaceFeeds from "./components/placeBrowser/PlaceFeeds"
 import Profile from "./components/profile/Profile"
+import Profile2 from "./components/profile/Profile2"
+
 function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch()
@@ -54,7 +56,7 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
                         <PrivateRoute exact path="/place/all" needLogin={needLogin} component={PlaceFeeds}/>
                         <PrivateRoute exact path="/place/:placeId" needLogin={needLogin} component={Place} />
                         <PrivateRoute exact path="/create/post" needLogin={needLogin} component={CreatePost}/>
-                        <PrivateRoute exact path="/profile/:userId" needLogin={needLogin} component={Profile}/>
+                        <PrivateRoute exact path="/profile/:userId" needLogin={needLogin} component={Profile2}/>
                     </Switch>
                 </BrowserRouter>
             </Theme>

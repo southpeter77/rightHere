@@ -2,7 +2,7 @@ import {logInErrors, signUpErrors} from "./errors/errors"
 import {currentUser, saveToken, loadToken, saveCurrentUserData, CURRENT_USER} from "./sessions/currentUser"
 import {grabAllPostsThunk} from "../actions/entities/entities"
 export const TOKEN_KEY = "TOKEN_KEY";
-const currentuserId = JSON.parse(window.localStorage.getItem(CURRENT_USER)).userId
+// const currentuserId = JSON.parse(window.localStorage.getItem(CURRENT_USER)).userId
 
 
 

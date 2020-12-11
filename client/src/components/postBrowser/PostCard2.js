@@ -89,7 +89,7 @@ export default function PostCard({ data }) {
       <CardHeader
         avatar={
           <Avatar
-            src={data.User.Photos[0].url}
+            src={data && data.User.Photos[0].url}
           >
           </Avatar>
         }
