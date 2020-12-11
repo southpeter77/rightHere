@@ -10,6 +10,14 @@ const multer = require("multer");
 const upload = multer();
 
 
+//delete image by photo id ///
+router.delete("/delete/:id(\\d+)", asyncHandler(async(req,res,next) => {
+    const photoId = Number(req.params.id)
+    const photo = await db.Photo.findByPk(photoId);
+    await photo.destroy()
+    res.json({message:"ok"})
+}))
+
 
 //////upload image by place id////////////
 

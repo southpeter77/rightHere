@@ -1,13 +1,12 @@
 import React, {useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
-
 import { DropzoneArea } from 'material-ui-dropzone';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {uploadPhotoByPlaceId} from "../../components/store/actions/photo"
-
+import Loading from "../profile/Loading"
 const UploadImage = ({placeId}) => {
 const [image, setImage] = useState("")
 const [name, setName] = useState("")
@@ -23,12 +22,14 @@ const updateProperty = (callback) => (e) => {
     data.append("file", image)
     data.append("place_id", placeId)
   dispatch(uploadPhotoByPlaceId(data))
-  }
+  setTimeout(()=>{
+    window.location.href=`/place/${placeId}`
+  },4000)  }
 
     return (
         <>
-    <div style={{height:"250px",width:"300px", marginTop:"5%"}} >
-       
+    <div style={{height:"250px",width:"300px", marginTop:"5%", marginBottm:"50pt"}} >
+
         <DropzoneArea
   acceptedFiles={['image/*']}
   dropzoneText={"Drag and drop an image here or click"}
@@ -44,9 +45,10 @@ const updateProperty = (callback) => (e) => {
                 value={name}
                 onChange={updateProperty(setName)}
               />
-              {name && image ? <Button
+    {/* {name && image ? <Button
               onClick={handleSubmit}
-              >Upload</Button>:null }
+              >Upload</Button>:null } */}
+              {name && image ?<Loading handleImageUpdate={handleSubmit}></Loading>:null }
 </div>
 </>
     )

@@ -12,3 +12,12 @@ export const uploadPhotoByPlaceId = (data) => async (dispatch) => {
     }
 
 }
+
+export const deletePhotoByPhotoId = async (id) => {
+    const response = await fetch(`/api/photos/delete/${id}`, {
+        method:"DELETE"
+    })
+    if (response.ok) {
+        return true
+    }
+}

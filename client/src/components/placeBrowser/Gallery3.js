@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import mapCss from "./mapCss.css"
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
+import {deletePhotoByPhotoId} from "../../components/store/actions/photo"
 const useStyles = makeStyles({
   root: {
     width: 360,
@@ -24,17 +25,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PlaceCards({data, setting}) {
+
+export default function PlaceCards({data, setting,placeId}) {
   const classes = useStyles();
     const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})
+    const handleDelete = (id) => {
+     let result = deletePhotoByPhotoId(id)
+     if (result) {
+       window.location.href=`/place/${placeId}`
+     }
+    }
   return (<>
   <div>
-    <button
+    {/* <button
     onClick={()=>console.log(data)}
-    >asdf</button>    
-    
-    { setting ? <IconButton>
-  <CancelIcon></CancelIcon>
+    >asdf</button> */}
+    { setting ? <IconButton
+    onClick={()=>handleDelete(data.id)}
+    >
+  <CancelIcon>
+  </CancelIcon>
 </IconButton> : null}
     <Card className={classes.root}
     onMouseOver={()=>setMouseHover({raised:true, shadow:3})}

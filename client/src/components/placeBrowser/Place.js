@@ -203,6 +203,7 @@ const Place = () => {
             <Gallery3
             data={each}
             setting={setting}
+            placeId={data.id}
             >
 
             </Gallery3>
@@ -221,6 +222,7 @@ const Place = () => {
           
           <CssBaseline />
           <Grid container className={classes.root2}
+
             spacing={0}
           >
 

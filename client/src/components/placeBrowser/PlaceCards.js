@@ -37,7 +37,7 @@ export default function PlaceCards({data}) {
         <CardMedia
           className={classes.media}
           className="imgTag"
-          image={data.Photos[0].url}
+          image={data.Photos.length > 0 ?  data.Photos[0].url : null}
         />
          {/* <p class="img__description"></p> */}
          <div className="img__description">
