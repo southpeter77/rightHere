@@ -33,9 +33,9 @@ export default function PlaceCards({data}) {
       <CardActionArea>
       <div class="img__wrap">
         <CardMedia
-        //   className={classes.media}
+          className={classes.media}
           className="imgTag"
-          image={data.Photos.length > 0 ? data.Photos[0].url: null}
+          image={data.Photos[0].url}
         />
          {/* <p class="img__description"></p> */}
          <div className="img__description">
@@ -43,6 +43,7 @@ export default function PlaceCards({data}) {
              variant="h6"
              className="onHoverText"
   >{data.Posts.length >1 ?`${data.Posts.length} posts` : `${data.Posts.length} post` } </Typography>
+         
          </div>
         </div>
           

@@ -66,9 +66,9 @@ const PostFeeds = () => {
         <>
 
             <Paper className={classes.paper} elevation={1}>
-                <button
+                {/* <button
                 onClick={()=>console.log(datas)}
-                >console</button>
+                >console</button> */}
 {/* {datas ?
 datasArray.map(each=>{
     return(

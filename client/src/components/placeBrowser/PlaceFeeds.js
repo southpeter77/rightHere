@@ -26,19 +26,19 @@ const styles = makeStyles((theme) => ({
 const PlaceFeeds = () => {
     const classes = styles()
     const dispatch = useDispatch()
-    const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_PLACES))
+    const data2 = Object.values(useSelector(state=> state.entities.places.byId))
+    // const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_PLACES))
+    // console.log(data)
+    console.log(data2)
     useEffect(() => {
 
         dispatch(grablAllPlacesThunk())
-    }, [data]);
-    if(!data) {
-        return null
-    }
+    }, []);
     return (
         <>
 
             <Paper className={classes.paper} elevation={1}>
-{data.map(each=> 
+{data2.map(each=> 
     <PlaceCards data={each}></PlaceCards>
     )}
 

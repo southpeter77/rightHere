@@ -99,8 +99,10 @@ export const initialState = {
     },
       allId: []
     },
+    ///////////////////
     places: {
       byId: {
+        placesId:{
         id: "",
         name: "",
         coordinates: {},
@@ -115,8 +117,8 @@ export const initialState = {
             url: ''
           }]
         },
-        photos: [],
-        posts: [{
+        Photos: [{url:""}],
+        Posts: [{
           id: "",
           name: "",
           description: "",
@@ -124,7 +126,6 @@ export const initialState = {
           user_id: "",
           place_id: "",
           Photos: [{
-            id: '',
             url: ''
           }],
           User: {
@@ -140,8 +141,8 @@ export const initialState = {
             }]
           }
         }]
-      },
-
+      }
+    },
       allId: []
     }
   },

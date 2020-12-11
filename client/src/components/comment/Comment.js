@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 // import {createComment} from "../../components/store/actions/comment"
-import {createComment} from "../../components/store/actions/entities/entities"
+import {createComment,deleteComment} from "../../components/store/actions/entities/entities"
 import Avatar from '@material-ui/core/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
 
@@ -59,6 +59,7 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
   const [comment, setComment] = useState('')
   const [loaded, setLoaded] = useState(false)
   const allComments = Object.values(useSelector(state=>state.entities.comments.byId))
+  const [selectDelete, setSelectDelete] = useState("")
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
@@ -76,6 +77,13 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
     setLoaded(!loaded)
 
   },[])
+
+  const deleteComment =() => {
+    console.log(selectDelete)
+    // dispatch(deleteComment(selectDelete))
+  }
+
+
   if (!loaded){
     return null
   }
@@ -91,11 +99,12 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
           <CancelIcon></CancelIcon>
       </IconButton>
     </div>
-    <button
+    {/* <button
     onClick={()=>console.log(allComments)}
-    > postId</button>
+    > postId</button> */}
     <div className="modal-body">
         {allComments.map(each=>{
+          console.log(each)
           return (
             <CardHeader
         avatar={
@@ -111,6 +120,15 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
       
       </>)}
         title={each.description}
+        action={
+          each.user_id == currentUser.userId ? <IconButton 
+          onClick={()=>{
+            setSelectDelete(each.id)
+            deleteComment()}}
+          >
+            <CancelIcon />
+          </IconButton> : null}
+        
         />
           )
         })}
@@ -125,7 +143,7 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
                 value={comment}
                 onChange={updateProperty(setComment)}
               /><IconButton
-              onClick={()=>handleCommentSubmit()}
+              onClick={()=>{handleCommentSubmit()}}
               >
                 <CheckCircleIcon/>
                 </IconButton>
@@ -152,7 +170,6 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
       </IconButton>
     </div>
     <div className="modal-body">
-      <Typography>asdf</Typography>
     </div>
   </div>
   </>

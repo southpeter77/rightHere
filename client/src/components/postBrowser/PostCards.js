@@ -86,7 +86,7 @@ export default function PostCard({ data }) {
   
   return (<>
     <Card className={classes.root}>
-      <button onClick={()=> console.log(data)}>click</button>
+      {/* <button onClick={()=> console.log(data)}>click</button> */}
       <CardHeader
         avatar={
           <Avatar
@@ -113,12 +113,13 @@ export default function PostCard({ data }) {
         {data.description}
         </Typography>
         <Button
+        fontSize="small"
         style={{left:"80%"}}
         onClick={()=>{setShowComment(true)
       }}
-                  variant="contained"
-            color="primary"
-        > Comments</Button>
+                  // variant="outlined"
+            // color="primary"
+        > view comments</Button>
         {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
       </CardContent>      
     </Card>

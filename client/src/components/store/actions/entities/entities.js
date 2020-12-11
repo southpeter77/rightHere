@@ -73,7 +73,7 @@ export const grabAllPostsThunk = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         // console.log(data)
-        window.localStorage.setItem(GRAB_ALL_POSTS, JSON.stringify(data))
+        // window.localStorage.setItem(GRAB_ALL_POSTS, JSON.stringify(data))
         await dispatch(grabAllPosts(data))
     }
 }
@@ -82,7 +82,7 @@ export const grablAllPlacesThunk = () => async (dispatch) => {
     const response = await fetch("/api/places/all");
     if (response.ok) {
         const data = await response.json();
-        window.localStorage.setItem(GRAB_ALL_PLACES, JSON.stringify(data))
+        // window.localStorage.setItem(GRAB_ALL_PLACES, JSON.stringify(data))
         await dispatch(grablAllPlaces(data))
         // console.log(data)
     }
