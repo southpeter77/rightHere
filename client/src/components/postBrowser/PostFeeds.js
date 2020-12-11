@@ -47,7 +47,7 @@ const PostFeeds = () => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch()
     const datasArray = useSelector(state=>state.entities.posts.allId)
-    const datas = useSelector(state=>state.entities.posts.byId)
+    const datas = Object.values(useSelector(state=>state.entities.posts.byId))
     const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_POSTS))
 
     useEffect( () => {
@@ -59,24 +59,35 @@ const PostFeeds = () => {
   
     }, []);
     // console.log(data)
-    if(!data) {
-        return null
-    }
+    // if(!data) {
+    //     return null
+    // }
     return (
         <>
 
             <Paper className={classes.paper} elevation={1}>
-                {/* <button
+                <button
                 onClick={()=>console.log(datas)}
-                >console</button> */}
+                >console</button>
 {/* {datas ?
 datasArray.map(each=>{
     return(
 <PostCards data={datas[each]}></PostCards>)})
 :null} */}
-{data.map(each=><PostCards data={each}></PostCards>)}
 {/* {datas.map(each=><PostCards data={each}></PostCards>)} */}
 
+
+
+
+{/* {data.map(each=><PostCards data={each}></PostCards>)} */}
+{datas.map(each=>{
+
+    return(
+        <PostCards data={each}></PostCards>
+        // <h1>asdfasdf</h1>
+    )
+})}
+z
 
 
 

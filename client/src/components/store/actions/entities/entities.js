@@ -7,7 +7,7 @@ export const GRAB_ALL_PLACES = "GRAB_ALL_PLACES"
 export const GRAB_ALL_POSTS_BY_PLACE_ID = 'GRAB_ALL_POSTS_BY_PLACE_ID'
 export const GRAB_ALL_PLACES_BY_USER_ID = "GRAB_ALL_PLACES_BY_USER_ID"
 export const GRAB_ALL_POSTS_BY_USER_ID = "GRAB_ALL_POSTS_BY_USER_ID"
-export const GRAB_ALL_COMMENTS_BY_PLACE_ID = "GRAB_ALL_COMMENTS_BY_PLACE_ID"
+export const GRAB_ALL_COMMENTS_BY_POST_ID = "GRAB_ALL_COMMENTS_BY_POST_ID"
 export const CREATE_AND_DISPATCH_ALL_COMMENTS = "CREATE_AND_DISPATCH_ALL_COMMENTS"
 
 ///////////////////////////////////////////////
@@ -53,16 +53,16 @@ export const grabAllPostsByUserId = (data) => {
     }
 }
 
-export const grabAllCommentsByPlaceId = (data) => {
+export const grabAllCommentsByPostId = (data) => {
     return {
-        type:GRAB_ALL_COMMENTS_BY_PLACE_ID,
+        type: GRAB_ALL_COMMENTS_BY_POST_ID,
         data
     }
 }
 
 export const createAndDispatchAllComments = (data) => {
     return {
-        type:CREATE_AND_DISPATCH_ALL_COMMENTS,
+        type: CREATE_AND_DISPATCH_ALL_COMMENTS,
         data
     }
 }
@@ -128,24 +128,29 @@ export const grabAllPostsByUserIdThunk = (userId) => async (dispatch) => {
     }
 }
 
-export const grabAllCommentsByPlaceIdThunk = (postId) => async (dispatch) => {
-    const response = await fetch(`/api/comments/post/${postId}`)
+export const grabAllCommentsByPostIdThunk = (postId) => async (dispatch) => {
+    const response = await fetch(`/api/comments/post`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ postId: postId })
+    })
+    // console.log(postId)
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
+        dispatch(grabAllCommentsByPostId(data))
     }
 }
 
-export const createComment = (data) => async(dispatch) => {
+export const createComment = (data) => async (dispatch) => {
     const response = await fetch("/api/comments/create", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(data)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
     })
     if (response.ok) {
-        const data = await response.json()
-        dispatch(createAndDispatchAllComments(data))
-        console.log(data)
+        const jsonedData = await response.json()
+        dispatch(grabAllCommentsByPostId(jsonedData))
     }
 }
 
@@ -164,18 +169,18 @@ export default function reducer(state = {}, action) {
                     coordinates: each.coordinates,
                     user_id: each.user_id,
                     place_id: each.place_id,
-                    photos: each.Photos,
-                    places: each.Place,
-                    user: each.User,
+                    Photos: each.Photos,
+                    Places: each.Place,
+                    User: each.User,
                     comments: each.Comments
                 }
 
             })
-            // mappedData.forEach(each=>{
-            //     newState.posts.byId[each.id]={...each}
-            //     newState.posts.allId=[...newState.posts.allId, each.id]
-            // })
-            newState.posts.byId = mappedData
+            mappedData.forEach(each => {
+                newState.posts.byId[each.id] = { ...each }
+                newState.posts.allId = [...newState.posts.allId, each.id]
+            })
+            // newState.posts.byId = mappedData
 
             return newState
 
@@ -256,7 +261,7 @@ export default function reducer(state = {}, action) {
             return newState
 
 
-//
+        //
         case GRAB_ALL_POSTS_BY_USER_ID:
             newState["posts"] = { byId: {}, allId: [] }
             let postsByUserId = action.data.map(each => {
@@ -276,23 +281,43 @@ export default function reducer(state = {}, action) {
             })
             return newState
 
-            case CREATE_AND_DISPATCH_ALL_COMMENTS:
-                newState["comments"] = { byId: {}, allId: [] }
-                let allComments = action.data.map(each => {
-                    return {
-                        id: each.id,
-                        user_id: each.user_id,
-                        description: each.description,
-                        post_id: each.post_id,
-                        user_id: each.user_id,
-                        User: each.User,
-                    }
-                })
-                allComments.forEach(each => {
-                    newState.comments.byId[each.id] = { ...each }
-                    newState.comments.allId = [...newState.comments.allId, each.id]
-                })
-                return newState
+        case CREATE_AND_DISPATCH_ALL_COMMENTS:
+            newState["comments"] = { byId: {}, allId: [] }
+            let allComments = action.data.map(each => {
+                return {
+                    id: each.id,
+                    user_id: each.user_id,
+                    description: each.description,
+                    post_id: each.post_id,
+                    User: each.User,
+                    createdAt:each.createdAt
+                }
+            })
+            allComments.forEach(each => {
+                newState.comments.byId[each.id] = { ...each }
+                newState.comments.allId = [...newState.comments.allId, each.id]
+            })
+            return newState
+
+        case GRAB_ALL_COMMENTS_BY_POST_ID:
+            newState["comments"] = { byId: {}, allId: [] }
+            let allCommentByPostId = action.data.map(each => {
+                return {
+                    id: each.id,
+                    user_id: each.user_id,
+                    description: each.description,
+                    post_id: each.post_id,
+                    User: each.User,
+                    createdAt:each.createdAt
+                }
+            })
+            allCommentByPostId.forEach(each => {
+                newState.comments.byId[each.id] = { ...each }
+                newState.comments.allId = [...newState.comments.allId, each.id]
+            })
+            return newState
+
+
         default:
             return state
     }

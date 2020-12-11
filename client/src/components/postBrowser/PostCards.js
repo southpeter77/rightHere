@@ -81,45 +81,27 @@ export default function PostCard({ data }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [postId, setPostId] = useState(null)
- 
   // const [data2, setData2] = useState(data)
   const dispatch = useDispatch()
-  useEffect(()=>{
-    if(data) {
-      setPostId(data.id)
-    }
-    // dispatch(grabAllCommentsByPlaceIdThunk(postId))
-    setLoaded(!loaded)
-
-  },[])
-  if (!loaded) {
-    return null
-  }
+  
   return (<>
-    {/* <h1>"asdf"</h1> */}
     <Card className={classes.root}>
-      <button onClick={()=> console.log(data.Comments)}>click</button>
+      <button onClick={()=> console.log(data)}>click</button>
       <CardHeader
         avatar={
           <Avatar
-            src={data.User.Photos[0] ? data.User.Photos[0].url : null}
+            src={data.User.Photos[0].url}
           >
           </Avatar>
         }
-        // action={<Tooltip title={<h2>?</h2>}>
-        //   <Button
-        //     variant="contained"
-        //     color="secondary"
-        //     style={{ top: "2.5em" }}
-        //   >??</Button></Tooltip>
-        // }
         title={data.name}
-        subheader={<Typography variant="body2">{`${data.User.firstName} ${data.User.lastName} `}<NavLink to={`/place/${data.Place.id}`} 
+        subheader={<Typography variant="body2">
+          {`${data.User.firstName} ${data.User.lastName} `}
+          <NavLink to={`/place/${data.Places.id}`} 
         style={{ color:'gray',textDecoration: 'none' }}>
-          {`@${data.Place.name}`}</NavLink></Typography>}
-  
-
+          {`@${data.Places.name}`}</NavLink>
+          
+          </Typography>}
       />
       <CardMedia
         className={classes.media}
@@ -127,50 +109,18 @@ export default function PostCard({ data }) {
       style={{maxWidth:"800px", maxHeight:"500px"}}
       />
       <CardContent>
-        {/* <Typography variant="h6" color="textSecondary" component="h6">
-                    About this Route: {data.route.description}
-        </Typography> */}
         <Typography variant="body2" color="textSecondary" component="p">
         {data.description}
         </Typography>
         <Button
         style={{left:"80%"}}
         onClick={()=>{setShowComment(true)
-
       }}
                   variant="contained"
             color="primary"
         > Comments</Button>
-        <Comment modalClass={showComment} setShowComment={setShowComment} postId={postId} comments={data.Comments}></Comment>
-      </CardContent>
-        
-
-
-      {/* <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Comments:</Typography>
-
-        </CardContent>
-      </Collapse> */}
-
-
-
-      
+        {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
+      </CardContent>      
     </Card>
   </>);
 }

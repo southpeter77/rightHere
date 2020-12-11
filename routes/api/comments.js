@@ -4,23 +4,31 @@ const { handleValidationErrors, validateSignUpUser, validateUserEmailAndPassword
 const db = require('../../db/models');
 const { User, Post, Place, Photo, Relationship, Comment } = require('../../db/models');
 const router = express.Router();
-
-router.get("/post/:id(\\d+)", asyncHandler(async(req,res,next) => {
-    const postId = Number(req.params.id)
-    console.log(postId)
+//grab all comment by post id
+router.put("/post", asyncHandler(async(req,res,next) => {
+    const postId = req.body.postId
+    const comments = await db.Comment.findAll({
+        where:{
+            post_id:postId
+        },
+        include:{model:User,attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}}
+    })
+    res.json(comments)
 }))
-
+//create post
 router.post("/create", asyncHandler(async(req,res,next) => {
     const comment = await db.Comment.create({
         user_id: req.body.userId,
         post_id: req.body.postId,
         description: req.body.comment
     })
-    const allComments = await db.Comment.findAll({
-        where:{post_id:req.body.postId},
-        include:[{model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}}],
+    const comments = await db.Comment.findAll({
+        where:{
+            post_id:req.body.postId
+        },
+        include:{model:User,attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}}
     })
-    res.json(allComments)
+    res.json(comments)
 }))
 
 module.exports = router;

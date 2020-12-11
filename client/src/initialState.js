@@ -1,5 +1,6 @@
 export const initialState = {
   entities: {
+    //////////////////////////////
     place: {
       byId: {
         id: "",
@@ -44,16 +45,42 @@ export const initialState = {
       },
       allId: []
     },
+    ///////////////////////////
+    comments:{
+      byId:{
+        commentId:{
+          id:'',
+          post_id:'',
+          user_id:'',
+          description:'',
+          createdAt: '',
+          User:{
+            id:'',
+            biography:'',
+            firstName:'',
+            lastName:'',
+            email:'',
+            Photos:[{
+              url:''
+            }]
+          }
+        }
+      },
+      allId: []
+    },
+
+    ////////////////////////////
     posts: {
       byId: {
+        postsId:{
         id: "",
         name: "",
         description: "",
         coordinates: "",
         user_id: "",
         place_id: "",
-        Photos: [],
-        Place: {
+        Photos: [{url:""}],
+        Places: {
           id: "",
           name: "",
           description: "",
@@ -65,10 +92,11 @@ export const initialState = {
           firstName: "",
           lastName: "",
           email: "",
-          Photos: []
+          Photos: [{url:""}]
         }
 
-      },
+      }
+    },
       allId: []
     },
     places: {

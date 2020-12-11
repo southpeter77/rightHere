@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import { useDispatch, useSelector } from "react-redux";
-import {grabAllCommentsByPlaceIdThunk} from "../../components/store/actions/entities/entities"
+import {grabAllCommentsByPostIdThunk} from "../../components/store/actions/entities/entities"
 import { Typography } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +12,8 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 // import {createComment} from "../../components/store/actions/comment"
 import {createComment} from "../../components/store/actions/entities/entities"
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
         width: "500px",
         maxWidth: "80%",
         zIndex: "10",
+        maxHeight:"400pt"
+
       },modalActive: {
         position: "fixed",
         top: "50%",
@@ -41,15 +45,20 @@ const useStyles = makeStyles((theme) => ({
         width: "500px",
         maxWidth: "80%",
         zIndex: "10",
-        transform: "translate(-50%, -50%) scale(1)"
+        transform: "translate(-50%, -50%) scale(1)",
+        maxHeight:"400pt",
+        display: "flex", /*added*/
+        flexDirection: "column", /*added*/
       }
   }));
 
-const Comment = ({modalClass, setShowComment, postId, comments}) => {
+const Comment = ({modalClass, setShowComment, postId, postName}) => {
   const classes = useStyles();
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
   const dispatch = useDispatch()
   const [comment, setComment] = useState('')
+  const [loaded, setLoaded] = useState(false)
+  const allComments = Object.values(useSelector(state=>state.entities.comments.byId))
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
@@ -61,12 +70,15 @@ const Comment = ({modalClass, setShowComment, postId, comments}) => {
     setComment("")
   }
 
-  // useEffect(()=>{
+  useEffect(()=>{
 
-    // dispatch(grabAllCommentsByPlaceIdThunk(postId))
-    // setLoaded(!loaded)
+    dispatch(grabAllCommentsByPostIdThunk(postId))
+    setLoaded(!loaded)
 
-  // },[])
+  },[])
+  if (!loaded){
+    return null
+  }
 
   if (modalClass) {
     return (
@@ -80,12 +92,26 @@ const Comment = ({modalClass, setShowComment, postId, comments}) => {
       </IconButton>
     </div>
     <button
-    onClick={()=>console.log(comments)}
+    onClick={()=>console.log(allComments)}
     > postId</button>
     <div className="modal-body">
-        {comments.map(each=>{
+        {allComments.map(each=>{
           return (
-            <Typography>hi</Typography>
+            <CardHeader
+        avatar={
+          <Avatar
+            src={each.User.Photos[0].url}
+          >
+          </Avatar>
+        }
+      subheader={(<><Typography variant="body2">{`${each.User.firstName}  
+      ${each.createdAt.split("T").join(" ").split(".")[0].split(":")[0]}:
+      ${each.createdAt.split("T").join(" ").split(".")[0].split(":")[1]}`}</Typography>
+      
+      
+      </>)}
+        title={each.description}
+        />
           )
         })}
     <Grid>
