@@ -4,6 +4,22 @@ const { handleValidationErrors, validateSignUpUser, validateUserEmailAndPassword
 const db = require('../../db/models');
 const { User, Post, Place, Photo, Relationship, Comment } = require('../../db/models');
 const router = express.Router();
+
+//delete comment by comment id
+router.delete("/delete", asyncHandler(async(req, res, next) => {
+    const commentId = req.body.commentId;
+    const postId = req.body.postId
+    const comment = await db.Comment.findByPk(commentId)
+    await comment.destroy();
+    const comments = await db.Comment.findAll({
+        where:{
+            post_id:postId
+        },
+        include:{model:User,attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}}
+    })
+    res.json(comments)
+}))
+
 //grab all comment by post id
 router.put("/post", asyncHandler(async(req,res,next) => {
     const postId = req.body.postId

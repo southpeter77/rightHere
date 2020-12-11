@@ -102,7 +102,7 @@ const Place = () => {
       </div> : null}
       {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer> : null}
       <Paper className={classes.paper} elevation={1}>
-        <button onClick={() => console.log(data.User.Photos[0].url)}>console1</button>
+        <button onClick={() => console.log(data)}>console1</button>
         {/* <button onClick={()=>console.log(data2)}>console2</button> */}
         {/* <Typography
                 variant="h4"

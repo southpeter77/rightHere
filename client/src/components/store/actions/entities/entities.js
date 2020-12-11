@@ -154,6 +154,19 @@ export const createComment = (data) => async (dispatch) => {
     }
 }
 
+export const deleteComment = (data) => async (dispatch) => {
+    const response = await fetch("/api/comments/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        const jsonedData = await response.json()
+        dispatch(grabAllCommentsByPostId(jsonedData))
+    }
+    // console.log(data)
+}
+
 //////////////////////////////////////////////////////////
 export default function reducer(state = {}, action) {
     Object.freeze(state);

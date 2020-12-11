@@ -82,8 +82,14 @@ export default function PostCard({ data }) {
     setExpanded(!expanded);
   };
   // const [data2, setData2] = useState(data)
+  useEffect(()=>{
+    setLoaded(true)
+  },[])
   const dispatch = useDispatch()
-  
+  if(!loaded) {
+    return null
+  }
+
   return (<>
     <Card className={classes.root}>
       {/* <button onClick={()=> console.log(data)}>click</button> */}

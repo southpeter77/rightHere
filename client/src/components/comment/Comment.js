@@ -59,7 +59,7 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
   const [comment, setComment] = useState('')
   const [loaded, setLoaded] = useState(false)
   const allComments = Object.values(useSelector(state=>state.entities.comments.byId))
-  const [selectDelete, setSelectDelete] = useState("")
+  // const [selectDelete, setSelectDelete] = useState("")
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
@@ -78,9 +78,12 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
 
   },[])
 
-  const deleteComment =() => {
-    console.log(selectDelete)
-    // dispatch(deleteComment(selectDelete))
+  const deleteCommentFunc =(selectDelete) => {
+    // console.log(selectDelete)
+    const payload = {
+      postId,commentId:selectDelete
+    }
+    dispatch(deleteComment(payload))
   }
 
 
@@ -104,7 +107,7 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
     > postId</button> */}
     <div className="modal-body">
         {allComments.map(each=>{
-          console.log(each)
+          // console.log(each)
           return (
             <CardHeader
         avatar={
@@ -123,8 +126,8 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
         action={
           each.user_id == currentUser.userId ? <IconButton 
           onClick={()=>{
-            setSelectDelete(each.id)
-            deleteComment()}}
+            // setSelectDelete(c)
+            deleteCommentFunc(each.id)}}
           >
             <CancelIcon />
           </IconButton> : null}
@@ -147,9 +150,7 @@ const Comment = ({modalClass, setShowComment, postId, postName}) => {
               >
                 <CheckCircleIcon/>
                 </IconButton>
-                <IconButton>
-          <CancelIcon/>
-      </IconButton>
+
     </Grid>
 
     </div>
