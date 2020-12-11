@@ -62,3 +62,9 @@
   top: 160px;
   left: 147px;
 }
+
+.img__wrap2 {
+  position: relative;
+  height: 320px;
+  width: 360px;
+}

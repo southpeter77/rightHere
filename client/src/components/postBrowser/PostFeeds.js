@@ -14,12 +14,21 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Redirect,useParams } from "react-router-dom"
 import PostCards from "./PostCards"
 import {GRAB_ALL_POSTS,grablAllPlacesThunk, grabAllPostsThunk} from "../store/actions/entities/entities"
+import PostCard2 from "./PostCard2"
 
 const styles = makeStyles((theme) => ({
     paper: {
         maxWidth: 750,
         margin: 'auto',
         marginTop:"5%"
+
+    },    paper2: {
+        margin: 'auto',
+        marginTop:"5%",
+        display:'flex',
+        flexWrap:"wrap",
+        justifyContent: 'center',
+
 
     },
     root: {
@@ -48,7 +57,7 @@ const PostFeeds = () => {
     const dispatch = useDispatch()
     const datasArray = useSelector(state=>state.entities.posts.allId)
     const datas = Object.values(useSelector(state=>state.entities.posts.byId))
-    const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_POSTS))
+    // const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_POSTS))
 
     useEffect( () => {
 
@@ -65,7 +74,7 @@ const PostFeeds = () => {
     return (
         <>
 
-            <Paper className={classes.paper} elevation={1}>
+            <Paper className={classes.paper2} elevation={1}>
                 {/* <button
                 onClick={()=>console.log(datas)}
                 >console</button> */}
@@ -80,14 +89,29 @@ datasArray.map(each=>{
 
 
 {/* {data.map(each=><PostCards data={each}></PostCards>)} */}
+
+
 {datas.map(each=>{
+
+return(
+    <PostCard2 data={each}></PostCard2>
+    // <h1>asdfasdf</h1>
+)
+})}
+
+
+
+
+
+
+{/* {datas.map(each=>{
 
     return(
         <PostCards data={each}></PostCards>
         // <h1>asdfasdf</h1>
     )
 })}
-z
+ */}
 
 
 

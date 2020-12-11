@@ -8,6 +8,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin:'auto',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -27,54 +28,8 @@ const useStyles = makeStyles((theme) => ({
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
 }));
-
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
-
-// const tileData = [
-//     {
-//       img: "/uploadPicture.jpg",
-//       title: 'Capture the Moment and Share with people around you...',
-//       author: 'author',
-//       featured: true,
-//     },   {
-//      img: "/uploadPicture2.jpg",
-//      // title: 'Take a Photo',
-//      author: 'author',
-//    },    
-//     {
-//      img: "/uploadPicture4.jpg",
-//      // title: 'or Upload a Photo',
-//      author: 'author',
- 
-//    },{
-//      img: "/uploadPicture4.jpg",
-//      // title: 'or Upload a Photo',
-//      author: 'author',
- 
-//    },{
-//      img: "/uploadPicture4.jpg",
-//      // title: 'or Upload a Photo',
-//      author: 'author',
- 
-//    },
-//   ]
 export default function SingleLineGridList({data,setOpenSwipeable}) {
+  console.log(data)
   const classes = useStyles();
   return (
     <div className={classes.root}>

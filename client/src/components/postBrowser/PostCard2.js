@@ -1,40 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import { deepPurple } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Grid from '@material-ui/core/Grid';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
-import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Tooltip from '@material-ui/core/Tooltip';
 import { Button } from '@material-ui/core';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
-import {GRAB_ALL_POSTS} from "../store/actions/entities/entities"
+import { NavLink } from 'react-router-dom';
 import Comment from "../comment/Comment"
 import { useDispatch, useSelector } from "react-redux";
-import {grabAllCommentsByPlaceIdThunk} from "../../components/store/actions/entities/entities"
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 800,
-    height: 700
+  root1: {
+    width: 330,
+    height: 500,
+    borderRadius:'20pt',
+    margin:10
+  },
+  root2:{
+    width: 300,
+    height: 300,
+    borderRadius:'20pt',
+    margin:10
   },
   media: {
-    height: 0,
-    paddingTop: '65%', // 16:9
+    height: 300,
+    paddingTop: '80%', // 16:9
   }, expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -82,14 +75,16 @@ export default function PostCard({ data }) {
     setExpanded(!expanded);
   };
   // const [data2, setData2] = useState(data)
-  useEffect(()=>{},[])
+  useEffect(()=>{
+    setLoaded(!loaded)
+  },[])
   const dispatch = useDispatch()
   if(!loaded) {
     return null
   }
 
   return (<>
-    <Card className={classes.root}>
+    <Card className={classes.root1} elevation={3}>
       {/* <button onClick={()=> console.log(data)}>click</button> */}
       <CardHeader
         avatar={
@@ -98,19 +93,19 @@ export default function PostCard({ data }) {
           >
           </Avatar>
         }
-        title={data.name}
+        title={<Typography variant="subtitle1">{data.name}</Typography>}
         subheader={<Typography variant="body2">
-          {`${data.User.firstName} ${data.User.lastName} `}
-          <NavLink to={`/place/${data.Places.id}`} 
-        style={{ color:'gray',textDecoration: 'none' }}>
-          {`@${data.Places.name}`}</NavLink>
+          {`${data.User.firstName}`}
+          <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`} 
+        style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
+          {`@${data.Places.name}`}</Typography>
           
           </Typography>}
       />
       <CardMedia
         className={classes.media}
       image={data.Photos[0].url}
-      style={{maxWidth:"800px", maxHeight:"500px"}}
+      style={{maxWidth:"800px", maxHeight:"700px"}}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -118,12 +113,12 @@ export default function PostCard({ data }) {
         </Typography>
         <Button
         fontSize="small"
-        style={{left:"80%"}}
+        style={{left:"50%"}}
         onClick={()=>{setShowComment(true)
       }}
                   // variant="outlined"
             // color="primary"
-        > view comments</Button>
+        >comments</Button>
         {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
       </CardContent>      
     </Card>

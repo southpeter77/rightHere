@@ -18,41 +18,44 @@ const useStyles = makeStyles({
   },
   media: {
     height: 320,
+    paddingTop: '80%', // 16:9
+
   },
 });
 
 export default function PlaceCards({data}) {
   const classes = useStyles();
     const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})
-  return (
+  return (<>
+  <div
+//   style={{
+//     display:"flex"  
+//   }}
+  >
     <Card className={classes.root}
     onMouseOver={()=>setMouseHover({raised:true, shadow:3})}
     onMouseOut={()=>setMouseHover({raised:false, shadow:1})}
     raised={mouseHover.raised}
     shadow={mouseHover.shadow}
-    onClick={()=>window.location.href=`/place/${data.id}`}
+
     >
       <CardActionArea>
       <div class="img__wrap">
         <CardMedia
           className={classes.media}
           className="imgTag"
-          image={data.Photos[0].url}
+          image={data.url}
         />
          {/* <p class="img__description"></p> */}
-         <div className="img__description">
-             <Typography
-             variant="h6"
-             className="onHoverText"
-  >{data.Posts.length >1 ?`${data.Posts.length} posts` : `${data.Posts.length} post` } </Typography>
-         
-         </div>
         </div>
-          
-        <CardContent>
 
-        </CardContent>
       </CardActionArea>
     </Card>
+    <Typography
+    align="center"
+             variant="body1"
+  >{data.name} </Typography>
+   </div>
+      </>
   );
 }

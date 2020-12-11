@@ -12,7 +12,7 @@ import PlaceCards from "./PlaceCards"
 import {grablAllPlacesThunk, GRAB_ALL_PLACES} from "../../components/store/actions/entities/entities"
 const styles = makeStyles((theme) => ({
     paper: {
-        maxWidth: 750,
+        // maxWidth: 750,
         margin: 'auto',
         marginTop:"5%",
         display:'flex',
@@ -29,7 +29,6 @@ const PlaceFeeds = () => {
     const data2 = Object.values(useSelector(state=> state.entities.places.byId))
     // const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_PLACES))
     // console.log(data)
-    console.log(data2)
     useEffect(() => {
 
         dispatch(grablAllPlacesThunk())
