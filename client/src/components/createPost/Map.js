@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react"
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, Polyline, DirectionsRenderer, Polygon} from "react-google-maps"
 import mapStyles from "./mapStyle"
-import mapCss from "./mapCss.css"
+import style from "./style.css"
 const options = {
   styles: mapStyles, 
   disableDefaultUI: true, 

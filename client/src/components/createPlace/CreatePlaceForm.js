@@ -68,8 +68,8 @@ const CreatePlace = ({currentCoordinates,image}) => {
   return (
 
           <div className={classes.paper} ><form className={classes.form} noValidate>
-            <Typography variant="h5" component="h5" align="left">Claim this Place!</Typography>
-            <Typography align="left">You will be able to manage this place</Typography>
+            <Typography variant="h5" component="h5" align="left">Create this Place!</Typography>
+            {/* <Typography align="left">Start Managing this Place</Typography> */}
                   
          <Grid container spacing={2}>
             <Grid item xs={12}>

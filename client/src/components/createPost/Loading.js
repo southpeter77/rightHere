@@ -68,9 +68,10 @@ export default function CircularIntegration({handleSubmit}) {
   };
 
   return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
+    <div className={classes.root}         style={{height:"15pt"}}>
+      <div className={classes.wrapper}         style={{height:"15pt"}}>
         <Fab
+        style={{height:"15pt"}}
           aria-label="save"
           color="primary"
           className={buttonClassname}
@@ -82,6 +83,7 @@ export default function CircularIntegration({handleSubmit}) {
       </div>
       <div className={classes.wrapper}>
         <Button
+                style={{height:"15pt"}}
           variant="contained"
           color="primary"
           className={buttonClassname}

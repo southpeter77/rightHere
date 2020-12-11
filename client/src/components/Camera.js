@@ -31,10 +31,10 @@ const videoConstraints = {
       <>
         <Webcam
           audio={false}
-          height={500}
+          height={580}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
-          width={600}
+          width={480}
           videoConstraints={videoConstraints}
         />
         {/* <button onClick={capture}>Capture photo</button> */}

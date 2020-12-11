@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
     // margin: theme.spacing(5),
-    margin: theme.spacing(5, 30)
+    margin: theme.spacing(5, 30),
   },
   paper: {
     margin: theme.spacing(5, 2),
@@ -28,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   form: {
-    width: '60%',
-    margin: theme.spacing(5,35),
+    width: '80%',
+    margin: theme.spacing(5),
+
   },
   submit: {
     width: "100%",
@@ -69,7 +70,8 @@ const CreatePostForm = ({currentCoordinates,image}) => {
   return (
     
           <div className={classes.paper} >
-
+{name&&description&&image ?<Loading 
+handleSubmit={handleSubmit}></Loading>:null}
                   <form className={classes.form} noValidate> 
          <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -99,24 +101,9 @@ const CreatePostForm = ({currentCoordinates,image}) => {
               />
             </Grid>
           </Grid>
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
-            Create Post
-          </Button> */}
-          
-            <Grid item>
-
-          </Grid>
-          
         </form>
         <div style={{display:'flex', justifyContent:"center"}}>
-{name&&description&&image ?<Loading handleSubmit={handleSubmit}></Loading>:null}
+
         </div>
 
         
