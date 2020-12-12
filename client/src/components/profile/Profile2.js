@@ -113,6 +113,7 @@ const PostFeeds = () => {
         <>
 
             <Paper className={classes.paper} elevation={0}>
+{/* <button onClick={()=>console.log(places)}>asdfasdf</button> */}
                 <Card elevation={0} className={classes.card}>
                     <Avatar
                     style={{ width: '130pt', height: '130pt', margin:"auto" }}
@@ -180,7 +181,7 @@ const PostFeeds = () => {
                                 </Typography>
 
                                
-                                <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${data.posts.length} Places ${data.places.length}`}</Typography>
+                                <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${posts.length} Places ${places.length}`}</Typography>
                                 <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces}></ProfileNavBar>
     <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <CardContent>

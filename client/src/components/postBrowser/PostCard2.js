@@ -101,15 +101,15 @@ export default function PostCard({ data }) {
         title={<Typography variant="subtitle1">{data.name}</Typography>}
         subheader={<Typography variant="body2">
           {`${data.User && data.User.firstName}`}
-          <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`} 
+         {data && <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`}
         style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
-          {`@${data.Places.name}`}</Typography>
+          {`@${data.Places.name}`}</Typography> }
           
           </Typography>}
       />
       <CardMedia
         className={classes.media}
-      image={data.Photos[0].url}
+      image={data && data.Photos[0].url}
       style={{maxWidth:"800px", maxHeight:"700px"}}
       />
       <CardContent>

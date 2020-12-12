@@ -33,7 +33,7 @@ const styles = makeStyles((theme) => ({
         margin: 'auto',
         // marginTop: "5%",
         display: "flex",
-        height: '100vh',
+        // height: '100vh',
         // flexDirection:"column",
         justifyContent: 'center'
 
@@ -119,8 +119,9 @@ const CreatePost = () => {
     return (
         <>
 
-
+   <Map coordinates={currentCoordinates}></Map>
             <Paper className={classes.paper} elevation={1}>
+             
                 <Card className={classes.root}>
 
                     <IconButton

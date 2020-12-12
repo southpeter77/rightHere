@@ -5,7 +5,7 @@ import mapStyles from "./mapStyle"
 import mapCss from "./mapCss.css"
 const options = {
   styles: mapStyles, 
-  disableDefaultUI: true, 
+  // disableDefaultUI: true, 
   zoomControl: true,
 }
 const Map = ({coordinates}) => {

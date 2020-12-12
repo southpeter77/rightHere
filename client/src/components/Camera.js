@@ -28,7 +28,12 @@ const videoConstraints = {
       }
 
     return (
-      <>
+      <>       
+       {/* <IconButton
+        style={{height:"40pt"}}
+        >
+          <CancelIcon onClick={()=>handelCancel()} fontSize="large"></CancelIcon>
+        </IconButton> */}
         <Webcam
           audio={false}
           height={580}
@@ -38,17 +43,13 @@ const videoConstraints = {
           videoConstraints={videoConstraints}
         />
         {/* <button onClick={capture}>Capture photo</button> */}
-        <IconButton
+        {/* <IconButton
         style={{height:"40pt"}}
         >
           <RadioButtonCheckedIcon fontSize="large"></RadioButtonCheckedIcon>
         </IconButton>
-        <IconButton
-        style={{height:"40pt"}}
-        >
-          <CancelIcon onClick={()=>handelCancel()} fontSize="large"></CancelIcon>
-        </IconButton>
-        
+
+         */}
       </>
     );
   };

@@ -37,7 +37,7 @@ const square = [
 mapContainerStyle={{
   border: '5px solid red'
 }}
-defaultZoom={14}
+defaultZoom={10}
 center={coordinates}
 options={options}
 >
@@ -67,12 +67,12 @@ const MapContainer = ({coordinates}) => {
 
   return (
     <>
-          <div  style={{ width: '400px', height: '450px', margin: "auto",borderRadius:'20pt' }}>
+          <div  style={{ width: '100%', height: '300px', margin: "auto",borderRadius:'20pt' }}>
     <WrappedMap 
     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-    loadingElement={<div style={{height: '100%',borderRadius:'20pt'}}/> }
-    containerElement={<div style={{height:"100%",borderRadius:'20pt'}}/>}
-    mapElement={<div style={{height: "100%",borderRadius:'20pt'}}/>}
+    loadingElement={<div style={{height: '100%'}}/> }
+    containerElement={<div style={{height:"100%"}}/>}
+    mapElement={<div style={{height: "100%"}}/>}
     coordinates={coordinates}
     >
     </WrappedMap>
