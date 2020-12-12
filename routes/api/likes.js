@@ -17,14 +17,34 @@ const existedLike =await db.Like.findOne({
 })
 if(existedLike) {
     await existedLike.destroy();
-    res.json({message:"deleted"})
+    const data = await db.Post.findAll({
+        include:[
+            {model:Place},
+            {model:Photo},
+            {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}},
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+            {model:Like}
+        ]
+    })
+
+    res.json(data)
 } else {
      await db.Like.create({
             user_id:userId,
             post_id:postId
 
     })
-    res.json({message:"created"})
+    const data = await db.Post.findAll({
+        include:[
+            {model:Place},
+            {model:Photo},
+            {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}},
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+            {model:Like}
+        ]
+    })
+
+    res.json(data)
 
 }
 }))

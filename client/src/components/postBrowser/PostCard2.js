@@ -80,7 +80,7 @@ export default function PostCard({ data }) {
   const [expanded, setExpanded] = useState(false);
   const[showComment, setShowComment] = useState(false)
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
-
+const dispatch = useDispatch()
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -97,14 +97,14 @@ dispatch(likeHandler(payload))
     // dispatch(grabALlLikesByPostId(data.id))
     setLoaded(!loaded)
   },[])
-  const dispatch = useDispatch()
+  
   if(!loaded) {
     return null
   }
 
   return (<>
     <Card className={classes.root1} elevation={3}>
-      {/* <button onClick={()=> console.log(data)}>click</button> */}
+      <button onClick={()=> console.log(data)}>click</button>
       <CardHeader
         avatar={
           <Avatar
@@ -134,13 +134,30 @@ dispatch(likeHandler(payload))
       <CardActions disableSpacing>
   
 
-  <Like postId={data.id} userId={currentUser.userId}></Like>
-        {/* <IconButton aria-label="add to favorites"
+  {/* <Like postId={data.id} userId={currentUser.userId}></Like> */}
+        
+        
+        
+        <IconButton aria-label="add to favorites"
         onClick={()=>clickLikeHandler(data.id)}
         >
-      <FavoriteIcon /> 
+      {data.Likes.filter(each=>{
+        if (each.user_id == currentUser.userId) {
+          return each
+        }
+      }).length > 0
+        ?<FavoriteIcon style={{color:'crimson'}}/>
+        :<FavoriteIcon />
+        }
         </IconButton>
-        <Typography variant="body2">{`${data.Likes.length} likes`}</Typography> */}
+        <Typography variant="body2">{`${data.Likes.length} likes`}</Typography>
+       
+       
+
+
+
+
+
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

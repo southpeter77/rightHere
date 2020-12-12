@@ -1,4 +1,4 @@
-import {allLikes} from "../actions/entities/entities"
+import {allLikes, grabAllPosts} from "../actions/entities/entities"
 
 export const likeHandler = (data) => async (dispatch) => {
     const response = await fetch("/api/likes", {
@@ -8,7 +8,8 @@ export const likeHandler = (data) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log(data)
+        await dispatch(grabAllPosts(data))
+
     }
 }
 
@@ -23,7 +24,7 @@ export const grabAllLikes = () => async (dispatch) => {
     const response = await fetch(`/api/likes/all`)
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
         dispatch(allLikes(data))
     }
 }

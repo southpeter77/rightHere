@@ -3,7 +3,11 @@ export const initialState = {
     //////////////////////////////
     likes:{
       byId:{
-
+        postId:{
+          id:'',
+          user_id:'',
+          post_id:''
+        }
       }
     },
     //////////////////////////////

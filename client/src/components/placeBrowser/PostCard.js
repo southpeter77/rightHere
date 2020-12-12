@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
 import Comment from "../comment/Comment"
+import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +75,7 @@ export default function PostCard({data}) {
   const [expanded, setExpanded] = useState(false);
   const[showComment, setShowComment] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -89,7 +91,7 @@ export default function PostCard({data}) {
 
   return (
     <Card className={classes.root}>
-        {/* <button onClick={() => console.log(data)}>asdfasdf</button> */}
+        <button onClick={() => console.log(data)}>asdfasdf</button>
       <CardHeader
         avatar={
           <Avatar
@@ -112,9 +114,26 @@ export default function PostCard({data}) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+
+
+
+
+
+
+
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
+
+
+
+
+
+
+
+
+
+
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

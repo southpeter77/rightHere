@@ -17,7 +17,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
             {model:Photo},
             {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}},
             {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
-            // {model:Like}
+            {model:Like}
         ]
     })
 
@@ -34,8 +34,9 @@ router.get('/place/:id(\\d+)', asyncHandler(async (req, res, next) => {
         },
         include:[
             {model:Photo},
-            {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}}
-
+            {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}},
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+            {model:Like}
         ]
     })
     res.json(data)

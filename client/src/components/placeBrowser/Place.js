@@ -26,6 +26,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import MapIcon from '@material-ui/icons/Map';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import UploadImage from "./UploadImage"
+import {grabAllLikes} from "../store/actions/like"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -79,6 +81,8 @@ const Place = () => {
   const dispatch = useDispatch()
   const { placeId } = useParams()
   const data = useSelector((state) => state.entities.place.byId)
+  const datas = Object.values(useSelector(state=>state.entities.posts.byId))
+
   const id = Number(placeId)
   const [showMap, setShowMap] = useState(false)
   const [setting, setSetting] = useState(false)
@@ -86,7 +90,9 @@ const Place = () => {
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
   useEffect(() => {
     dispatch(grabPlaceByIdThunk(placeId))
-    dispatch(grabPostsByPlaceIdThunk(placeId))
+    // dispatch(grabPostsByPlaceIdThunk(placeId))
+    dispatch(grabAllLikes())
+
     setLoaded(true)
   }, [])
   return (
