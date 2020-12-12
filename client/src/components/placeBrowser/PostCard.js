@@ -18,6 +18,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
 import Comment from "../comment/Comment"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+import {likeHandlerInPlace,grabALlLikesByPostId} from "../store/actions/like"
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,10 +78,22 @@ export default function PostCard({data}) {
   const[showComment, setShowComment] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+  const dispatch = useDispatch()
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const clickLikeHandler = (id) => {
+    const payload = {
+      userId: currentUser.userId,
+      postId:id,
+      placeId:data.place_id
+    }
+    // console.log(data)
+dispatch(likeHandlerInPlace(payload))
+    // console.log(id)
+  }
 
 
   useEffect(()=>{
@@ -100,13 +114,14 @@ export default function PostCard({data}) {
             
           </Avatar>
         }
-        title={data.name}
-        subheader={`${data.User.firstName} ${data.User.lastName}`} 
+        title={<Typography variant="subtitle1">{data.name}</Typography>}
+
+        subheader={<Typography variant="body2">{data.User.firstName} {data.User.lastName}</Typography>} 
       />
       <CardMedia
         className={classes.media}
         image={data.Photos[0].url}
-        style={{maxWidth:"800px", maxHeight:"500px"}}
+        style={{maxWidth:"800px", maxHeight:"700px"}}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -119,13 +134,21 @@ export default function PostCard({data}) {
 
 
 
-
-
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+      <IconButton aria-label="add to favorites"
+        onClick={()=>clickLikeHandler(data.id)}
+        >
+      {data.Likes.filter(each=>{
+        if (each.user_id == currentUser.userId) {
+          return each
+        }
+      }).length > 0
+        ?<FavoriteIcon style={{color:'crimson'}}/>
+        :<FavoriteIcon />
+        }
         </IconButton>
-
-
+        <Typography variant="body2">{`${data.Likes.length} likes`}</Typography>
+       
+       
 
 
 

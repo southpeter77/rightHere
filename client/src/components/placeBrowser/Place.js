@@ -90,7 +90,7 @@ const Place = () => {
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
   useEffect(() => {
     dispatch(grabPlaceByIdThunk(placeId))
-    // dispatch(grabPostsByPlaceIdThunk(placeId))
+    dispatch(grabPostsByPlaceIdThunk(placeId))
     dispatch(grabAllLikes())
 
     setLoaded(true)
@@ -232,7 +232,19 @@ const Place = () => {
             spacing={0}
           >
 
-            {data.posts.map(each => <PostCard data={each}></PostCard>)}
+            {/* {data.posts.map(each => <PostCard data={each}></PostCard>)} */}
+          
+            {datas.map(each=>{
+
+return(
+    <PostCard data={each}></PostCard>
+    // <h1>asdfasdf</h1>
+)
+})}
+
+
+
+          
           </Grid>
 
         </Grid>

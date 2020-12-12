@@ -229,11 +229,13 @@ export default function reducer(state = {}, action) {
                     id: each.id,
                     name: each.name,
                     description: each.description,
-                    coordinates: JSON.parse(each.coordinates),
                     place_id: each.place_id,
                     user_id: each.user_id,
-                    photos: each.Photos,
-                    users: each.User
+                    Photos: each.Photos,
+                    Places: each.Place,
+                    User: each.User,
+                    comments: each.Comments,
+                    Likes: each.Likes
                 }
             })
             postsByPlaceId.forEach(each => {

@@ -1,4 +1,4 @@
-import {allLikes, grabAllPosts} from "../actions/entities/entities"
+import {allLikes, grabAllPosts, grabAllPostsByPlaceId} from "../actions/entities/entities"
 
 export const likeHandler = (data) => async (dispatch) => {
     const response = await fetch("/api/likes", {
@@ -9,6 +9,19 @@ export const likeHandler = (data) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         await dispatch(grabAllPosts(data))
+
+    }
+}
+
+export const likeHandlerInPlace = (data) => async (dispatch) => {
+    const response = await fetch("/api/likes/place", {
+        method:"put",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        const data = await response.json()
+        await dispatch(grabAllPostsByPlaceId(data))
 
     }
 }
