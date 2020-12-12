@@ -17,6 +17,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
 import Comment from "../comment/Comment"
+import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+import {likeHandler,grabALlLikesByPostId, likeHandlerInProfile} from "../store/actions/like"
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,10 +74,22 @@ export default function PostCard({data}) {
   const [expanded, setExpanded] = useState(false);
   const[showComment, setShowComment] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+  const dispatch = useDispatch()
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const clickLikeHandler = (id) => {
+    const payload = {
+      userId: currentUser.userId,
+      postId:id
+    }
+dispatch(likeHandlerInProfile(payload))
+    // console.log(id)
+  }
+
   useEffect(()=>{
     setLoaded(!loaded)
   },[])
@@ -107,9 +122,26 @@ export default function PostCard({data}) {
         <Button>Edit Post</Button>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
+        </IconButton> */}
+
+<IconButton aria-label="add to favorites"
+        onClick={()=>clickLikeHandler(data.id)}
+        >
+      {data.Likes.filter(each=>{
+        if (each.user_id == currentUser.userId) {
+          return each
+        }
+      }).length > 0
+        ?<FavoriteIcon style={{color:'crimson'}}/>
+        :<FavoriteIcon />
+        }
         </IconButton>
+        <Typography variant="body2">{`${data.Likes.length} likes`}</Typography>
+
+
+
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

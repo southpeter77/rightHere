@@ -94,7 +94,49 @@ router.put("/place", asyncHandler(async (req,res,next) => {
     }
     }))
 
-
+//////////like for posts in profile//////////////////
+router.put("/profile", asyncHandler(async (req,res,next) => {
+    const postId = req.body.postId;
+    const userId =req.body.userId;
+    const existedLike =await db.Like.findOne({
+        where: {
+            user_id:userId,
+            post_id:postId
+        }
+    })
+    if(existedLike) {
+        await existedLike.destroy();
+        const data = await db.Post.findAll({
+            where:{
+                user_id:userId
+            },
+            include:[
+                {model:Photo}, {model:Place, attributes:["id","name"]},
+                {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+                {model:Like}
+            ]
+        })
+        res.json(data)
+    } else {
+         await db.Like.create({
+                user_id:userId,
+                post_id:postId
+    
+        })
+        const data = await db.Post.findAll({
+            where:{
+                user_id:userId
+            },
+            include:[
+                {model:Photo}, {model:Place, attributes:["id","name"]},
+                {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+                {model:Like}
+            ]
+        })
+        res.json(data)
+    
+    }
+    }))
 
 
 

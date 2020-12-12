@@ -274,7 +274,8 @@ export default function reducer(state = {}, action) {
                     user_id: each.user_id,
                     User: each.User,
                     Photos: each.Photos,
-                    Posts: each.Posts
+                    Posts: each.Posts,
+                    
                 }
             })
             allPlacesByUserId.forEach(each => {
@@ -296,7 +297,10 @@ export default function reducer(state = {}, action) {
                     place_id: each.place_id,
                     user_id: each.user_id,
                     photos: each.Photos,
-                    Places:each.Place
+                    Places:each.Place,
+                    User: each.User,
+                    comments: each.Comments,
+                    Likes: each.Likes
                 }
             })
             postsByUserId.forEach(each => {

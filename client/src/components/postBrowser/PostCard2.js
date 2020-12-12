@@ -104,7 +104,7 @@ dispatch(likeHandler(payload))
 
   return (<>
     <Card className={classes.root1} elevation={3}>
-      <button onClick={()=> console.log(data)}>click</button>
+      {/* <button onClick={()=> console.log(data)}>click</button> */}
       <CardHeader
         avatar={
           <Avatar
@@ -123,7 +123,7 @@ dispatch(likeHandler(payload))
       />
       <CardMedia
         className={classes.media}
-      image={data && data.Photos[0].url}
+      image={data.Photos.length && data.Photos[0].url}
       style={{maxWidth:"800px", maxHeight:"700px"}}
       />
       <CardContent>

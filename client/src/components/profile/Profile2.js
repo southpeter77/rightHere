@@ -27,6 +27,9 @@ import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import EditProfile from "./EditProfile"
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import {grabAllLikes} from "../store/actions/like"
+
+
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
@@ -107,6 +110,8 @@ const PostFeeds = () => {
     useEffect(() => {
         dispatch(grabAllPlacesByUserIdThunk(data.userId))
         dispatch(grabAllPostsByUserIdThunk(data.userId))
+        dispatch(grabAllLikes())
+
     }, []);
     // console.log(posts)
     return (

@@ -37,7 +37,7 @@ const square = [
 mapContainerStyle={{
   border: '5px solid red'
 }}
-defaultZoom={10}
+defaultZoom={11}
 center={coordinates}
 options={options}
 >
