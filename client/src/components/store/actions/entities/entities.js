@@ -9,7 +9,7 @@ export const GRAB_ALL_PLACES_BY_USER_ID = "GRAB_ALL_PLACES_BY_USER_ID"
 export const GRAB_ALL_POSTS_BY_USER_ID = "GRAB_ALL_POSTS_BY_USER_ID"
 export const GRAB_ALL_COMMENTS_BY_POST_ID = "GRAB_ALL_COMMENTS_BY_POST_ID"
 export const CREATE_AND_DISPATCH_ALL_COMMENTS = "CREATE_AND_DISPATCH_ALL_COMMENTS"
-
+export const GRAB_ALL_LIKES = "GRAB_ALL_LIKES"
 ///////////////////////////////////////////////
 export const grabAllPosts = (data) => {
     return {
@@ -63,6 +63,13 @@ export const grabAllCommentsByPostId = (data) => {
 export const createAndDispatchAllComments = (data) => {
     return {
         type: CREATE_AND_DISPATCH_ALL_COMMENTS,
+        data
+    }
+}
+
+export const allLikes = (data) => {
+    return {
+        type:GRAB_ALL_LIKES,
         data
     }
 }
@@ -185,7 +192,8 @@ export default function reducer(state = {}, action) {
                     Photos: each.Photos,
                     Places: each.Place,
                     User: each.User,
-                    comments: each.Comments
+                    comments: each.Comments,
+                    Likes: each.Likes
                 }
 
             })
@@ -331,7 +339,20 @@ export default function reducer(state = {}, action) {
             })
             return newState
 
+            
+            case GRAB_ALL_LIKES:
+                newState["likes"] = { byId: {}, allId: [] }
+                let allLikes = action.data.map(each => {
+                    return {
+                        id: each.id,
+                        user_id: each.user_id,
+                        post_id: each.post_id,
+                    }
+                })
 
+                    newState.likes.byId= allLikes
+ 
+                return newState
         default:
             return state
     }

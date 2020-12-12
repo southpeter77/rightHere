@@ -1,6 +1,12 @@
 export const initialState = {
   entities: {
     //////////////////////////////
+    likes:{
+      byId:{
+
+      }
+    },
+    //////////////////////////////
     place: {
       byId: {
         id: "",
@@ -93,7 +99,12 @@ export const initialState = {
           lastName: "",
           email: "",
           Photos: [{url:""}]
-        }
+        },
+        Likes:[{
+          user_id:'',
+          post_id:'',
+          like:''
+        }]
 
       }
     },

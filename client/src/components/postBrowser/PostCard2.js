@@ -16,6 +16,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
+import {likeHandler,grabALlLikesByPostId} from "../store/actions/like"
+import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+import Like from "./Like"
 
 const useStyles = makeStyles((theme) => ({
   root1: {
@@ -76,11 +79,22 @@ export default function PostCard({ data }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const[showComment, setShowComment] = useState(false)
+  const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   // const [data2, setData2] = useState(data)
+  const clickLikeHandler = (id) => {
+    const payload = {
+      userId: currentUser.userId,
+      postId:id
+    }
+dispatch(likeHandler(payload))
+    // console.log(id)
+  }
   useEffect(()=>{
+    // dispatch(grabALlLikesByPostId(data.id))
     setLoaded(!loaded)
   },[])
   const dispatch = useDispatch()
@@ -118,9 +132,15 @@ export default function PostCard({ data }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+  
+
+  <Like postId={data.id} userId={currentUser.userId}></Like>
+        {/* <IconButton aria-label="add to favorites"
+        onClick={()=>clickLikeHandler(data.id)}
+        >
+      <FavoriteIcon /> 
         </IconButton>
+        <Typography variant="body2">{`${data.Likes.length} likes`}</Typography> */}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     Post.belongsTo(models.Place, {foreignKey:"place_id"})
     Post.hasMany(models.Photo,{foreignKey:"post_id"})
     Post.hasMany(models.Comment,{foreignKey:"post_id"})
-
+    Post.hasMany(models.Like, {foreignKey:"post_id"})
 
   };
   return Post;

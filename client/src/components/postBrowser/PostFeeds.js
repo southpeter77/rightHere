@@ -15,6 +15,7 @@ import { Redirect,useParams } from "react-router-dom"
 import PostCards from "./PostCards"
 import {GRAB_ALL_POSTS,grablAllPlacesThunk, grabAllPostsThunk} from "../store/actions/entities/entities"
 import PostCard2 from "./PostCard2"
+import {grabAllLikes} from "../store/actions/like"
 
 const styles = makeStyles((theme) => ({
     paper: {
@@ -58,12 +59,12 @@ const PostFeeds = () => {
     const datasArray = useSelector(state=>state.entities.posts.allId)
     const datas = Object.values(useSelector(state=>state.entities.posts.byId))
     // const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_POSTS))
-
+    const likes = useSelector(state=> state.entities.likes.byId)
     useEffect( () => {
 
          dispatch(grabAllPostsThunk())
          dispatch(grablAllPlacesThunk())
-        
+            dispatch(grabAllLikes())
         setLoaded(true)
   
     }, []);

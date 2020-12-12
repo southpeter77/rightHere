@@ -2,7 +2,7 @@ const merge = require('lodash.merge');
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const db = require('../../db/models');
-const {User,Post, Place, Photo, Relationship, Comment} = require('../../db/models');
+const {User,Post, Place, Photo, Relationship, Comment, Like} = require('../../db/models');
 const router = express.Router();
 const AWS = require("aws-sdk");
 const { awsKeys } = require("../../config")
@@ -16,7 +16,8 @@ router.get('/', asyncHandler(async (req, res, next) => {
             {model:Place},
             {model:Photo},
             {model:User, attributes:["id", "biography","firstName", "lastName","email"], include:{model:Photo}},
-            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}}
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+            // {model:Like}
         ]
     })
 
