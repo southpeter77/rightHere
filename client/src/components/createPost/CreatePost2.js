@@ -27,6 +27,7 @@ import { currentLocationCoordinatesThunk, CURRENT_LOCATION_COORDINATES } from ".
 import Zoom from '@material-ui/core/Zoom';
 // import Grow from '@material-ui/core/Grow';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CreatePostFormCamera from "./CreatePostFormCamera"
 const styles = makeStyles((theme) => ({
     paper: {
         // maxWidth: 750,
@@ -176,16 +177,16 @@ const CreatePost = () => {
 
                     <div className={classes.modalActive} id="modal">
                         {!placeExist ? <>
-                            <Camera setShowCamera={setShowCamera} setShowGallery={setShowGallery}></Camera>
+                            <Camera setShowCamera={setShowCamera} setShowGallery={setShowGallery} setImage={setImage}></Camera>
                             <Grid container className={classes.containerRoot}>
                                 <CreatePlaceForm currentCoordinates={currentCoordinates} image={image}></CreatePlaceForm>
                             </Grid>
                         </>
                             :
                             <>
-                                <Camera setShowCamera={setShowCamera} setShowGallery={setShowGallery}></Camera>
+                                <Camera setShowCamera={setShowCamera} setShowGallery={setShowGallery} setImage={setImage}></Camera>
                                 <Grid container className={classes.containerRoot}>
-                                    <CreatePostForm currentCoordinates={currentCoordinates} image={image}></CreatePostForm>     </Grid>
+                                    <CreatePostFormCamera currentCoordinates={currentCoordinates} image={image}></CreatePostFormCamera>     </Grid>
                             </>
                         }
 

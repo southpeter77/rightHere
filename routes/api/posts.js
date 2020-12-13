@@ -110,6 +110,24 @@ asyncHandler(async(req,res,next) => {
     res.json({post, image})
 }))
 
+//create post with camera////
 
+router.put("/create/camera", 
+upload.any(),
+// fileFilter, 
+asyncHandler(async(req,res,next) => {
+    const post = await Post.create({
+        name:req.body.name, 
+        coordinates:req.body.currentCoordinates,
+        description:req.body.description, 
+        user_id:req.body.user_id, 
+        place_id: req.body.place_id
+    })
+    const image = await Photo.create({
+        post_id:post.id,
+        url:req.body.file
+    })
+    res.json({post, image})
+}))
 
 module.exports = router;

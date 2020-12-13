@@ -51,7 +51,7 @@ const CreatePlace = ({currentCoordinates,image}) => {
   };
 
   const handleSubmit = async (e)=> {
-    e.preventDefault()
+    // e.preventDefault()
     const data = new FormData();
     data.append("name", name)
     data.append("description", description)

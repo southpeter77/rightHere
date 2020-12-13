@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 // import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
-import {createPost} from "../store/actions/post"
+import {createPostCamera} from "../store/actions/post"
 import Loading from "./Loading"
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,8 +64,8 @@ const CreatePostForm = ({currentCoordinates,image}) => {
     data.append("place_id", place_id)
     data.append("file", image)
 
-    dispatch(createPost(data))
-    // console.log(data)
+    dispatch(createPostCamera(data))
+    console.log(data)
   
   }
   return (

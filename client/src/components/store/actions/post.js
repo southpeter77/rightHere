@@ -24,3 +24,16 @@ export const createPost = (data) => async (dispatch) => {
         window.location.href=`/profile/${CURRENT_USER}`
     }
 }
+
+
+
+export const createPostCamera = (data) => async (dispatch) => {
+    const response = await fetch("/api/posts/create/camera", {
+        method:"PUT",
+        body:data
+    })
+    if (response.ok) {
+        const data = await response.json()
+        window.location.href=`/profile/${CURRENT_USER}`
+    }
+}
