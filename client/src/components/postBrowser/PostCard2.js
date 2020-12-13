@@ -98,17 +98,17 @@ dispatch(likeHandler(payload))
     setLoaded(!loaded)
   },[])
   
-  if(!data) {
+  if(!data.User) {
     return null
   }
-
+// console.log(data)
   return (<>
     <Card className={classes.root1} elevation={3}>
       {/* <button onClick={()=> console.log(data)}>click</button> */}
       <CardHeader
         avatar={
           <Avatar
-            src={data.User.Photos && data.User.Photos[0].url}
+            src={data.User && data.User.Photos[0].url}
           >
           </Avatar>
         }

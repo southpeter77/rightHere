@@ -60,6 +60,7 @@ const PostFeeds = () => {
     const datas = Object.values(useSelector(state=>state.entities.posts.byId))
     // const data= JSON.parse(window.localStorage.getItem(GRAB_ALL_POSTS))
     const likes = useSelector(state=> state.entities.likes.byId)
+    console.log(datas)
     useEffect( () => {
 
          dispatch(grabAllPostsThunk())
