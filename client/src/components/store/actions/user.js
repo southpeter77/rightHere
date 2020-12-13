@@ -18,10 +18,12 @@ export const login = ({email, password}) => async (dispatch) => {
     );
     if (response.ok) {
         const data = await response.json()
-        dispatch(logInErrors([]))
-        dispatch(saveCurrentUserData(data))
-        dispatch(saveToken(data.token))
-        dispatch(grabAllPostsThunk())
+    window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
+
+      await  dispatch(logInErrors([]))
+      await dispatch(saveCurrentUserData(data))
+      await dispatch(saveToken(data.token))
+      await dispatch(grabAllPostsThunk())
       } 
       if (!response.ok){
           throw response
@@ -29,7 +31,7 @@ export const login = ({email, password}) => async (dispatch) => {
     }catch(err) {
         const badRequest = await err.json();
         const errorArray = badRequest.error.errors
-        dispatch(logInErrors(errorArray))
+        await dispatch(logInErrors(errorArray))
     }
 }
 
@@ -43,13 +45,15 @@ export const signUp = (payload) => async (dispatch) => {
         })
            if(response.ok) {
                 const data = await response.json()
-                dispatch(signUpErrors([]))
+    window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
+
+                await dispatch(signUpErrors([]))
                 // dispatch(currentUser(data.userId))
                 // dispatch(saveToken(data.token))
                 // dispatch(grabAllPostsThunk())
-                dispatch(saveCurrentUserData(data))
-                dispatch(saveToken(data.token))
-                dispatch(grabAllPostsThunk())
+                await dispatch(saveCurrentUserData(data))
+                await dispatch(saveToken(data.token))
+                await dispatch(grabAllPostsThunk())
 
         } else {
             throw response
@@ -57,7 +61,7 @@ export const signUp = (payload) => async (dispatch) => {
     } catch(err) {
         const badRequest = await err.json();
         const errorArray = badRequest.error.errors
-        dispatch(signUpErrors(errorArray))
+        await dispatch(signUpErrors(errorArray))
     }
     
     }
@@ -71,7 +75,7 @@ export const updateBiography = (data) => async(dispatch) => {
     // console.log("asdf")
     if (response.ok) {
         const data = await response.json()
-        dispatch(saveCurrentUserData(data))
+        await dispatch(saveCurrentUserData(data))
         window.location.href=`/profile/${data.userId}`
       }
 }
@@ -83,7 +87,7 @@ export const updateProfilePicture = (data) => async(dispatch) =>{
     })
     if (response.ok) {
         const data = await response.json()
-        dispatch(saveCurrentUserData(data))
+        await dispatch(saveCurrentUserData(data))
       }
 }
     

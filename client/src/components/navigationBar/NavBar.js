@@ -4,12 +4,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 // import Typography from '@material-ui/core/Typography';
-// import InputBase from '@material-ui/core/InputBase';
+import InputBase from '@material-ui/core/InputBase';
 // import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 // import MenuIcon from '@material-ui/icons/Menu';
-// import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@material-ui/icons/Search';
 // import AccountCircle from '@material-ui/icons/AccountCircle';
 // import MailIcon from '@material-ui/icons/Mail';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -22,6 +22,7 @@ import navBarStyling from "./navBarStyling.css"
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExploreIcon from '@material-ui/icons/Explore';
 import {CURRENT_USER} from "../store/actions/sessions/currentUser"
+import Search from "./SeachLocation"
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
+      marginLeft: theme.spacing(20),
       width: 'auto',
     },
   },
@@ -217,7 +218,7 @@ const NavBar = () => {
             ></ExploreIcon>
           </IconButton>
 
-          {/* <div className={classes.search}>
+          <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -229,8 +230,8 @@ const NavBar = () => {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div> */}
-
+          </div>
+              <Search></Search>
 
 
 

@@ -78,7 +78,8 @@ router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(
     res.json({
         token,
         userId: user.id,
-        email: user.firstName,
+        email: user.email,
+        firstName: user.firstName,
         lastName: user.lastName,
         biography: user.biography,
         posts: user.Posts,

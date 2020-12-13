@@ -40,7 +40,7 @@ export const currentLocationCoordinates = (data) =>{
 
 /////////THUNKS///////////
 export const saveCurrentUserData=(data)=> (dispatch) => {
-    window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
+    // window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
     dispatch(currentUser(data))
 }
 

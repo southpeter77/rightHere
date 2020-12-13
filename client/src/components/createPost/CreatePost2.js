@@ -26,7 +26,7 @@ import { checkPlaceExistThunk } from "../../components/store/actions/ui/ui"
 import { currentLocationCoordinatesThunk, CURRENT_LOCATION_COORDINATES } from "../../components/store/actions/sessions/currentUser"
 import Zoom from '@material-ui/core/Zoom';
 // import Grow from '@material-ui/core/Grow';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = makeStyles((theme) => ({
     paper: {
         // maxWidth: 750,
@@ -81,7 +81,12 @@ const styles = makeStyles((theme) => ({
         borderRadius: "20pt"
     }, paper2: {
         margin: theme.spacing(1),
-    },
+    },spinning: {
+        display: 'flex',
+        '& > * + *': {
+          marginLeft: theme.spacing(2),
+        },
+    }
 
 }));
 
@@ -95,6 +100,7 @@ const CreatePost = () => {
     const [showUpload, setShowUpload] = useState(false)
     // const [placeExist, setPlaceExist] = useState(false)
     const currentCoordinates = JSON.parse(window.localStorage.getItem(CURRENT_LOCATION_COORDINATES))
+    
     const placeExist = useSelector(state => state.ui.checkPlaceExist)
     const [image, setImage] = useState(null)
     const [open, setOpen] = useState(false);
@@ -112,9 +118,27 @@ const CreatePost = () => {
 
         dispatch(checkPlaceExistThunk(currentCoordinates))
         dispatch(currentLocationCoordinatesThunk(currentCoordinates))
+        redirecting()
         //////
 
     }, []);
+    const redirecting = () => {
+        if (!currentCoordinates){
+            setTimeout(()=>{
+                window.location.href="/create/post"
+            }, 1500)
+            
+        }
+    }
+
+    if(!currentCoordinates) {
+        return  <Paper style={{marginTop:"5%", display:'flex', justifyContent:"center"}} elevation={1}>
+            <h1>loadings</h1>
+            <div className={classes.spinning}>
+      <CircularProgress />
+    </div>
+        </Paper>
+    }
 
     return (
         <>
