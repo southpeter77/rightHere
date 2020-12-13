@@ -21,6 +21,7 @@ import PlaceFeeds from "./components/placeBrowser/PlaceFeeds"
 import Profile from "./components/profile/Profile"
 import Profile2 from "./components/profile/Profile2"
 import CreatePost2 from "./components/createPost/CreatePost2"
+import SignUp2 from "./components/auth/SignUp2"
 
 function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
@@ -50,7 +51,7 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
             <Theme>
                 <BrowserRouter>
                     <ProtectedRoute exact={true} path="/logIn" needLogin={needLogin} component={Login} />
-                    <ProtectedRoute exact={true} path="/signup" needLogin={needLogin} component={SignUp} />
+                    <ProtectedRoute exact={true} path="/signup" needLogin={needLogin} component={SignUp2} />
                     {!needLogin ? <NavBar></NavBar> : null}
                     <Switch>
                         <PrivateRoute exact path="/" needLogin={needLogin} component={PostFeeds} />
