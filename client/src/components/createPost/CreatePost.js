@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Tooltip from '@material-ui/core/Tooltip';
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import Tooltip from '@material-ui/core/Tooltip';
 import Paper from '@material-ui/core/Paper';
-import { Redirect, useParams } from "react-router-dom"
+// import { Redirect, useParams } from "react-router-dom"
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ImageGridList from "./CreatePostIntro"

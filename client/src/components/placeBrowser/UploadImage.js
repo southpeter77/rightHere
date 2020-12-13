@@ -1,9 +1,9 @@
 import React, {useState} from "react"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { DropzoneArea } from 'material-ui-dropzone';
-import IconButton from '@material-ui/core/IconButton';
-import CancelIcon from '@material-ui/icons/Cancel';
-import Button from '@material-ui/core/Button';
+// import IconButton from '@material-ui/core/IconButton';
+// import CancelIcon from '@material-ui/icons/Cancel';
+// import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {uploadPhotoByPlaceId} from "../../components/store/actions/photo"
 import Loading from "../profile/Loading"

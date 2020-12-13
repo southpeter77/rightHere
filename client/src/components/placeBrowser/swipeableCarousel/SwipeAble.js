@@ -1,7 +1,7 @@
-import React,{useEffect, useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
 import Carousel from './Carousel';
-import { preLoadImages } from './utils';
+// import { preLoadImages } from './utils';
 import swipeStyle from "./swipeStyle.css"
 
 

@@ -7,18 +7,18 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 // import { deepPurple } from '@material-ui/core/colors';
-import { Button } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+// import { Button } from '@material-ui/core';
+// import { NavLink } from 'react-router-dom';
 import Comment from "../comment/Comment"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
-import {likeHandler,grabALlLikesByPostId} from "../store/actions/like"
+import {likeHandler} from "../store/actions/like"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
-import Like from "./Like"
+// import Like from "./Like"
 
 const useStyles = makeStyles((theme) => ({
   root1: {

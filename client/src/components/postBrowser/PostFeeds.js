@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
+// import Typography from '@material-ui/core/Typography';
+// import Grid from '@material-ui/core/Grid';
+// import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
+// import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Tooltip from '@material-ui/core/Tooltip';
+// import { Button } from '@material-ui/core';
+// import IconButton from '@material-ui/core/IconButton';
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import Tooltip from '@material-ui/core/Tooltip';
 import Paper from '@material-ui/core/Paper';
-import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
-import { Redirect,useParams } from "react-router-dom"
-import PostCards from "./PostCards"
-import {GRAB_ALL_POSTS,grablAllPlacesThunk, grabAllPostsThunk} from "../store/actions/entities/entities"
+// import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+// import { Redirect,useParams } from "react-router-dom"
+// import PostCards from "./PostCards"
+import {grablAllPlacesThunk, grabAllPostsThunk} from "../store/actions/entities/entities"
 import PostCard2 from "./PostCard2"
 import {grabAllLikes} from "../store/actions/like"
 

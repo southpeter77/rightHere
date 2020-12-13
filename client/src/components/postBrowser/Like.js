@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import {likeHandler, grabALlLikesByPostId} from "../store/actions/like"
+// import {likeHandler, grabALlLikesByPostId} from "../store/actions/like"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const Like = ({postId, userId}) => {
         }
 
     // dispatch(likeHandler(payload))
-        console.log(likes.length)
+        // console.log(likes.length)
       }
 
       useEffect(()=>{

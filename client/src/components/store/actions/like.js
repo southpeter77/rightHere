@@ -42,7 +42,7 @@ export const likeHandlerInProfile = (data) => async (dispatch) => {
 export const grabALlLikesByPostId = (id) => async (dispatch) => {
     const response = await fetch(`/api/likes/post/${id}`)
     if (response.ok) {
-        console.log("ok")
+        // console.log("ok")
     }
 }
 

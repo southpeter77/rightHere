@@ -2,26 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
+// import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
+// import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Tooltip from '@material-ui/core/Tooltip';
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import Tooltip from '@material-ui/core/Tooltip';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
+// import CardHeader from '@material-ui/core/CardHeader';
 import ProfileNavBar from "./ProfileNavBar"
 import PlaceCard from "./PlaceCard"
 import { grabAllPostsByUserIdThunk, grabAllPlacesByUserIdThunk } from "../../components/store/actions/entities/entities"
 import PostCard from "./PostCard"
-import CancelIcon from '@material-ui/icons/Cancel';
+// import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';

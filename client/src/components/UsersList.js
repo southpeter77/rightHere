@@ -9,7 +9,7 @@ function UsersList (props) {
         async function fetchData() {
             const response = await fetch('/api/users/');
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
         }
         fetchData();
     }, []);

@@ -6,6 +6,6 @@ export const createComment = async (data) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
     }
 }

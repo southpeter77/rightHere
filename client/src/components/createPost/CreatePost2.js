@@ -3,29 +3,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Tooltip from '@material-ui/core/Tooltip';
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import Tooltip from '@material-ui/core/Tooltip';
 import Paper from '@material-ui/core/Paper';
-import { Redirect, useParams } from "react-router-dom"
+// import { Redirect, useParams } from "react-router-dom"
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import CreatePostIntro from "./CreatePostIntro"
+// import AddCircleIcon from '@material-ui/icons/AddCircle';
+// import CreatePostIntro from "./CreatePostIntro"
 import Camera from "../Camera"
 import UploadImage from "./UploadImage"
 import Map from "./Map"
 import CreatePlaceForm from "../createPlace/CreatePlaceForm"
 import CreatePostForm from "./CreatePostForm"
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import style from "./style.css"
-import CardContent from '@material-ui/core/CardContent';
+// import CardContent from '@material-ui/core/CardContent';
 import { checkPlaceExistThunk } from "../../components/store/actions/ui/ui"
 import { currentLocationCoordinatesThunk, CURRENT_LOCATION_COORDINATES } from "../../components/store/actions/sessions/currentUser"
 import Zoom from '@material-ui/core/Zoom';
-import Grow from '@material-ui/core/Grow';
+// import Grow from '@material-ui/core/Grow';
 
 const styles = makeStyles((theme) => ({
     paper: {

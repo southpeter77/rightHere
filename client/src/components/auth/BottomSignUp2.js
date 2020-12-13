@@ -2,9 +2,6 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles";
 import ImageSignUp2 from "./ImageSignUp2"
 import animation from "./animation/animation"
-import { Link as Scroll } from "react-scroll"
-import { IconButton } from '@material-ui/core';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const useStyles = makeStyles((theme) => ({
     root: {

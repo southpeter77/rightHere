@@ -7,15 +7,15 @@ import Paper from '@material-ui/core/Paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { grabPlaceByIdThunk, grabPostsByPlaceIdThunk, GRAB_PLACE_BY_ID } from "../store/actions/entities/entities"
 import { useParams } from "react-router-dom";
-import Gallery from "./Gallery"
+// import Gallery from "./Gallery"
 import Typography from '@material-ui/core/Typography';
-import SwipeAbleContainer from "./swipeableCarousel/SwipeAble"
-import Preview from "./swipeableCarousel/Previews"
+// import SwipeAbleContainer from "./swipeableCarousel/SwipeAble"
+// import Preview from "./swipeableCarousel/Previews"
 import mapCss from "./mapCss.css"
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+// import GridList from '@material-ui/core/GridList';
+// import GridListTile from '@material-ui/core/GridListTile';
 import PostCard from "./PostCard"
-import Gallery2 from "./Gallery2"
+// import Gallery2 from "./Gallery2"
 import Gallery3 from "./Gallery3"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -24,7 +24,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import MapIcon from '@material-ui/icons/Map';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+// import AddCircleIcon from '@material-ui/icons/AddCircle';
 import UploadImage from "./UploadImage"
 import {grabAllLikes} from "../store/actions/like"
 
@@ -117,8 +117,8 @@ const Place = () => {
       </div> : null}
       {/* {openSwipeable ? <SwipeAbleContainer data={data} setOpenSwipeable={setOpenSwipeable}></SwipeAbleContainer> : null} */}
       <Paper className={classes.paper} elevation={1}>
-        <button onClick={() => console.log(data)}>console1</button>
-        <button onClick={()=>console.log(currentUser)}>console2</button>
+        {/* <button onClick={() => console.log(data)}>console1</button>
+        <button onClick={()=>console.log(currentUser)}>console2</button> */}
         {/* <Typography
                 variant="h4"
                 component="h4"

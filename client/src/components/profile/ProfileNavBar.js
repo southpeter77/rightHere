@@ -1,9 +1,9 @@
 import React, { useEffect, useState} from "react";
 import { Grid } from "@material-ui/core";
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+// import LocationOnIcon from '@material-ui/icons/LocationOn';
+// import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import IconButton from '@material-ui/core/IconButton';
-import ExploreIcon from '@material-ui/icons/Explore';
+// import ExploreIcon from '@material-ui/icons/Explore';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 

@@ -1,8 +1,8 @@
 import React,{useState, useRef,useCallback} from "react";
 import Webcam from "react-webcam";
-import IconButton from '@material-ui/core/IconButton';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import CancelIcon from '@material-ui/icons/Cancel';
+// import IconButton from '@material-ui/core/IconButton';
+// import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+// import CancelIcon from '@material-ui/icons/Cancel';
 const videoConstraints = {
     width: 1280,
     height: 720,

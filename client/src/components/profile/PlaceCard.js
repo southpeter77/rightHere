@@ -2,13 +2,13 @@ import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import style from "./style.css"
-import { useSelector, useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import {grabPlaceById, grabPlaceByIdThunk} from "../../components/store/actions/entities/entities"
 const useStyles = makeStyles({
   root: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 export default function PlaceCards({data}) {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
   const classes = useStyles();
     const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})

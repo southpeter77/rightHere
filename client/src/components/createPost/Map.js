@@ -1,5 +1,5 @@
 /*global google*/
-import React, {useState, useEffect} from "react"
+import React, { useEffect} from "react"
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, Polyline, DirectionsRenderer, Polygon} from "react-google-maps"
 import mapStyles from "./mapStyle"
 import style from "./style.css"

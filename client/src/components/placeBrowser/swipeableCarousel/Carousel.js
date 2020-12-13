@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Swipeable from "react-swipeable";
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+// import Swipeable from "react-swipeable";
+// import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import IconButton from '@material-ui/core/IconButton';

@@ -6,20 +6,15 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Button } from '@material-ui/core';
 import Comment from "../comment/Comment"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
-import {likeHandlerInPlace,grabALlLikesByPostId} from "../store/actions/like"
-import { useDispatch, useSelector } from "react-redux";
+import {likeHandlerInPlace,} from "../store/actions/like"
+import { useDispatch,  } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,7 +100,7 @@ dispatch(likeHandlerInPlace(payload))
 
   return (
     <Card className={classes.root}>
-        <button onClick={() => console.log(data)}>asdfasdf</button>
+        {/* <button onClick={() => console.log(data)}>asdfasdf</button> */}
       <CardHeader
         avatar={
           <Avatar
