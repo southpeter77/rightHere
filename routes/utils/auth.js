@@ -21,7 +21,7 @@ const getUserToken = (user) => {
 
 const restoreUser = (req, res, next) => {
     const { token } = req;
-console.log(token)
+// console.log(token)
     if (!token) {
         return res.set("WWW-Authenticate", "Bearer").status(401).end();
     }
@@ -33,7 +33,7 @@ console.log(token)
         }
 
         const { id } = jwtPayload.data;
-        console.log(jwtPayload)
+        // console.log(jwtPayload)
 
         try {
             req.user = await db.User.findByPk(id);

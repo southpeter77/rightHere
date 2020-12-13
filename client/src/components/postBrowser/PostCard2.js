@@ -98,7 +98,7 @@ dispatch(likeHandler(payload))
     setLoaded(!loaded)
   },[])
   
-  if(!loaded) {
+  if(!data) {
     return null
   }
 
