@@ -69,10 +69,17 @@ router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(
     const { firstName, lastName, email, biography, password } = req.body
     const hashed_password = await bcrypt.hash(password, 10);
     const newUser = await db.User.create({ firstName, lastName, email, biography, hashed_password })
+    const photo = await db.Photo.create({
+ 
+            user_id:newUser.id,
+            url:"/defaultProfile.jpg"
+
+    })
     const user = await db.User.findOne({
         where: { id: newUser.id },
         include: [Post, Place, Photo]
     });
+
 
     const token = getUserToken(user);
     res.json({

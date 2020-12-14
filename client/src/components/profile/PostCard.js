@@ -119,7 +119,7 @@ dispatch(likeHandlerInProfile(payload))
           {`@${data.Places.name}`}</Typography>
           
 
-        <Button>Edit Post</Button>
+        <Button style={{marginLeft:"60%"}}>Edit Post</Button>
       </CardContent>
       <CardActions disableSpacing>
         {/* <IconButton aria-label="add to favorites">

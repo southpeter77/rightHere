@@ -4,8 +4,15 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
 
       return queryInterface.bulkInsert('Photos', [{
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh_18gfZjyQF4wQFdiduNjaE9iaJJBWfj8-A&usqp=CAU',
+        url: '/defaultProfile.jpg',
         user_id: 1,
+        post_id: null,
+        place_id: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        url: '/defaultProfile.jpg',
+        user_id: 2,
         post_id: null,
         place_id: null,
         createdAt: new Date(),

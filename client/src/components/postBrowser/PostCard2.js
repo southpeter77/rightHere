@@ -108,7 +108,7 @@ dispatch(likeHandler(payload))
       <CardHeader
         avatar={
           <Avatar
-            src={data.User && data.User.Photos[0].url}
+            src={data.User.Photos ? data.User.Photos[0].url : null}
           >
           </Avatar>
         }
