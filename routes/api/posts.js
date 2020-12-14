@@ -152,7 +152,7 @@ router.delete("/delete", asyncHandler(async(req,res,next)=> {
 router.put("/edit", asyncHandler(async(req,res,next)=> {
 
     const post = await db.Post.findByPk(req.body.postId);
-    console.log(post)
+    // console.log(post)
     await post.update({
         name:req.body.newName,
         description:req.body.newdescription

@@ -63,7 +63,7 @@ export default function CircularIntegration({handleSubmit}) {
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-      }, 500);
+      }, 3000);
     }
   };
 
@@ -75,7 +75,9 @@ export default function CircularIntegration({handleSubmit}) {
           aria-label="save"
           color="primary"
           className={buttonClassname}
-          onClick={handleButtonClick}
+          onClick={()=>{handleButtonClick()
+          handleSubmit()
+          }}
         >
           {success ? <CheckIcon /> : <SaveIcon />}
         </Fab>

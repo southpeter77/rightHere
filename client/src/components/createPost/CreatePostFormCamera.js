@@ -51,10 +51,10 @@ const CreatePostForm = ({currentCoordinates,image}) => {
   };
 
   const handleSubmit = async (e)=> {
-    const payload={
-      name, description, currentCoordinates, place_id,user_id,image
-    } 
-    console.log(payload)
+    // const payload={
+    //   name, description, currentCoordinates, place_id,user_id,image
+    // } 
+    // console.log(payload)
     // e.preventDefault()
     const data = new FormData();
     data.append("name", name)
@@ -65,7 +65,7 @@ const CreatePostForm = ({currentCoordinates,image}) => {
     data.append("file", image)
 
     dispatch(createPostCamera(data))
-    console.log(data)
+    // console.log(data)
   
   }
   return (

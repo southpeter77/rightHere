@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 // import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from "react-redux";
-import {createPlace} from "../store/actions/place"
+import {createPlaceCamera} from "../store/actions/place"
 import Loading from "../createPost/Loading"
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreatePlace = ({currentCoordinates,image}) => {
+const CreatePlaceFormCamera = ({currentCoordinates,image}) => {
   const classes = useStyles();
   const user_id = useSelector(state=> state.sessions.currentUser.id)
 
@@ -59,11 +59,11 @@ const CreatePlace = ({currentCoordinates,image}) => {
     data.append("user_id", user_id)
     data.append("image", image)
 
-    // const payload={
-    //   name, description, currentCoordinates,user_id,image
-    // }
-    // console.log("hi")
-    dispatch(createPlace(data))
+    const payload={
+      name, description, currentCoordinates,user_id,image
+    }
+    // console.log(payload)
+    dispatch(createPlaceCamera(data))
   }
   return (
 
@@ -114,4 +114,4 @@ const CreatePlace = ({currentCoordinates,image}) => {
 }
 
 
-export default CreatePlace
+export default CreatePlaceFormCamera

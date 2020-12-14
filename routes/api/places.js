@@ -161,6 +161,34 @@ asyncHandler(async(req,res,next) => {
     res.json({id: place.id})
 }))
 
+///////create place by camera///////
+router.put("/create/camera", 
+upload.any(),
+// fileFilter, 
+asyncHandler(async(req,res,next) => {
+    // const file = req.files[0];
+
+    // const params = {
+    //     Bucket: "right-here-app",
+    //     Key: Date.now().toString() + file.originalname,
+    //     Body: file.buffer,
+    //     ACL: "public-read",
+    //     ContentType: file.mimetype,
+    //   };
+    // const promise = s3.upload(params).promise(); 
+    // const uploadedImage = await promise;  
+    // const url = uploadedImage.Location
+    const place = await Place.create({
+        name:req.body.name, coordinates:req.body.currentCoordinates,description:req.body.description, user_id:req.body.user_id
+    })
+    const photo = await Photo.create({
+        place_id:place.id,
+        url:req.body.image
+    })
+
+    res.json({id: place.id})
+}))
+
 
 
 

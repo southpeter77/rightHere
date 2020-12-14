@@ -28,6 +28,7 @@ import Zoom from '@material-ui/core/Zoom';
 // import Grow from '@material-ui/core/Grow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CreatePostFormCamera from "./CreatePostFormCamera"
+import CreatePlaceFormCamera from "../createPlace/CreatePlaceFormCamera"
 const styles = makeStyles((theme) => ({
     paper: {
         // maxWidth: 750,
@@ -179,7 +180,7 @@ const CreatePost = () => {
                         {!placeExist ? <>
                             <Camera setShowCamera={setShowCamera} setShowGallery={setShowGallery} setImage={setImage}></Camera>
                             <Grid container className={classes.containerRoot}>
-                                <CreatePlaceForm currentCoordinates={currentCoordinates} image={image}></CreatePlaceForm>
+                                <CreatePlaceFormCamera currentCoordinates={currentCoordinates} image={image}></CreatePlaceFormCamera>
                             </Grid>
                         </>
                             :
