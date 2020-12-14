@@ -75,6 +75,8 @@ export const updateBiography = (data) => async(dispatch) => {
     // console.log("asdf")
     if (response.ok) {
         const data = await response.json()
+    window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
+
         await dispatch(saveCurrentUserData(data))
         window.location.href=`/profile/${data.userId}`
       }
@@ -86,8 +88,13 @@ export const updateProfilePicture = (data) => async(dispatch) =>{
         body:data
     })
     if (response.ok) {
+  
+
         const data = await response.json()
+          window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
         await dispatch(saveCurrentUserData(data))
+        window.location.href=`/profile/${data.userId}`
+
       }
 }
     

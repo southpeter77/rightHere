@@ -51,7 +51,7 @@ const EditProfile = ({ showBioEdit, showPhotoEdit, setShowPhotoEdit,setShowBioEd
                 onChange={(files) => setImage(files[0])}
             />
             {image && <div style={{ height: '30pt' }}>
-                <Loading handleImageUpdate={handleImageUpdate} setShowPhotoEdit={setShowPhotoEdit}/></div>}
+                <Loading handleImageUpdate={handleImageUpdate} setShowPhotoEdit={setShowPhotoEdit} userId={data.userId}/></div>}
         </div> : null}
         {showBioEdit ? <form className={classes.form} noValidate>
             <TextField

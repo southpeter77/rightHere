@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CircularIntegration({handleImageUpdate,setShowPhotoEdit}) {
+export default function CircularIntegration({handleImageUpdate,setShowPhotoEdit, userId}) {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -63,6 +63,7 @@ export default function CircularIntegration({handleImageUpdate,setShowPhotoEdit}
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
+        // window.location.href=`/profile/${userId}`
         // setTimeout(()=>{window.location.href="/profile/2"},500)
       }, 3500);
     }
