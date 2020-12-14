@@ -130,4 +130,48 @@ asyncHandler(async(req,res,next) => {
     res.json({post, image})
 }))
 
+//////////delete post//////////////
+router.delete("/delete", asyncHandler(async(req,res,next)=> {
+    const post = await db.Post.findByPk(req.body.postId);
+    // console.log(post)
+    await post.destroy();
+    const data = await db.Post.findAll({
+        where:{
+            user_id:req.body.userId
+        },
+        include:[
+            {model:Photo}, {model:Place, attributes:["id","name"]},
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+            {model:Like}
+        ]
+    })
+    res.json(data)
+
+}))
+/////////edit post///////////////
+router.put("/edit", asyncHandler(async(req,res,next)=> {
+
+    const post = await db.Post.findByPk(req.body.postId);
+    console.log(post)
+    await post.update({
+        name:req.body.newName,
+        description:req.body.newdescription
+    })
+    
+    const data = await db.Post.findAll({
+        where:{
+            user_id:req.body.userId
+        },
+        include:[
+            {model:Photo}, {model:Place, attributes:["id","name"]},
+            {model:Comment, include:{model:User,attributes:["id","firstName", "lastName" ], include:{model:Photo}}},
+            {model:Like}
+        ]
+    })
+    res.json(data)
+
+}))
+
+
+
 module.exports = router;

@@ -218,7 +218,7 @@ const NavBar = () => {
             ></ExploreIcon>
           </IconButton>
 
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -231,7 +231,7 @@ const NavBar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-              <Search></Search>
+              <Search></Search> */}
 
 
 

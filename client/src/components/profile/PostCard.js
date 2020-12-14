@@ -20,7 +20,10 @@ import Comment from "../comment/Comment"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 import {likeHandlerInProfile} from "../store/actions/like"
 import { useDispatch } from "react-redux";
-
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import CancelIcon from '@material-ui/icons/Cancel';
+import {deletePost, editPost} from "../../components/store/actions/post"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 330,
@@ -31,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 300,
     paddingTop: '80%', // 16:9
+  },  media2: {
+    height: 200,
+    paddingTop: '50%', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -75,7 +81,37 @@ export default function PostCard({data}) {
   const[showComment, setShowComment] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+  const [edit, setEdit] = useState(false)
+  const [enableEdit, setEnableEdit] = useState(false)
+  const [newdescription, setNewDescription] = useState("")
+  const[ newName, setNewName] = useState("")
+
+  const updateProperty = (callback) => (e) => {
+    callback(e.target.value);
+  };
+
   const dispatch = useDispatch()
+
+  const handleEditPost = () => {
+    const payload = {
+      userId: currentUser.userId,
+      postId:data.id,
+      newName,
+      newdescription
+    }
+    dispatch(editPost(payload))
+    setEdit(false)
+  }
+
+  const handleDeletePost = () => {
+    // deletePost
+    const payload = {
+      userId: currentUser.userId,
+      postId: data.id
+    }
+    // console.log(payload)
+    dispatch(deletePost(payload))
+  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -97,13 +133,13 @@ dispatch(likeHandlerInProfile(payload))
     return null
   }
   return (
-    <Card className={classes.root}>
+   <> {!edit ? 
+      <Card className={classes.root}>
         {/* <button onClick={() => console.log(data)}>123</button> */}
 
       <CardMedia
         className={classes.media}
         image={data.photos && data.photos[0].url}
-        title="Paella dish"
       />
       <CardContent>
       <Typography variant="h6" color="textSecondary" component="p">
@@ -119,7 +155,10 @@ dispatch(likeHandlerInProfile(payload))
           {`@${data.Places.name}`}</Typography>
           
 
-        <Button style={{marginLeft:"60%"}}>Edit Post</Button>
+        <Button 
+        style={{marginLeft:"60%"}}
+        onClick={()=>setEdit(true)}
+        >Edit Post</Button>
       </CardContent>
       <CardActions disableSpacing>
         {/* <IconButton aria-label="add to favorites">
@@ -156,5 +195,66 @@ dispatch(likeHandlerInProfile(payload))
       {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
 
     </Card>
+    
+    : <Card className={classes.root}>
+       <CardMedia
+        className={classes.media2}
+        image={data.photos && data.photos[0].url}
+      />
+      <CardContent>
+      <Typography variant="h6" color="textSecondary" component="p">
+        {data.name}
+        </Typography>
+        
+        <Typography variant="body2" color="textSecondary" component="p">
+        {data.description}
+        </Typography></CardContent>
+      <Grid>
+
+      <Grid>
+         <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                onClick={()=>setEnableEdit(true)}
+                value={enableEdit? newdescription : data.description}
+                onChange={updateProperty(setNewDescription)}
+              />
+      </Grid>
+      <Grid>
+         <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="description"
+                label="Description"
+                name="description"
+                onClick={()=>setEnableEdit(true)}
+                value={enableEdit? newName: data.name}
+                onChange={updateProperty(setNewName)}
+              />
+      </Grid>
+
+
+              </Grid>
+              <Button
+              onClick={()=>handleEditPost()}
+              > Edit Post</Button>
+              <Button
+              style={{color:"red"}}
+              onClick={()=>handleDeletePost()}
+              > Delete Post</Button>
+              <IconButton 
+              style={{left:"20%"}}
+              onClick={()=>setEdit(false)}
+              >
+                <CancelIcon></CancelIcon>
+              </IconButton>
+      </Card>}</>
   );
 }

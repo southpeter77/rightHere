@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {model: "Posts"},
         allowNull: false,
-
+        onDelete:"CASCADE"
       },
       like: {
         type: Sequelize.BOOLEAN
