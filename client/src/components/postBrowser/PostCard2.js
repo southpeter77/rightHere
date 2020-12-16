@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import {likeHandler} from "../store/actions/like"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+import ImageExpand from "./ImageExpand"
 // import Like from "./Like"
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +81,7 @@ export default function PostCard({ data }) {
   const [expanded, setExpanded] = useState(false);
   const[showComment, setShowComment] = useState(false)
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+  const [showImageExpand, setShowImageExpand] = useState(false)
 const dispatch = useDispatch()
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -112,7 +114,11 @@ dispatch(likeHandler(payload))
           >
           </Avatar>
         }
-        title={<Typography variant="subtitle1">{data.name}</Typography>}
+        title={
+        
+        <Typography variant="subtitle1">{data.name}</Typography>
+      
+      }
         subheader={<Typography variant="body2">
           {`${data.User && data.User.firstName}`}
          {data && <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`}
@@ -125,6 +131,7 @@ dispatch(likeHandler(payload))
         className={classes.media}
       image={data.Photos.length && data.Photos[0].url}
       style={{maxWidth:"800px", maxHeight:"700px"}}
+      onClick={()=>setShowImageExpand(true)}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -170,7 +177,8 @@ dispatch(likeHandler(payload))
         </IconButton>
       </CardActions>
       {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
-      
+      {showImageExpand && <ImageExpand showImageExpand={showImageExpand} setShowImageExpand={setShowImageExpand} image={data.Photos[0].url} postName={data.name}></ImageExpand>}
+
     </Card>
   </>);
 }

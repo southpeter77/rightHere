@@ -75,7 +75,7 @@ const PostFeeds = () => {
     // if(!data) {
     //     return null
     // }
-    console.log(datas)
+    // console.log(datas)
 
     return (
         <>

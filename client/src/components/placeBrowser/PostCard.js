@@ -15,6 +15,7 @@ import Comment from "../comment/Comment"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
 import {likeHandlerInPlace,} from "../store/actions/like"
 import { useDispatch,  } from "react-redux";
+import ImageExpand from "./ImageExpand"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +75,7 @@ export default function PostCard({data}) {
   const [loaded, setLoaded] = useState(false)
   const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
   const dispatch = useDispatch()
+  const [showImageExpand, setShowImageExpand] = useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -117,6 +119,7 @@ dispatch(likeHandlerInPlace(payload))
         className={classes.media}
         image={data.Photos[0].url}
         style={{maxWidth:"800px", maxHeight:"700px"}}
+        onClick={()=>setShowImageExpand(true)}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -164,6 +167,7 @@ dispatch(likeHandlerInPlace(payload))
         </IconButton>
       </CardActions>
       {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
+      {showImageExpand && <ImageExpand showImageExpand={showImageExpand} setShowImageExpand={setShowImageExpand} image={data.Photos[0].url} postName={data.name}></ImageExpand>}
       
     </Card>
   );
