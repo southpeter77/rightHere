@@ -133,7 +133,10 @@ const NavBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={()=>{window.location.href=`/profile/${JSON.parse(window.localStorage.getItem(CURRENT_USER)).userId}`}}>Profile</MenuItem>
+      {/* <MenuItem onClick={()=>{window.location.href=`/profile/${JSON.parse(window.localStorage.getItem(CURRENT_USER)).userId}`}}>Profile</MenuItem> */}
+      <MenuItem onClick={()=>{window.location.href=`/myprofile`}}>Profile</MenuItem>
+      
+      
       <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
     </Menu>
   );

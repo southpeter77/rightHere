@@ -18,10 +18,11 @@ import Place from "./components/placeBrowser/Place"
 import CreatePost from "./components/createPost/CreatePost"
 import {grabAllPostsThunk} from "./components/store/actions/entities/entities"
 import PlaceFeeds from "./components/placeBrowser/PlaceFeeds"
-import Profile from "./components/profile/Profile"
-import Profile2 from "./components/profile/Profile2"
+// import Profile from "./components/profile/Profile"
+import MyProfile from "./components/profile/Profile2"
 import CreatePost2 from "./components/createPost/CreatePost2"
 import SignUp2 from "./components/auth/SignUp2"
+import UserProfile from "./components/otherUser/Profile"
 
 function App({ needLogin, loadToken,loadCurrentUser }) {
     const [loaded, setLoaded] = useState(false);
@@ -58,7 +59,9 @@ function App({ needLogin, loadToken,loadCurrentUser }) {
                         <PrivateRoute exact path="/place/all" needLogin={needLogin} component={PlaceFeeds}/>
                         <PrivateRoute exact path="/place/:placeId" needLogin={needLogin} component={Place} />
                         <PrivateRoute exact path="/create/post" needLogin={needLogin} component={CreatePost2}/>
-                        <PrivateRoute exact path="/profile/:userId" needLogin={needLogin} component={Profile2}/>
+                        <PrivateRoute exact path="/myprofile" needLogin={needLogin} component={MyProfile}/>
+                        <PrivateRoute exact path="/profile/:id" needLogin={needLogin} component={UserProfile}/>
+
                     </Switch>
                 </BrowserRouter>
             </Theme>

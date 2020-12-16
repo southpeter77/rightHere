@@ -91,7 +91,8 @@ const styles = makeStyles((theme) => ({
 }));
 
 
-const PostFeeds = () => {
+const MyProfile
+ = () => {
     const classes = styles()
     const dispatch = useDispatch()
     const data = JSON.parse(window.localStorage.getItem(CURRENT_USER))
@@ -103,6 +104,7 @@ const PostFeeds = () => {
     const [expanded, setExpanded] = useState(false);
     const [showPhotoEdit, setShowPhotoEdit] = useState(false)
     const [showBioEdit, setShowBioEdit] = useState(false)
+    const [showFriendList, setShowFriendList] = useState(false)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -187,7 +189,7 @@ const PostFeeds = () => {
 
                                
                                 <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${posts.length} Places ${places.length}`}</Typography>
-                                <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces}></ProfileNavBar>
+                                <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar>
     <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <CardContent>
                                     <EditProfile showBioEdit={showBioEdit} showPhotoEdit={showPhotoEdit} setShowPhotoEdit={setShowPhotoEdit} setShowBioEdit={setShowBioEdit}></EditProfile>
@@ -305,4 +307,5 @@ const PostFeeds = () => {
 }
 
 
-export default PostFeeds;
+export default MyProfile
+;

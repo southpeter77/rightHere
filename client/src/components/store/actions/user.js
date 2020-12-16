@@ -78,7 +78,7 @@ export const updateBiography = (data) => async(dispatch) => {
     window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
 
         await dispatch(saveCurrentUserData(data))
-        window.location.href=`/profile/${data.userId}`
+        window.location.href=`/myprofile`
       }
 }
 
@@ -93,7 +93,7 @@ export const updateProfilePicture = (data) => async(dispatch) =>{
         const data = await response.json()
           window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
         await dispatch(saveCurrentUserData(data))
-        window.location.href=`/profile/${data.userId}`
+        window.location.href=`/myprofile`
 
       }
 }

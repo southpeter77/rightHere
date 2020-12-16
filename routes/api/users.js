@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { handleValidationErrors, validateSignUpUser, validateUserEmailAndPassword } = require('../utils/utils');
 const db = require('../../db/models');
-const { Post, Place, Photo, Relationship, Comment } = require('../../db/models');
+const { Post, Place, Photo, Relationship, Comment, Like } = require('../../db/models');
 const router = express.Router();
 const { getUserToken } = require("../utils/auth");
 const bcrypt = require("bcryptjs");
@@ -22,6 +22,25 @@ router.get('/', asyncHandler(async (req, res, next) => {
     res.json({ mesage: "hi" })
 }));
 
+//////////grab user's information for other user's profile ///////
+router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
+    const userId =req.params.id
+
+    const user = await db.User.findOne({
+        where:{
+            id:userId
+        },
+        attributes:["id","email", "firstName", "lastName", "biography"],
+        include:[
+            {model:Post, include:[Photo, Like, Comment, Place]},
+            {model:Place, include:{model:Photo}},
+            {model:Photo}
+        ]
+
+    })
+    // console.log(user)
+    res.json(user)
+}))
 
 ///////////////log-in api////////
 router.post("/login", validateUserEmailAndPassword, handleValidationErrors, asyncHandler(async (req, res, next) => {

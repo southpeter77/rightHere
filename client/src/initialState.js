@@ -1,5 +1,15 @@
 export const initialState = {
   entities: {
+    otherUser:{
+      id:'',
+      email:'',
+      firstName:'',
+      lastName:'',
+      biography:'',
+      Posts:[],
+      Places:[],
+      Photos:[{url:""}]
+    },
     //////////////////////////////
     likes:{
       byId:{

@@ -22,7 +22,7 @@ export const createPost = (data) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-            window.location.href=`/profile/${CURRENT_USER}`
+            window.location.href=`/myprofile`
 
         
     }
@@ -39,7 +39,7 @@ export const createPostCamera = (data) => async (dispatch) => {
         const data = await response.json()
         setTimeout(()=>{
 
-            window.location.href=`/profile/${CURRENT_USER}`
+            window.location.href=`/myprofile`
         },3000)
     }
 }

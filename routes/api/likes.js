@@ -138,6 +138,7 @@ router.put("/profile", asyncHandler(async (req,res,next) => {
     }
     }))
 
+    
 
 
 
@@ -149,13 +150,71 @@ router.get("/post/:id(\\d+)", asyncHandler(async(req,res,next) => {
             post_id:postId
         }
     })
-    console.log(allLikes)
+    // console.log(allLikes)
 }))
 //////////////////////////////
 router.get("/all" , asyncHandler(async(req,res,next) => {
     const allLikes = await db.Like.findAll();
     res.json(allLikes)
 }))
+
+
+
+//////////like for posts in other user's  profile//////////////////
+router.put("/otherprofile", asyncHandler(async (req,res,next) => {
+
+    const postId = req.body.postId;
+    const userId =req.body.currentUserId;
+    const postOwnerId = req.body.thisPostOwnerId
+    const existedLike =await db.Like.findOne({
+        where: {
+            user_id:userId,
+            post_id:postId
+        }
+    })
+   
+    if(existedLike) {
+        await existedLike.destroy();
+
+
+
+        const user = await db.User.findOne({
+            where:{
+                id:postOwnerId
+            },
+            attributes:["id","email", "firstName", "lastName", "biography"],
+            include:[
+                {model:Post, include:[Photo, Like, Comment, Place]},
+                {model:Place, include:{model:Photo}},
+                {model:Photo}
+            ]
+    
+        })
+        res.json(user)
+
+    } else {
+         await db.Like.create({
+                user_id:userId,
+                post_id:postId
+    
+        })
+
+        const user = await db.User.findOne({
+            where:{
+                id:postOwnerId
+            },
+            attributes:["id","email", "firstName", "lastName", "biography"],
+            include:[
+                {model:Post, include:[Photo, Like, Comment, Place]},
+                {model:Place, include:{model:Photo}},
+                {model:Photo}
+            ]
+    
+        })
+        res.json(user)
+    
+    }
+    }))
 
 
 

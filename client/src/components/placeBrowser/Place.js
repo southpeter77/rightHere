@@ -144,7 +144,8 @@ const Place = () => {
               title={<Typography
                 variant="h6"
                 component="h6"
-                style={{ color: "gray", width: "96%", margin: "auto" }}
+                style={{ color: "gray", width: "96%", margin: "auto", textDecoration:"underline", cursor:"pointer"}}
+                onClick={()=>window.location.href=`/profile/${data.User.id}`}
               ><img src="/crown.png" style={{ width: "20pt", height: "auto" }}></img>{`${data.User.firstName}`}</Typography>}
               subheader={data.description}
 

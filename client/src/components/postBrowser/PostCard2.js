@@ -119,11 +119,15 @@ dispatch(likeHandler(payload))
         <Typography variant="subtitle1">{data.name}</Typography>
       
       }
-        subheader={<Typography variant="body2">
-          {`${data.User && data.User.firstName}`}
+        subheader={<Typography variant="body2" >
+          <Typography
+          variant="body2" style={{textDecoration:"underline", cursor: "pointer"}} onClick={()=>window.location.href=`/profile/${data.User.id}`}
+          >{`by ${data.User && data.User.firstName}`}</Typography>
          {data && <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`}
         style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
-          {`@${data.Places.name}`}</Typography> }
+          {`@${data.Places.name}`}
+          
+          </Typography> }
           
           </Typography>}
       />

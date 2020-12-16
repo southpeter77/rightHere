@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from '@material-ui/core';
 import Comment from "../comment/Comment"
 import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
-import {likeHandlerInProfile} from "../store/actions/like"
+import {likeHandlerInOtherUsersProfile} from "../store/actions/like"
 import { useDispatch } from "react-redux";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PostCard({data}) {
+export default function PostCard({data, thisUserId}) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const[showComment, setShowComment] = useState(false)
@@ -95,38 +95,14 @@ export default function PostCard({data}) {
 
   const dispatch = useDispatch()
 
-  const handleEditPost = () => {
-    const payload = {
-      userId: currentUser.userId,
-      postId:data.id,
-      newName,
-      newdescription
-    }
-    dispatch(editPost(payload))
-    setEdit(false)
-  }
-
-  const handleDeletePost = () => {
-    // deletePost
-    const payload = {
-      userId: currentUser.userId,
-      postId: data.id
-    }
-    // console.log(payload)
-    dispatch(deletePost(payload))
-  }
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const clickLikeHandler = (id) => {
     const payload = {
-      userId: currentUser.userId,
+      currentUserId: currentUser.userId,
+      thisPostOwnerId:Number(thisUserId),
       postId:id
     }
-dispatch(likeHandlerInProfile(payload))
-    // console.log(id)
+dispatch(likeHandlerInOtherUsersProfile(payload))
   }
 
   useEffect(()=>{
@@ -142,7 +118,7 @@ dispatch(likeHandlerInProfile(payload))
 
       <CardMedia
         className={classes.media}
-        image={data.photos && data.photos[0].url}
+        image={data.Photos[0].url}
       onClick={()=>setShowImageExpand(true)}
 
       />
@@ -155,9 +131,9 @@ dispatch(likeHandlerInProfile(payload))
         {data.description}
         </Typography>
         
-        <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Places.id}`} 
+        <Typography variant="body2" onClick={()=>window.location.href=`/place/${data.Place.id}`} 
         style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
-          {`@${data.Places.name}`}</Typography>
+          {`@${data.Place.name}`}</Typography>
           
 
         <Button 
@@ -198,7 +174,7 @@ dispatch(likeHandlerInProfile(payload))
         </IconButton>
       </CardActions>
       {showComment && <Comment modalClass={showComment} setShowComment={setShowComment} postId={data.id} postName={data.name}></Comment>}
-      {showImageExpand && <ImageExpand showImageExpand={showImageExpand} setShowImageExpand={setShowImageExpand} image={data.photos[0].url} postName={data.name}></ImageExpand>}
+      {showImageExpand && <ImageExpand showImageExpand={showImageExpand} setShowImageExpand={setShowImageExpand} image={data.Photos[0].url} postName={data.name}></ImageExpand>}
 
     </Card>
     
@@ -248,19 +224,6 @@ dispatch(likeHandlerInProfile(payload))
 
 
               </Grid>
-              <Button
-              onClick={()=>handleEditPost()}
-              > Edit Post</Button>
-              <Button
-              style={{color:"red"}}
-              onClick={()=>handleDeletePost()}
-              > Delete Post</Button>
-              <IconButton 
-              style={{left:"20%"}}
-              onClick={()=>setEdit(false)}
-              >
-                <CancelIcon></CancelIcon>
-              </IconButton>
       </Card>}</>
   );
 }

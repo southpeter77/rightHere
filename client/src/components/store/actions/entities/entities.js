@@ -10,6 +10,7 @@ export const GRAB_ALL_POSTS_BY_USER_ID = "GRAB_ALL_POSTS_BY_USER_ID"
 export const GRAB_ALL_COMMENTS_BY_POST_ID = "GRAB_ALL_COMMENTS_BY_POST_ID"
 export const CREATE_AND_DISPATCH_ALL_COMMENTS = "CREATE_AND_DISPATCH_ALL_COMMENTS"
 export const GRAB_ALL_LIKES = "GRAB_ALL_LIKES"
+export const GRAB_USER_INFORMATION_BY_USER_ID = "GRAB_USER_INFORMATION_BY_USER_ID"
 ///////////////////////////////////////////////
 export const grabAllPosts = (data) => {
     return {
@@ -73,6 +74,14 @@ export const allLikes = (data) => {
         data
     }
 }
+
+export const grabUserInformationByUserId = (data) => {
+    return{
+        type:GRAB_USER_INFORMATION_BY_USER_ID,
+        data
+    }
+}
+
 //////////////////////////////////////////////
 
 export const grabAllPostsThunk = () => async (dispatch) => {
@@ -172,6 +181,15 @@ export const deleteComment = (data) => async (dispatch) => {
         dispatch(grabAllCommentsByPostId(jsonedData))
     }
     // console.log(data)
+}
+
+export const grabUserInformationByUserIdThunk = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/users/${userId}`);
+    if (response.ok) {
+        const data = await response.json();
+        // console.log(data)
+        dispatch(grabUserInformationByUserId(data))
+    }
 }
 
 //////////////////////////////////////////////////////////
@@ -358,6 +376,11 @@ export default function reducer(state = {}, action) {
 
                     newState.likes.byId= allLikes
  
+                return newState
+
+            case GRAB_USER_INFORMATION_BY_USER_ID:
+                newState["otherUser"] = action.data
+                
                 return newState
         default:
             return state

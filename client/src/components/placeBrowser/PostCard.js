@@ -113,7 +113,10 @@ dispatch(likeHandlerInPlace(payload))
         }
         title={<Typography variant="subtitle1">{data.name}</Typography>}
 
-        subheader={<Typography variant="body2">{data.User.firstName} {data.User.lastName}</Typography>} 
+        // subheader={<Typography variant="body2">{data.User.firstName} {data.User.lastName}</Typography>} 
+      subheader={          <Typography
+        variant="body2" style={{textDecoration:"underline", cursor: "pointer"}} onClick={()=>window.location.href=`/profile/${data.User.id}`}
+        >{`by ${data.User && data.User.firstName}`}</Typography>}
       />
       <CardMedia
         className={classes.media}
