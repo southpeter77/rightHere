@@ -11,6 +11,8 @@ import mapCss from "./mapCss.css"
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {deletePhotoByPhotoId} from "../../components/store/actions/photo"
+import ImageExpand from "./ImageExpand"
+
 const useStyles = makeStyles({
   root: {
     width: 360,
@@ -29,6 +31,9 @@ const useStyles = makeStyles({
 export default function PlaceCards({data, setting,placeId}) {
   const classes = useStyles();
     const [mouseHover, setMouseHover] = useState({raised:false, shadow:1})
+  const [showImageExpand, setShowImageExpand] = useState(false)
+    
+    
     const handleDelete = (id) => {
      let result = deletePhotoByPhotoId(id)
      if (result) {
@@ -62,6 +67,8 @@ export default function PlaceCards({data, setting,placeId}) {
           className={classes.media}
           className="imgTag"
           image={data.url}
+        onClick={()=>setShowImageExpand(true)}
+
         />
          {/* <p class="img__description"></p> */}
         </div>
@@ -74,6 +81,8 @@ export default function PlaceCards({data, setting,placeId}) {
              variant="body1"
   >{data.name} </Typography>
    </div>
+   {showImageExpand && <ImageExpand showImageExpand={showImageExpand} setShowImageExpand={setShowImageExpand} image={data.url} postName={data.name}></ImageExpand>}
+
       </>
   );
 }

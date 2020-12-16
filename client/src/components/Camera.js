@@ -17,7 +17,7 @@ const videoConstraints = {
     const [data, setData] = useState("")
     const capture = useCallback(
       () => {
-        const imageSrc = webcamRef.current.getScreenshot({width: 500, height: 600});
+        const imageSrc = webcamRef.current.getScreenshot({width: 1280, height: 720});
         setData(imageSrc)
         // console.log(imageSrc)
         setImage(imageSrc)
