@@ -5,14 +5,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 // import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-// import Badge from '@material-ui/core/Badge';
+import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 // import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 // import AccountCircle from '@material-ui/icons/AccountCircle';
 // import MailIcon from '@material-ui/icons/Mail';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
 // import { loadCurrentUser } from "../store/actions/sessions/currentUser"
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const [profileUrl, setProfilUrl] = useState("")
-  const profilePhoto = useSelector(state => state.sessions.currentUser)
+  const currentUserData = useSelector(state => state.sessions.currentUser)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -160,14 +160,16 @@ const NavBar = () => {
         </IconButton>
         <p>Messages</p>
       </MenuItem> */}
-      {/* <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit"
+      
+        >
           <Badge badgeContent={11} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem> */}
+      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -177,8 +179,8 @@ const NavBar = () => {
         >
           <Avatar
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
-            // src={profilePhoto.photos.length >0? profilePhoto.photos[0].url: null}
-            src={profilePhoto.photos.length> 0 ? profilePhoto.photos[0].url : null}
+            // src={currentUserData.photos.length >0? currentUserData.photos[0].url: null}
+            src={currentUserData.photos.length> 0 ? currentUserData.photos[0].url : null}
           />
         </IconButton>
         <p>Profile</p>
@@ -245,11 +247,26 @@ const NavBar = () => {
                 <MailIcon />
               </Badge>
             </IconButton> */}
-            {/* <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+
+
+            
+            {/* <IconButton aria-label="show 17 new notifications" color="inherit"
+              onClick={()=>console.log(currentUserData.relationship.filter(each=>{
+                if (each.pending && each.from_user_id != currentUserData.id){
+                  return each
+                }
+              }).length)}
+            >
+              <Badge badgeContent={currentUserData.relationship.filter(each=>{
+                if (each.pending && each.from_user_id != currentUserData.id){
+                  return each
+                }
+              }).length} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
+
+
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -260,7 +277,7 @@ const NavBar = () => {
             >
               <Avatar
                 // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLUBcjuBarUfvgSfYoD-fqE0dV9mWlOu6aQ&usqp=CAU"
-                src={profilePhoto.photos.length> 0 ? profilePhoto.photos[0].url : null}
+                src={currentUserData.photos.length> 0 ? currentUserData.photos[0].url : null}
 
                 style={{ width: '30pt', height: '30pt' }}
               />

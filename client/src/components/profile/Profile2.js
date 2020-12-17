@@ -28,8 +28,9 @@ import Collapse from '@material-ui/core/Collapse';
 import EditProfile from "./EditProfile"
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import {grabAllLikes} from "../store/actions/like"
-
-
+import ViewFriendsList from "./ViewFriendsList"
+import {grabAllFriendsByUserIdThunk} from "../../components/store/actions/sessions/currentUser"
+import {acceptFriendRequest} from "../../components/store/actions/relationship"
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
@@ -98,6 +99,7 @@ const MyProfile
     const data = JSON.parse(window.localStorage.getItem(CURRENT_USER))
     const places = Object.values(useSelector(state => state.entities.places.byId))
     const posts = Object.values(useSelector(state => state.entities.posts.byId))
+    const relationships = useSelector(state => state.sessions.relationships)
     const [showPlaces, setShowPlaces] = useState(false)
     const [showPosts, setShowPosts] = useState(true)
     const [showProfilePopUp, setShowProfilePopUp] = useState(true)
@@ -112,6 +114,7 @@ const MyProfile
     useEffect(() => {
         dispatch(grabAllPlacesByUserIdThunk(data.userId))
         dispatch(grabAllPostsByUserIdThunk(data.userId))
+        dispatch(grabAllFriendsByUserIdThunk(data.userId))
         dispatch(grabAllLikes())
 
     }, []);
@@ -120,7 +123,7 @@ const MyProfile
         <>
 
             <Paper className={classes.paper} elevation={0}>
-{/* <button onClick={()=>console.log(data)}>asdfasdf</button> */}
+{/* <button onClick={()=>console.log(relationships)}>asdfasdf</button> */}
                 <Card elevation={0} className={classes.card}>
                     <Avatar
                     style={{ width: '130pt', height: '130pt', margin:"auto" }}
@@ -204,6 +207,9 @@ const MyProfile
                                 <PlaceCard data={each}></PlaceCard>
                             ) : null}
                             {showPosts ? posts.map(each => <PostCard data={each} />) : null}
+                            {showFriendList? relationships.map(each=><ViewFriendsList data={each}></ViewFriendsList>) : null}
+
+
 </Grid>
                 {/* <Grid container>    
                     <Grid item>

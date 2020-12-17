@@ -8,7 +8,8 @@ export const initialState = {
       biography:'',
       Posts:[],
       Places:[],
-      Photos:[{url:""}]
+      Photos:[{url:""}],
+      Relationship:[{pending:"", friend:''}]
     },
     //////////////////////////////
     likes:{
@@ -178,6 +179,7 @@ export const initialState = {
     signUpErrors: [],
   },
   sessions: {
+    relationships:[],
     currentToken: "",
     currentUser: {
       id: '',

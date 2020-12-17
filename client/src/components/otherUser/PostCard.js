@@ -114,7 +114,7 @@ dispatch(likeHandlerInOtherUsersProfile(payload))
   return (
    <> {!edit ? 
       <Card className={classes.root}>
-        <button onClick={() => console.log(data)}>123</button>
+        {/* <button onClick={() => console.log(data)}>123</button> */}
 
       <CardMedia
         className={classes.media}

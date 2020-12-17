@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom"
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 // import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
@@ -23,11 +23,11 @@ import PlaceCard from "./PlaceCard"
 import { grabUserInformationByUserIdThunk } from "../../components/store/actions/entities/entities"
 import PostCard from "./PostCard"
 // import CancelIcon from '@material-ui/icons/Cancel';
-import {grabAllLikes} from "../store/actions/like"
+import { grabAllLikes } from "../store/actions/like"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
-import {addFriend} from "../store/actions/relationship"
+import { addFriend } from "../store/actions/relationship"
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
@@ -82,8 +82,8 @@ const styles = makeStyles((theme) => ({
     expandOpen: {
         // transform: 'rotate(180deg)',
     },
-    card:{
-        marginTop:'3%'
+    card: {
+        marginTop: '3%'
     },
 
 }));
@@ -92,7 +92,7 @@ const styles = makeStyles((theme) => ({
 const PostFeeds = () => {
     const classes = styles()
     const dispatch = useDispatch()
-    const userId =useParams().id
+    const userId = useParams().id
     const userData = useSelector(state => state.entities.otherUser)
     const currentUserData = JSON.parse(window.localStorage.getItem(CURRENT_USER))
     const [showPlaces, setShowPlaces] = useState(false)
@@ -108,21 +108,27 @@ const PostFeeds = () => {
     };
 
     useEffect(() => {
-        dispatch(grabUserInformationByUserIdThunk(userId))
+        const payload = {
+            currentUserId : currentUserData.userId,
+            otherUserId: userId
+        }
+        dispatch(grabUserInformationByUserIdThunk(payload))
         setLoaded(true)
     }, []);
 
-const handleAddFriend = (otherUserId) => {
-    const payload = {
-        currentUserId: currentUserData.userId,
-        otherUserId
+    const handleAddFriend = (otherUserId) => {
+        const payload = {
+            currentUserId: currentUserData.userId,
+            otherUserId
+        }
+        // console.log(payload)
+        dispatch(addFriend(payload))
     }
-console.log(payload)
-// dispatch(addFriend(payload))
-}
 
+    if(currentUserData.userId == userId){
+        return window.location.href="/myprofile"
+    }
 
-    
     if (!loaded) {
         return null
     }
@@ -130,59 +136,68 @@ console.log(payload)
         <>
 
             <Paper className={classes.paper} elevation={0}>
-{/* <button onClick={()=>console.log(userData)}>asdfasdf</button> */}
+                {/* <button onClick={() => console.log(userData)}>asdfasdf</button> */}
                 <Card elevation={0} className={classes.card}>
                     <Avatar
-                    style={{ width: '130pt', height: '130pt', margin:"auto" }}
-                    src={userData.Photos[0].url}
+                        style={{ width: '130pt', height: '130pt', margin: "auto" }}
+                        src={userData.Photos[0].url}
                     >
 
-                </Avatar>
+                    </Avatar>
 
 
 
-                <Typography 
-                align="center"
-                variant="h6"
-                >
-                    {`${userData.firstName} ${userData.lastName}`} 
-                    <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
-                    <IconButton
-                    onClick={()=>handleAddFriend(userData.id)}
-                    ><PersonAddIcon></PersonAddIcon></IconButton>
-                    </Tooltip> 
-{/*                     
-                    <Tooltip title={`You are friend with ${userData.firstName}`} placement="right">
-                        <IconButton><PersonIcon style={{color:"green"}}></PersonIcon></IconButton>
-                    </Tooltip> */}
-                    
+                    <Typography
+                        align="center"
+                        variant="h6"
+                    >
+                        {`${userData.firstName} ${userData.lastName}`}
+                        {userData.Relationship.length ==0 ? <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
+                            <IconButton onClick={() => handleAddFriend(userData.id)}><PersonAddIcon></PersonAddIcon></IconButton></Tooltip> : null}
 
-                    
+                        {userData.Relationship.length && userData.Relationship[0].pending ? <Tooltip title={`friend request pending...`} placement="right">
+                            <IconButton><PersonIcon style={{ color: "#CCCC00" }}></PersonIcon></IconButton>
+                        </Tooltip>: null}    
+                        {userData.Relationship.length && userData.Relationship[0].friend ?  <Tooltip title={`You are friend with ${userData.firstName}`} placement="right">
+                            <IconButton><PersonIcon style={{ color: "green" }}></PersonIcon></IconButton>
+                        </Tooltip>: null}
+                        {/* {userData.to && currentUserData.userId != userData.to.from_user_id? <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
+                            <IconButton onClick={() => handleAddFriend(userData.id)}><PersonAddIcon></PersonAddIcon></IconButton></Tooltip> : null}
+                        {currentUserData.userId != userData.to.from_user_id && userData.to.length && userData.to[0].pending ? <Tooltip title={`friend request pending...`} placement="right">
+                            <IconButton><PersonIcon style={{ color: "#CCCC00" }}></PersonIcon></IconButton>
+                        </Tooltip>: null}
+
+                        {userData.to.length && userData.to[0].friend ?  <Tooltip title={`You are friend with ${userData.firstName}`} placement="right">
+                            <IconButton><PersonIcon style={{ color: "green" }}></PersonIcon></IconButton>
+                        </Tooltip>: null} */}
+
+
+
                     </Typography>
-                
-                <Typography 
-                align="center"
-                variant="h6"
-                >
-                    {userData.email}
-                </Typography>
-                    <Typography align="center" variant="body1" >
-                                    {userData.biography}
-                                </Typography>
 
-                               
-                                <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${userData.Posts.length} Places ${userData.Places.length}`}</Typography>
-                                <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar> 
+                    <Typography
+                        align="center"
+                        variant="h6"
+                    >
+                        {userData.email}
+                    </Typography>
+                    <Typography align="center" variant="body1" >
+                        {userData.biography}
+                    </Typography>
+
+
+                    <Typography align="center" variant="body2" style={{ color: "gray" }}>{`Posts ${userData.Posts.length} Places ${userData.Places.length}`}</Typography>
+                    <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar>
 
                 </Card>
-                <Grid container style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>    
+                <Grid container style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 
-               
-                            {showPlaces ? userData.Places.map(each =>
-                                <PlaceCard data={each}></PlaceCard>
-                            ) : null}
-                            {showPosts ? userData.Posts.map(each => <PostCard data={each} thisUserId={userId}/>) : null}
-</Grid>
+
+                    {showPlaces ? userData.Places.map(each =>
+                        <PlaceCard data={each}></PlaceCard>
+                    ) : null}
+                    {showPosts ? userData.Posts.map(each => <PostCard data={each} thisUserId={userId} />) : null}
+                </Grid>
             </Paper>
         </>
     )

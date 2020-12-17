@@ -183,8 +183,12 @@ export const deleteComment = (data) => async (dispatch) => {
     // console.log(data)
 }
 
-export const grabUserInformationByUserIdThunk = (userId) => async (dispatch) => {
-    const response = await fetch(`/api/users/${userId}`);
+export const grabUserInformationByUserIdThunk = (data) => async (dispatch) => {
+    const response = await fetch(`/api/users/profile`, {
+        method:"put",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(data)
+    });
     if (response.ok) {
         const data = await response.json();
         // console.log(data)

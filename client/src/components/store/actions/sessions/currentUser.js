@@ -5,7 +5,7 @@ export const REMOVE_TOKEN = "REMOVE_TOKEN";
 export const TOKEN_KEY = "TOKEN_KEY";
 export const REMOVE_CURRENT_USER = "REMOVE_CURRENT_USER"
 export const CURRENT_LOCATION_COORDINATES = "CURRENT_LOCATION_COORDINATES"
-
+export const GRAB_ALL_FRIENDS = "GRAB_ALL_FRIENDS"
 ////////ACTION CREATORS////////////////////
 export const currentUser = (data) => {
     return {
@@ -37,6 +37,12 @@ export const currentLocationCoordinates = (data) =>{
     }
 }
 
+export const grabAllFriends = (data) => {
+    return {
+        type:GRAB_ALL_FRIENDS,
+        data
+    }
+}
 
 /////////THUNKS///////////
 export const saveCurrentUserData=(data)=> (dispatch) => {
@@ -95,6 +101,15 @@ export const currentLocationCoordinatesThunk = (coordinates)=> async(dispatch) =
 
 }
 
+export const grabAllFriendsByUserIdThunk = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/relationships/${userId}`);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        dispatch(grabAllFriends(data))
+    }
+}
+
 ///////////REDUCER////////////////////////
 
 export default function reducer(state = {}, action) {
@@ -110,7 +125,8 @@ export default function reducer(state = {}, action) {
                 biography: action.data.biography,
                 posts: action.data.posts,
                 places:action.data.places,
-                photos:action.data.photos
+                photos:action.data.photos,
+                relationship: action.data.relationship
             }
             return newState
         case SET_TOKEN:
@@ -124,6 +140,9 @@ export default function reducer(state = {}, action) {
             return newState
         case CURRENT_LOCATION_COORDINATES:
             newState["currentLocation"]=action.data[0]
+            return newState
+        case GRAB_ALL_FRIENDS:
+            newState["relationships"] = action.data
             return newState
     
         default:

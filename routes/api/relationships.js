@@ -22,7 +22,7 @@ router.put("/add", asyncHandler(async(req,res,next) => {
             {model:Post, include:[Photo, Like, Comment, Place]},
             {model:Place, include:{model:Photo}},
             {model:Photo},
-            {model:Relationship}
+            {model:Relationship, as:"to"}
         ]
 
     })
@@ -31,8 +31,49 @@ router.put("/add", asyncHandler(async(req,res,next) => {
 }))
 
 
+router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
+    const userId = Number.parseInt(req.params.id);
+    // console.log(userId)
+    const relationships = await db.Relationship.findAll({
+        where:{
+            from_user_id: userId
+        },
+        include:[
+            {model:User, as: "to", attributes:["id","firstName", "lastName", "email"],
+        include:{model:Photo}}
+        ]
+    })
+    const relationships2 = await db.Relationship.findAll({
+        where:{
+            to_user_id:userId
+        },
+        include:[
+            {model:User , as:"from", attributes:["id","firstName", "lastName", "email"],
+        include:{model:Photo}}
+        ]
+    })
+    // console.log(relationships)
+    // console.log(relationships2)
+    if (relationships.length == 0 && relationships2.length == 0) {
+        res.json([])
+    } else if (relationships.length == 0 && relationships2.length > 0){
+        relationships2.forEach(each=>relationships.push(each))
+        res.json(relationships)
+    } else if (relationships.length> 0 && relationships2.length == 0){
+        relationships.forEach(each=>relationships2.push(each))
+    res.json(relationships)
+    } else {
+       res.json([...relationships, ...relationships2])
+    }
 
 
+}))
+
+
+//////////accept friend request///////////
+router.put("/accept", asyncHandler(async(req,res,next) => {
+    console.log(req.body)
+}))
 
 
 module.exports = router;

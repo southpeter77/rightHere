@@ -23,9 +23,9 @@ router.get('/', asyncHandler(async (req, res, next) => {
 }));
 
 //////////grab user's information for other user's profile ///////
-router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
-    const userId =req.params.id
-
+router.put("/profile", asyncHandler(async(req,res,next) => {
+    const userId = req.body.otherUserId;
+    const currentUserId= req.body.currentUserId;
     const user = await db.User.findOne({
         where:{
             id:userId
@@ -34,12 +34,38 @@ router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
         include:[
             {model:Post, include:[Photo, Like, Comment,Place]},
             {model:Place, include:{model:Photo}},
-            {model:Photo}
+            {model:Photo},
         ]
 
     })
-    console.log(user)
-    res.json(user)
+    const relationship1 = await db.Relationship.findAll({
+        where:{
+            from_user_id:userId,
+            to_user_id:currentUserId
+        }
+    })
+    const relationship2 = await db.Relationship.findAll({
+        where:{
+            from_user_id:currentUserId,
+            to_user_id:userId
+        }
+    })
+    relationship2.forEach(each=>relationship1.push(each))
+
+    // console.log(relationship2)
+    // user["Relationship"]= {asdf:'asdf'}
+    // res.json(user)
+    res.json({
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        biography: user.biography,
+        Posts: user.Posts,
+        Places: user.Places,
+        Photos: user.Photos,
+        Relationship: relationship2
+    })
 }))
 
 ///////////////log-in api////////
@@ -50,6 +76,17 @@ router.post("/login", validateUserEmailAndPassword, handleValidationErrors, asyn
         where: { email: email },
         include: [Post, Place, Photo]
     });
+    const relationship = await db.Relationship.findAll({
+        where:{
+            from_user_id:user.id
+        }
+    })
+    const relationship2 = await db.Relationship.findAll({
+        where:{
+            to_user_id:user.id
+        }
+    })
+    relationship2.forEach(each=>relationship.push(each))
 
     if (user === null) {
 
@@ -80,7 +117,8 @@ router.post("/login", validateUserEmailAndPassword, handleValidationErrors, asyn
         biography: user.biography,
         posts: user.Posts,
         places: user.Places,
-        photos: user.Photos
+        photos: user.Photos,
+        relationship: relationship
     })
 }))
 ////////////sign up/////////////////////////
@@ -99,6 +137,17 @@ router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(
         include: [Post, Place, Photo]
     });
 
+    const relationship = await db.Relationship.findAll({
+        where:{
+            from_user_id:user.id
+        }
+    })
+    const relationship2 = await db.Relationship.findAll({
+        where:{
+            to_user_id:user.id
+        }
+    })
+    relationship2.forEach(each=>relationship.push(each))
 
     const token = getUserToken(user);
     res.json({
@@ -110,7 +159,8 @@ router.post("/signup", validateSignUpUser, handleValidationErrors, asyncHandler(
         biography: user.biography,
         posts: user.Posts,
         places: user.Places,
-        photos: user.Photos
+        photos: user.Photos,
+        relationship: relationship
     })
 
 }))
@@ -126,6 +176,8 @@ router.put("/biography/edit", asyncHandler(async (req, res, next) => {
         where: { id: user.id },
         include: [Post, Place, Photo]
     });
+
+    
 
     const token = getUserToken(user);
     res.json({

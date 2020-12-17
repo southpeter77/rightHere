@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    pending: {
+      type:DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   }, {});
   Relationship.associate = function(models) {
     // associations can be defined here
