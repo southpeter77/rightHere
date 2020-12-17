@@ -22,7 +22,7 @@ import navBarStyling from "./navBarStyling.css"
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExploreIcon from '@material-ui/icons/Explore';
 import {CURRENT_USER} from "../store/actions/sessions/currentUser"
-import Search from "./SeachLocation"
+import Search from "./Search"
 import { NotificationImportant } from '@material-ui/icons';
 import {grabAllFriendsByUserIdThunk} from "../../components/store/actions/sessions/currentUser"
 import Tooltip from '@material-ui/core/Tooltip';
@@ -245,7 +245,7 @@ const NavBar = () => {
           </div>
               <Search></Search> */}
 
-
+{/* <Search></Search> */}
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

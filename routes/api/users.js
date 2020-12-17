@@ -12,14 +12,17 @@ const multer = require("multer");
 const upload = multer();
 
 
-router.get('/', asyncHandler(async (req, res, next) => {
+router.get('/all', asyncHandler(async (req, res, next) => {
 
-    const users = await db.User.findAll();
+    const users = await db.User.findAll({
+        attributes:["id","firstName", "lastName", "email"],
+        include:[{model:Photo}]
+    });
     // // res.json({ users });
     // console.log("asdf")
     // console.log("hiiiiiiii")
     // console.log(users)
-    res.json({ mesage: "hi" })
+    res.json(users)
 }));
 
 //////////grab user's information for other user's profile ///////
