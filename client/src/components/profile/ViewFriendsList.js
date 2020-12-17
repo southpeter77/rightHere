@@ -78,7 +78,7 @@ export default function ViewFriendList({ data,currentUserId }) {
                             <IconButton aria-label="settings"
                             onClick={()=>handleAcceptFriendRequest()}
                             >
-                                <PersonAddIcon />
+                                <PersonAddIcon style={{color:"green"}}/>
                             </IconButton>
                         </Tooltip>
                         :
@@ -89,7 +89,18 @@ export default function ViewFriendList({ data,currentUserId }) {
                         </Tooltip>
 
                     }
-                    title={data.to ? `${data.to.firstName} ${data.to.lastName}` : `${data.from.firstName} ${data.from.lastName}`}
+                    title={
+                        data.to ? <Typography
+                        style={{cursor:"pointer", textDecoration:"underline"}}
+                        onClick={()=>window.location.href=`/profile/${data.to.id}`}
+                        >{data.to.firstName} {data.to.lastName}</Typography>
+                        : 
+                        <Typography
+                        style={{cursor:"pointer", textDecoration:"underline"}}
+                        onClick={()=>window.location.href=`/profile/${data.from.id}`}
+                        >{data.from.firstName} {data.from.lastName}</Typography>
+                    
+                    }
                     subheader={data.to ? data.to.email : data.from.email}
                 />
             </Card>
@@ -97,7 +108,7 @@ export default function ViewFriendList({ data,currentUserId }) {
     } 
     return (
         <Card className={!data.pending ? classes.root : classes.root2}>
-            <button onClick={() => console.log(data)}>console</button>
+            {/* <button onClick={() => console.log(data)}>console</button> */}
             <CardHeader
                 avatar={
                     <Avatar className={classes.avatar}
@@ -110,7 +121,18 @@ export default function ViewFriendList({ data,currentUserId }) {
                         <MessageIcon />
                     </IconButton>
                 }
-                title={data.to ? `${data.to.firstName} ${data.to.lastName}` : `${data.from.firstName} ${data.from.lastName}`}
+                title={
+                    data.to ? <Typography
+                    style={{cursor:"pointer", textDecoration:"underline"}}
+                    onClick={()=>window.location.href=`/profile/${data.to.id}`}
+                    >{data.to.firstName} {data.to.lastName}</Typography>
+                    : 
+                    <Typography
+                    style={{cursor:"pointer", textDecoration:"underline"}}
+                    onClick={()=>window.location.href=`/profile/${data.from.id}`}
+                    >{data.from.firstName} {data.from.lastName}</Typography>
+                
+                }
                 subheader={data.to ? data.to.email : data.from.email}
             />
         </Card>

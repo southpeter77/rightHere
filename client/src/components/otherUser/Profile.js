@@ -138,7 +138,7 @@ const PostFeeds = () => {
         <>
 
             <Paper className={classes.paper} elevation={0}>
-                <button onClick={() => console.log(userData)}>asdfasdf</button>
+                {/* <button onClick={() => console.log(userData)}>asdfasdf</button> */}
                 <Card elevation={0} className={classes.card}>
                     <Avatar
                         style={{ width: '130pt', height: '130pt', margin: "auto" }}
