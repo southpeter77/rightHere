@@ -24,8 +24,10 @@ import { grabUserInformationByUserIdThunk } from "../../components/store/actions
 import PostCard from "./PostCard"
 // import CancelIcon from '@material-ui/icons/Cancel';
 import {grabAllLikes} from "../store/actions/like"
-
-
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonIcon from '@material-ui/icons/Person';
+import Tooltip from '@material-ui/core/Tooltip';
+import {addFriend} from "../store/actions/relationship"
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
@@ -92,7 +94,7 @@ const PostFeeds = () => {
     const dispatch = useDispatch()
     const userId =useParams().id
     const userData = useSelector(state => state.entities.otherUser)
-
+    const currentUserData = JSON.parse(window.localStorage.getItem(CURRENT_USER))
     const [showPlaces, setShowPlaces] = useState(false)
     const [showPosts, setShowPosts] = useState(true)
     const [showProfilePopUp, setShowProfilePopUp] = useState(true)
@@ -104,13 +106,23 @@ const PostFeeds = () => {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
     useEffect(() => {
-            // dispatch(grabAllPlacesByUserIdThunk(userId))
-            // dispatch(grabAllPostsByUserIdThunk(userId))
-        // dispatch(grabAllLikes())
         dispatch(grabUserInformationByUserIdThunk(userId))
         setLoaded(true)
     }, []);
+
+const handleAddFriend = (otherUserId) => {
+    const payload = {
+        currentUserId: currentUserData.userId,
+        otherUserId
+    }
+console.log(payload)
+// dispatch(addFriend(payload))
+}
+
+
+    
     if (!loaded) {
         return null
     }
@@ -133,7 +145,19 @@ const PostFeeds = () => {
                 align="center"
                 variant="h6"
                 >
-                    {`${userData.firstName} ${userData.lastName}`}
+                    {`${userData.firstName} ${userData.lastName}`} 
+                    <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
+                    <IconButton
+                    onClick={()=>handleAddFriend(userData.id)}
+                    ><PersonAddIcon></PersonAddIcon></IconButton>
+                    </Tooltip> 
+{/*                     
+                    <Tooltip title={`You are friend with ${userData.firstName}`} placement="right">
+                        <IconButton><PersonIcon style={{color:"green"}}></PersonIcon></IconButton>
+                    </Tooltip> */}
+                    
+
+                    
                     </Typography>
                 
                 <Typography 

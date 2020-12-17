@@ -32,13 +32,13 @@ router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
         },
         attributes:["id","email", "firstName", "lastName", "biography"],
         include:[
-            {model:Post, include:[Photo, Like, Comment, Place]},
+            {model:Post, include:[Photo, Like, Comment,Place]},
             {model:Place, include:{model:Photo}},
             {model:Photo}
         ]
 
     })
-    // console.log(user)
+    console.log(user)
     res.json(user)
 }))
 
