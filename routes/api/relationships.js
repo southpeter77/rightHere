@@ -52,8 +52,6 @@ router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
         include:{model:Photo}}
         ]
     })
-    // console.log(relationships)
-    // console.log(relationships2)
     if (relationships.length == 0 && relationships2.length == 0) {
         res.json([])
     } else if (relationships.length == 0 && relationships2.length > 0){
@@ -72,7 +70,44 @@ router.get("/:id(\\d+)", asyncHandler(async(req,res,next) => {
 
 //////////accept friend request///////////
 router.put("/accept", asyncHandler(async(req,res,next) => {
-    console.log(req.body)
+    
+    const relationship = await db.Relationship.findByPk(req.body.relationshipId);
+    await relationship.update({
+        pending:false,
+        friend:true
+    })
+
+    const userId = req.body.currentUserId
+
+    const relationships = await db.Relationship.findAll({
+        where:{
+            from_user_id: userId
+        },
+        include:[
+            {model:User, as: "to", attributes:["id","firstName", "lastName", "email"],
+        include:{model:Photo}}
+        ]
+    })
+    const relationships2 = await db.Relationship.findAll({
+        where:{
+            to_user_id:userId
+        },
+        include:[
+            {model:User , as:"from", attributes:["id","firstName", "lastName", "email"],
+        include:{model:Photo}}
+        ]
+    })
+    if (relationships.length == 0 && relationships2.length == 0) {
+        res.json([])
+    } else if (relationships.length == 0 && relationships2.length > 0){
+        relationships2.forEach(each=>relationships.push(each))
+        res.json(relationships)
+    } else if (relationships.length> 0 && relationships2.length == 0){
+        relationships.forEach(each=>relationships2.push(each))
+    res.json(relationships)
+    } else {
+       res.json([...relationships, ...relationships2])
+    }
 }))
 
 

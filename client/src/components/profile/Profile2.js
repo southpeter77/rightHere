@@ -207,7 +207,7 @@ const MyProfile
                                 <PlaceCard data={each}></PlaceCard>
                             ) : null}
                             {showPosts ? posts.map(each => <PostCard data={each} />) : null}
-                            {showFriendList? relationships.map(each=><ViewFriendsList data={each}></ViewFriendsList>) : null}
+                            {showFriendList? relationships.map(each=><ViewFriendsList data={each} currentUserId={data.userId}></ViewFriendsList>) : null}
 
 
 </Grid>

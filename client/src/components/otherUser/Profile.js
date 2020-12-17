@@ -103,6 +103,7 @@ const PostFeeds = () => {
     const [showBioEdit, setShowBioEdit] = useState(false)
     const [showFriendList, setShowFriendList] = useState(false)
     const [loaded, setLoaded] = useState(false)
+    const [clickAdd, setClickAdd] = useState(false)
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -116,13 +117,14 @@ const PostFeeds = () => {
         setLoaded(true)
     }, []);
 
-    const handleAddFriend = (otherUserId) => {
+    const handleAddFriend = async (otherUserId) => {
         const payload = {
             currentUserId: currentUserData.userId,
             otherUserId
         }
-        // console.log(payload)
-        dispatch(addFriend(payload))
+        setClickAdd(true)
+        await dispatch(addFriend(payload))
+
     }
 
     if(currentUserData.userId == userId){
@@ -136,7 +138,7 @@ const PostFeeds = () => {
         <>
 
             <Paper className={classes.paper} elevation={0}>
-                {/* <button onClick={() => console.log(userData)}>asdfasdf</button> */}
+                <button onClick={() => console.log(userData)}>asdfasdf</button>
                 <Card elevation={0} className={classes.card}>
                     <Avatar
                         style={{ width: '130pt', height: '130pt', margin: "auto" }}
@@ -152,15 +154,20 @@ const PostFeeds = () => {
                         variant="h6"
                     >
                         {`${userData.firstName} ${userData.lastName}`}
-                        {userData.Relationship.length ==0 ? <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
-                            <IconButton onClick={() => handleAddFriend(userData.id)}><PersonAddIcon></PersonAddIcon></IconButton></Tooltip> : null}
+                        {userData.Relationship &&  userData.Relationship.length ==0 ? <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
+                            <IconButton onClick={() => {handleAddFriend(userData.id)}
+                            
+                            }><PersonAddIcon></PersonAddIcon></IconButton></Tooltip> : null}
 
-                        {userData.Relationship.length && userData.Relationship[0].pending ? <Tooltip title={`friend request pending...`} placement="right">
+                        {clickAdd || (userData.Relationship && userData.Relationship.length && userData.Relationship[0].pending) ? <Tooltip title={`friend request pending...`} placement="right">
                             <IconButton><PersonIcon style={{ color: "#CCCC00" }}></PersonIcon></IconButton>
                         </Tooltip>: null}    
-                        {userData.Relationship.length && userData.Relationship[0].friend ?  <Tooltip title={`You are friend with ${userData.firstName}`} placement="right">
+                        {userData.Relationship && userData.Relationship.length && userData.Relationship[0].friend ?  <Tooltip title={`You are friend with ${userData.firstName}`} placement="right">
                             <IconButton><PersonIcon style={{ color: "green" }}></PersonIcon></IconButton>
                         </Tooltip>: null}
+                        
+
+
                         {/* {userData.to && currentUserData.userId != userData.to.from_user_id? <Tooltip title={`Add ${userData.firstName} to your friend`} placement="right">
                             <IconButton onClick={() => handleAddFriend(userData.id)}><PersonAddIcon></PersonAddIcon></IconButton></Tooltip> : null}
                         {currentUserData.userId != userData.to.from_user_id && userData.to.length && userData.to[0].pending ? <Tooltip title={`friend request pending...`} placement="right">

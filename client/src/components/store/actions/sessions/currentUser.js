@@ -105,7 +105,7 @@ export const grabAllFriendsByUserIdThunk = (userId) => async (dispatch) => {
     const response = await fetch(`/api/relationships/${userId}`);
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
         dispatch(grabAllFriends(data))
     }
 }

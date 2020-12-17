@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -45,26 +45,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ViewFriendList({ data }) {
+export default function ViewFriendList({ data,currentUserId }) {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
     const dispatch = useDispatch()
 
     const handleAcceptFriendRequest = () => {
         const payload = {
-            relationshipId: data.id
+            relationshipId: data.id,
+            currentUserId
         }
-        console.log(payload)
+        // console.log(data)
+        dispatch(acceptFriendRequest(payload))
     }
+    useEffect(()=>{
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    },[])
+
 
     if (data.pending) {
         return (
             <Card className={!data.pending ? classes.root : classes.root2}>
-                <button onClick={() => console.log(data)}>console</button>
+                {/* <button onClick={() => console.log(data)}>console</button> */}
                 <CardHeader
                     avatar={
                         <Avatar className={classes.avatar}

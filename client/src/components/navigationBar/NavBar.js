@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,6 +23,9 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ExploreIcon from '@material-ui/icons/Explore';
 import {CURRENT_USER} from "../store/actions/sessions/currentUser"
 import Search from "./SeachLocation"
+import { NotificationImportant } from '@material-ui/icons';
+import {grabAllFriendsByUserIdThunk} from "../../components/store/actions/sessions/currentUser"
+import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -90,20 +93,24 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const [profileUrl, setProfilUrl] = useState("")
+  const data = JSON.parse(window.localStorage.getItem(CURRENT_USER))
   const currentUserData = useSelector(state => state.sessions.currentUser)
+  const relationships = useSelector(state => state.sessions.relationships)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(grabAllFriendsByUserIdThunk(data.userId))
+}, []);
+
   const handleLogOut = () => {
     dispatch(logOutThunk())
   }
-  //   useEffect(() => {
-  //     console.log(window.localStorage.getItem("CURRENT_USER_ID"))
-  //     loadCurrentUser();
-  // }, []);
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -242,30 +249,21 @@ const NavBar = () => {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
+           <Tooltip title="New friend requests">
 
-
-            
-            {/* <IconButton aria-label="show 17 new notifications" color="inherit"
-              onClick={()=>console.log(currentUserData.relationship.filter(each=>{
-                if (each.pending && each.from_user_id != currentUserData.id){
-                  return each
-                }
-              }).length)}
-            >
-              <Badge badgeContent={currentUserData.relationship.filter(each=>{
-                if (each.pending && each.from_user_id != currentUserData.id){
-                  return each
-                }
-              }).length} color="secondary">
+          
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={
+                relationships.filter(each=>{
+                  if (each.from_user_id !== currentUserData.id && each.pending == true){
+                    return each
+                  }
+                }).length
+              } color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton> */}
-
+            </IconButton>
+ </Tooltip>
 
             <IconButton
               edge="end"
