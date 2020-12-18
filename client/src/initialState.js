@@ -1,5 +1,6 @@
 export const initialState = {
   entities: {
+    relationships:[],
     otherUser:{
       id:'',
       email:'',

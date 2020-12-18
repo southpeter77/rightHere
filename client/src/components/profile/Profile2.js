@@ -191,8 +191,8 @@ const MyProfile
                                 </Typography>
 
                                
-                                <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${posts.length} Places ${places.length}`}</Typography>
-                                <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar>
+                                {/* <Typography align="center" variant="body2" style={{ color: "gray"}}>{`Posts ${posts.length} / Places ${places.length} / Friends ${relationships.length}`}</Typography> */}
+                                <ProfileNavBar postLength={posts.length} placesLength={places.length} friends={relationships.length} setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar>
     <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <CardContent>
                                     <EditProfile showBioEdit={showBioEdit} showPhotoEdit={showPhotoEdit} setShowPhotoEdit={setShowPhotoEdit} setShowBioEdit={setShowBioEdit}></EditProfile>

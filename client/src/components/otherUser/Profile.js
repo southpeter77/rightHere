@@ -20,7 +20,7 @@ import CardActions from '@material-ui/core/CardActions';
 // import CardHeader from '@material-ui/core/CardHeader';
 import ProfileNavBar from "./ProfileNavBar"
 import PlaceCard from "./PlaceCard"
-import { grabUserInformationByUserIdThunk } from "../../components/store/actions/entities/entities"
+import { grabUserInformationByUserIdThunk, grabAllFriendsByUserIdThunk } from "../../components/store/actions/entities/entities"
 import PostCard from "./PostCard"
 // import CancelIcon from '@material-ui/icons/Cancel';
 import { grabAllLikes } from "../store/actions/like"
@@ -28,6 +28,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import { addFriend } from "../store/actions/relationship"
+import ViewFriendsList from "./ViewFriendsList"
 const styles = makeStyles((theme) => ({
     feed: {
         padding: '2px 4px',
@@ -95,6 +96,7 @@ const PostFeeds = () => {
     const userId = useParams().id
     const userData = useSelector(state => state.entities.otherUser)
     const currentUserData = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+    const thisUsersFriends = useSelector(state=>state.entities.relationships)
     const [showPlaces, setShowPlaces] = useState(false)
     const [showPosts, setShowPosts] = useState(true)
     const [showProfilePopUp, setShowProfilePopUp] = useState(true)
@@ -114,6 +116,7 @@ const PostFeeds = () => {
             otherUserId: userId
         }
         dispatch(grabUserInformationByUserIdThunk(payload))
+        dispatch(grabAllFriendsByUserIdThunk(userId))
         setLoaded(true)
     }, []);
 
@@ -124,7 +127,6 @@ const PostFeeds = () => {
         }
         setClickAdd(true)
         await dispatch(addFriend(payload))
-
     }
 
     if(currentUserData.userId == userId){
@@ -138,7 +140,7 @@ const PostFeeds = () => {
         <>
 
             <Paper className={classes.paper} elevation={0}>
-                {/* <button onClick={() => console.log(userData)}>asdfasdf</button> */}
+                {/* <button onClick={() => console.log(thisUsersFriends)}>asdfasdf</button> */}
                 <Card elevation={0} className={classes.card}>
                     <Avatar
                         style={{ width: '130pt', height: '130pt', margin: "auto" }}
@@ -204,6 +206,7 @@ const PostFeeds = () => {
                         <PlaceCard data={each}></PlaceCard>
                     ) : null}
                     {showPosts ? userData.Posts.map(each => <PostCard data={each} thisUserId={userId} />) : null}
+                    {showFriendList? thisUsersFriends.map(each=><ViewFriendsList data={each}></ViewFriendsList>) : null}
                 </Grid>
             </Paper>
         </>

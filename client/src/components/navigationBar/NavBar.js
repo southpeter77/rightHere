@@ -252,7 +252,9 @@ const NavBar = () => {
            <Tooltip title="New friend requests">
 
           
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton aria-label="show 17 new notifications" color="inherit"
+            onClick={()=>{window.location.href=`/myprofile`}}
+            >
               <Badge badgeContent={
                 relationships.filter(each=>{
                   if (each.from_user_id !== currentUserData.id && each.pending == true){

@@ -11,6 +11,7 @@ export const GRAB_ALL_COMMENTS_BY_POST_ID = "GRAB_ALL_COMMENTS_BY_POST_ID"
 export const CREATE_AND_DISPATCH_ALL_COMMENTS = "CREATE_AND_DISPATCH_ALL_COMMENTS"
 export const GRAB_ALL_LIKES = "GRAB_ALL_LIKES"
 export const GRAB_USER_INFORMATION_BY_USER_ID = "GRAB_USER_INFORMATION_BY_USER_ID"
+export const GRAB_ALL_FRIENDS_FOR_OTHER_USER = "GRAB_ALL_FRIENDS_FOR_OTHER_USER"
 ///////////////////////////////////////////////
 export const grabAllPosts = (data) => {
     return {
@@ -82,6 +83,12 @@ export const grabUserInformationByUserId = (data) => {
     }
 }
 
+export const grabAllFriendsForOtherUser = (data) => {
+    return {
+        type:GRAB_ALL_FRIENDS_FOR_OTHER_USER,
+        data
+    }
+}
 //////////////////////////////////////////////
 
 export const grabAllPostsThunk = () => async (dispatch) => {
@@ -193,6 +200,15 @@ export const grabUserInformationByUserIdThunk = (data) => async (dispatch) => {
         const data = await response.json();
         // console.log(data)
         dispatch(grabUserInformationByUserId(data))
+    }
+}
+
+export const grabAllFriendsByUserIdThunk = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/relationships/otherUser/${userId}`);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        dispatch(grabAllFriendsForOtherUser(data))
     }
 }
 
@@ -386,6 +402,10 @@ export default function reducer(state = {}, action) {
                 newState["otherUser"] = action.data
                 
                 return newState
+            case GRAB_ALL_FRIENDS_FOR_OTHER_USER:
+                newState["relationships"] = action.data
+                return newState
+
         default:
             return state
     }
