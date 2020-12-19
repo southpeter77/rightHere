@@ -245,7 +245,7 @@ const NavBar = () => {
           </div>
               <Search></Search> */}
 
-{/* <Search></Search> */}
+<Search></Search>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
