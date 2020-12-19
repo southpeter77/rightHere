@@ -151,10 +151,10 @@ const Place = () => {
 
             />
           </Grid>
-          <Grid xs>
+          <Grid >
             
             {currentUser.userId == data.User.id ?<Typography
-              variant="h6"
+              variant="h3"
               align="center"
             >{data.name}'s Recommended places
             <IconButton aria-label="settings"
@@ -164,7 +164,7 @@ const Place = () => {
               </IconButton></Typography>
 
              : <Typography
-              variant="h6"
+              variant="h3"
               align="center"
             >{data.name}'s Recommended places</Typography>}
 

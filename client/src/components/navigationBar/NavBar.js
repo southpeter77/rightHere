@@ -168,13 +168,19 @@ const NavBar = () => {
         <p>Messages</p>
       </MenuItem> */}
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit"
-      
-        >
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+      <IconButton aria-label="show notifications" color="inherit"
+            onClick={()=>{window.location.href=`/myprofile`}}
+            >
+              <Badge badgeContent={
+                relationships.filter(each=>{
+                  if (each.from_user_id !== currentUserData.id && each.pending == true){
+                    return each
+                  }
+                }).length
+              } color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -252,7 +258,7 @@ const NavBar = () => {
            <Tooltip title="New friend requests">
 
           
-            <IconButton aria-label="show 17 new notifications" color="inherit"
+            <IconButton aria-label="show notifications" color="inherit"
             onClick={()=>{window.location.href=`/myprofile`}}
             >
               <Badge badgeContent={
