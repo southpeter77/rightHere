@@ -195,8 +195,8 @@ const PostFeeds = () => {
                     </Typography>
 
 
-                    <Typography align="center" variant="body2" style={{ color: "gray" }}>{`Posts ${userData.Posts.length} Places ${userData.Places.length}`}</Typography>
-                    <ProfileNavBar setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar>
+                    {/* <Typography align="center" variant="body2" style={{ color: "gray" }}>{`Posts ${userData.Posts.length} Places ${userData.Places.length}`}</Typography> */}
+                    <ProfileNavBar postLength={userData.Posts.length} placesLength={userData.Places.length} friends={thisUsersFriends.length} setShowPosts={setShowPosts} setShowPlaces={setShowPlaces} setShowFriendList={setShowFriendList} showPosts={showPosts} showPlaces={showPlaces} showFriendList={showFriendList}></ProfileNavBar>
 
                 </Card>
                 <Grid container style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>

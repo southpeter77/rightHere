@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
   }));
 
-const ProfileNavBar = ({setShowPosts, setShowPlaces, setShowFriendList, showPosts, showPlaces, showFriendList}) => {
+const ProfileNavBar = ({postLength, placesLength,friends, setShowPosts, setShowPlaces, setShowFriendList, showPosts, showPlaces, showFriendList}) => {
     const classes = useStyles();
 
 
@@ -35,7 +35,7 @@ const ProfileNavBar = ({setShowPosts, setShowPlaces, setShowFriendList, showPost
  <Typography variant="subtitle1" 
  component="subtitle1" 
  color="primary" 
- style={{fontWeight:"bold", textDecoration:"underline"}}>View Posts</Typography>
+ style={{fontWeight:"bold", textDecoration:"underline"}}>{`View My Posts(${postLength})`}</Typography>
     </IconButton> : <IconButton
     onClick={()=>{
         setShowPosts(true)
@@ -43,7 +43,7 @@ const ProfileNavBar = ({setShowPosts, setShowPlaces, setShowFriendList, showPost
         setShowFriendList(false)
     }}
     >
- <Typography variant="subtitle1" component="subtitle1">View Posts</Typography>
+ <Typography variant="subtitle1" component="subtitle1">{`View My Posts(${postLength})`}</Typography>
     </IconButton>}
 
 
@@ -55,13 +55,13 @@ const ProfileNavBar = ({setShowPosts, setShowPlaces, setShowFriendList, showPost
 <Typography variant="subtitle1" 
 component="subtitle1" 
 color="primary" 
-style={{fontWeight:"bold", textDecoration:"underline"}}>View Places</Typography>
+style={{fontWeight:"bold", textDecoration:"underline"}}>{`View My Places(${placesLength})`}</Typography>
     </IconButton> :
     <IconButton onClick={()=>{
         setShowPosts(false)
         setShowPlaces(true)
     setShowFriendList(false)}}>
-<Typography variant="subtitle1" component="subtitle1">View Places</Typography>
+<Typography variant="subtitle1" component="subtitle1">{`View My Places(${placesLength})`}</Typography>
 </IconButton>}
 
 
@@ -76,7 +76,7 @@ setShowPlaces(false)
     >
  <Typography variant="subtitle1" 
  component="subtitle1" color="primary" 
- style={{fontWeight:"bold", textDecoration:"underline"}}>View Friends</Typography>
+ style={{fontWeight:"bold", textDecoration:"underline"}}>{`View My Friends(${friends})`}</Typography>
     </IconButton> : 
         <IconButton
         onClick={()=>{
@@ -86,7 +86,7 @@ setShowPlaces(false)
     setShowPlaces(false)
         }}
         >
-     <Typography variant="subtitle1" component="subtitle1">View Friends</Typography>
+     <Typography variant="subtitle1" component="subtitle1">{`View My Friends(${friends})`}</Typography>
         </IconButton>}
 
 
