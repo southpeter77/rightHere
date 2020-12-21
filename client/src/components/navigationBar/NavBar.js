@@ -26,6 +26,9 @@ import Search from "./Search"
 import { NotificationImportant } from '@material-ui/icons';
 import {grabAllFriendsByUserIdThunk} from "../../components/store/actions/sessions/currentUser"
 import Tooltip from '@material-ui/core/Tooltip';
+import MessageIcon from '@material-ui/icons/Message';
+import FriendList from "./FriendList"
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -99,6 +102,7 @@ const NavBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  // const [showFriendList, setShowFriendList] = useState(false)
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const dispatch = useDispatch()
@@ -127,6 +131,18 @@ const NavBar = () => {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+
+
+  const [friendList, setFriendList] = React.useState(null);
+  const open = Boolean(friendList);
+  const handleClose = () => {
+    setFriendList(null);
+  };
+
+    const handleClick = (event) => {
+      setFriendList(event.currentTarget);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -236,26 +252,43 @@ const NavBar = () => {
             ></ExploreIcon>
           </IconButton>
 
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-              <Search></Search> */}
-
 <Search></Search>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-           <Tooltip title="New friend requests">
+            {/* <button
+            onClick={()=>console.log(relationships.filter(each=>{
+              if (each.from_user_id !== currentUserData.id && each.friend == true){
+                return each
+              }
+            }))}
+            >console</button> */}
+                        <button
+            onClick={()=>console.log(relationships.filter(each=>{
+              if (each.friend === true) {
+                return each
+              }
+            }))}
+            >console</button>
+            <Tooltip title="Message">
+              <IconButton aria-label="messages" color="inherit"
+              onClick={handleClick}
+              >
+                <MessageIcon>
+                  
+                </MessageIcon>
+              </IconButton>
+            </Tooltip>
+            <FriendList allFriends={relationships.filter(each=>{
+              if (each.friend === true) {
+                return each
+              }
+            })} friendList={friendList} open={open} handleClose={handleClose} handleClick={handleClick}></FriendList>
+           <Tooltip title={relationships.filter(each=>{
+                  if (each.from_user_id !== currentUserData.id && each.pending == true){
+                    return each
+                  }
+                }).length ? "New friend requests" : "No new notifications"}>
 
           
             <IconButton aria-label="show notifications" color="inherit"

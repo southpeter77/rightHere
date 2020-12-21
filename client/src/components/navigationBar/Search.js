@@ -46,7 +46,7 @@ export default function Asynchronous() {
   return (
         <Autocomplete
       id="search location and profile"
-      style={{ width: 500 }}
+      style={{ width: 400 }}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -105,6 +105,7 @@ export default function Asynchronous() {
         return  <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
           <Avatar
          src={option.Photos[0].url}
+         
           >
           </Avatar>
           <Typography>
