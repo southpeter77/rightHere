@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,28 +7,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 import MessageIcon from '@material-ui/icons/Message';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-
-const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-];
+import ChatBox from "../chatting/ChatBox"
 
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu({allFriends,friendList, open, handleClose, handleClick}) {
-
+const [showChat, setShowChat] = useState(false)
 //   const handleClick = (event) => {
 //     setAnchorEl(event.currentTarget);
 //   };
@@ -73,7 +57,9 @@ export default function LongMenu({allFriends,friendList, open, handleClose, hand
         <Typography>
           {each.from.firstName} {each.from.lastName}
         </Typography>
-        <IconButton>
+        <IconButton
+        onClick={()=>setShowChat(true)}
+        >
             <MessageIcon></MessageIcon>
         </IconButton>
         </div>
@@ -87,7 +73,9 @@ export default function LongMenu({allFriends,friendList, open, handleClose, hand
         <Typography>
           {each.to.firstName} {each.to.lastName}
         </Typography>
-        <IconButton>
+        <IconButton
+                onClick={()=>setShowChat(true)}
+        >
             <MessageIcon></MessageIcon>
         </IconButton>
         </div>
@@ -95,6 +83,9 @@ export default function LongMenu({allFriends,friendList, open, handleClose, hand
           </MenuItem>
         ))}
       </Menu>
+
+
+      {showChat && <ChatBox showChat={showChat} setShowChat={setShowChat}></ChatBox> }
     </div>
   );
 }
