@@ -75,9 +75,9 @@ if(!loaded) {
             
           </CancelIcon>
         </IconButton>
-        <button
+        {/* <button
         onClick={()=>console.log(currentUserName, selectedUserName, roomId)}
-        >console</button>
+        >console</button> */}
       </Dialog>
     </div>
   );

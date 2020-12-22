@@ -1,7 +1,7 @@
 const {Room, Message} = require("../../db/models")
 
 const addMessageToRoom = async (name, room, message, roomId) => {
-    console.log(name, room, message)
+    // console.log(name, room, message)
     try {
         const room = await Room.findByPk(roomId);
         const newMessage = await Message.create({
@@ -11,7 +11,7 @@ const addMessageToRoom = async (name, room, message, roomId) => {
         })
         return{room, newMessage}
     }catch(e) {
-        console.log(e)
+        // console.log(e)
     }
 }
 

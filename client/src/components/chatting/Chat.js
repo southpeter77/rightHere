@@ -21,7 +21,7 @@ const Chat = ({id, name, room})=> {
 useEffect(() =>{
     socket = io(REACT_APP_BASE_URL);
     // dispatch(getToUserThunk(1))
-  console.log(name, room, id)
+  // console.log(name, room, id)
 if (name && room && id) {
     socket.emit('join', { name, room,roomId:id }, (error) => {
         if(error) {
