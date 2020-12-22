@@ -263,13 +263,13 @@ const NavBar = () => {
               }
             }))}
             >console</button> */}
-                        <button
+                        {/* <button
             onClick={()=>console.log(relationships.filter(each=>{
               if (each.friend === true) {
                 return each
               }
             }))}
-            >console</button>
+            >console</button> */}
             <Tooltip title="Message">
               <IconButton aria-label="messages" color="inherit"
               onClick={handleClick}

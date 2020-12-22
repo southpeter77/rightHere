@@ -8,11 +8,19 @@ import MessageIcon from '@material-ui/icons/Message';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ChatBox from "../chatting/ChatBox"
+import {CURRENT_USER} from "../../components/store/actions/sessions/currentUser"
 
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu({allFriends,friendList, open, handleClose, handleClick}) {
 const [showChat, setShowChat] = useState(false)
+const [fromUserId, setFromUserId] = useState('')
+const [toUserId, setToUserId] = useState('')
+const [selectedUserName, setSelectedUserName] = useState('')
+const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+const currentUserId = currentUser.userId
+const [otherUserId, setOtherUserId] = useState("")
+const currentUserName = currentUser.firstName +" " + currentUser.lastName
 //   const handleClick = (event) => {
 //     setAnchorEl(event.currentTarget);
 //   };
@@ -58,7 +66,15 @@ const [showChat, setShowChat] = useState(false)
           {each.from.firstName} {each.from.lastName}
         </Typography>
         <IconButton
-        onClick={()=>setShowChat(true)}
+                     onClick={()=>{
+                      setShowChat(true)
+                      setFromUserId(each.from_user_id)
+                      setToUserId(each.to_user_id)
+                      setSelectedUserName(each.from.firstName +' '+each.from.lastName)
+
+                        setOtherUserId(each.from.id)
+                        handleClose()
+                    }}
         >
             <MessageIcon></MessageIcon>
         </IconButton>
@@ -74,7 +90,14 @@ const [showChat, setShowChat] = useState(false)
           {each.to.firstName} {each.to.lastName}
         </Typography>
         <IconButton
-                onClick={()=>setShowChat(true)}
+                onClick={()=>{
+                  setShowChat(true)
+                  setFromUserId(each.from_user_id)
+                  setToUserId(each.to_user_id)
+                  setSelectedUserName(each.to.firstName +' '+each.to.lastName)
+                  setOtherUserId(each.to.id)
+                  handleClose()
+                }}
         >
             <MessageIcon></MessageIcon>
         </IconButton>
@@ -85,7 +108,7 @@ const [showChat, setShowChat] = useState(false)
       </Menu>
 
 
-      {showChat && <ChatBox showChat={showChat} setShowChat={setShowChat}></ChatBox> }
+      {showChat && <ChatBox currentUserName={currentUserName} selectedUserName={selectedUserName} currentUserId={currentUserId} otherUserId={otherUserId} showChat={showChat} setShowChat={setShowChat}></ChatBox> }
     </div>
   );
 }

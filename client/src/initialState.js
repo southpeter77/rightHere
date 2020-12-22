@@ -180,6 +180,10 @@ export const initialState = {
     signUpErrors: [],
   },
   sessions: {
+    currentRoom:{
+      from_user:'',
+      to_user:''
+    },
     relationships:[],
     currentToken: "",
     currentUser: {

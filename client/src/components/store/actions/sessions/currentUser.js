@@ -1,4 +1,5 @@
-import {GRAB_ALL_POSTS, GRAB_ALL_PLACES} from "../entities/entities"
+import { GRAB_ALL_POSTS, GRAB_ALL_PLACES } from "../entities/entities"
+import {GRAB_ROOM_CURRENT_AND_OTHER} from "./currentChat"
 export const CURRENT_USER = "CURRENT_USER"
 export const SET_TOKEN = "SET_TOKEN";
 export const REMOVE_TOKEN = "REMOVE_TOKEN";
@@ -21,7 +22,7 @@ export const setToken = (token) => {
 }
 export const removeToken = () => {
     return {
-        type:REMOVE_TOKEN
+        type: REMOVE_TOKEN
     }
 }
 export const removeCurrentUser = (data) => {
@@ -30,7 +31,7 @@ export const removeCurrentUser = (data) => {
         data
     }
 }
-export const currentLocationCoordinates = (data) =>{
+export const currentLocationCoordinates = (data) => {
     return {
         type: CURRENT_LOCATION_COORDINATES,
         data
@@ -39,13 +40,13 @@ export const currentLocationCoordinates = (data) =>{
 
 export const grabAllFriends = (data) => {
     return {
-        type:GRAB_ALL_FRIENDS,
+        type: GRAB_ALL_FRIENDS,
         data
     }
 }
 
 /////////THUNKS///////////
-export const saveCurrentUserData=(data)=> (dispatch) => {
+export const saveCurrentUserData = (data) => (dispatch) => {
     // window.localStorage.setItem(CURRENT_USER,JSON.stringify(data))
     dispatch(currentUser(data))
 }
@@ -67,28 +68,28 @@ export const loadCurrentUser = () => async (dispatch) => {
 export const saveToken = (tokendata) => async (dispatch) => {
     window.localStorage.setItem(TOKEN_KEY, tokendata);
     dispatch(setToken(tokendata));
-    
+
 };
 
-export const logOutThunk = () => async (dispatch)=> {
+export const logOutThunk = () => async (dispatch) => {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.removeItem(CURRENT_USER);
     window.localStorage.removeItem(GRAB_ALL_POSTS)
     window.localStorage.removeItem(CURRENT_LOCATION_COORDINATES)
     window.localStorage.removeItem(GRAB_ALL_PLACES)
 
-    
+
     dispatch(removeToken())
     dispatch(removeCurrentUser())
 }
 
-export const currentLocationCoordinatesThunk = (coordinates)=> async(dispatch) => {
+export const currentLocationCoordinatesThunk = (coordinates) => async (dispatch) => {
     const response = await fetch("/api/places/current", {
-        method:"PUT",
-        headers:{
-            "Content-Type":"application/json",
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
         },
-        body:JSON.stringify(coordinates)
+        body: JSON.stringify(coordinates)
     })
     if (response.ok) {
         const data = await response.json()
@@ -96,7 +97,7 @@ export const currentLocationCoordinatesThunk = (coordinates)=> async(dispatch) =
         if (data.length > 0) {
             dispatch(currentLocationCoordinates(data))
         }
-        
+
     }
 
 }
@@ -124,8 +125,8 @@ export default function reducer(state = {}, action) {
                 lastName: action.data.lastName,
                 biography: action.data.biography,
                 posts: action.data.posts,
-                places:action.data.places,
-                photos:action.data.photos,
+                places: action.data.places,
+                photos: action.data.photos,
                 relationship: action.data.relationship
             }
             return newState
@@ -139,12 +140,15 @@ export default function reducer(state = {}, action) {
             newState["currentToken"] = null
             return newState
         case CURRENT_LOCATION_COORDINATES:
-            newState["currentLocation"]=action.data[0]
+            newState["currentLocation"] = action.data[0]
             return newState
         case GRAB_ALL_FRIENDS:
             newState["relationships"] = action.data
             return newState
-    
+        case GRAB_ROOM_CURRENT_AND_OTHER:
+            newState["currentRoom"] = action.data
+            return newState
+
         default:
             return state
     }
