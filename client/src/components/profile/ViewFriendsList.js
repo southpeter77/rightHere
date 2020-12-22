@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -19,8 +19,10 @@ import MessageIcon from '@material-ui/icons/Message';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Tooltip from '@material-ui/core/Tooltip';
-import {acceptFriendRequest} from "../../components/store/actions/relationship"
+import { acceptFriendRequest } from "../../components/store/actions/relationship"
 import { useSelector, useDispatch } from 'react-redux';
+import { CURRENT_USER } from "../../components/store/actions/sessions/currentUser"
+import ChatBox from "../chatting/ChatBox"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,9 +47,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ViewFriendList({ data,currentUserId }) {
+export default function ViewFriendList({ data, currentUserId }) {
     const classes = useStyles();
     const dispatch = useDispatch()
+    const [showChat, setShowChat] = useState(false)
+    const [selectedUserName, setSelectedUserName] = useState('')
+    const [otherUserId, setOtherUserId] = useState("")
+
+    const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER))
+    const currentUserName = currentUser.firstName + " " + currentUser.lastName
 
     const handleAcceptFriendRequest = () => {
         const payload = {
@@ -57,9 +65,9 @@ export default function ViewFriendList({ data,currentUserId }) {
         // console.log(data)
         dispatch(acceptFriendRequest(payload))
     }
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[])
+    }, [])
 
 
     if (data.pending) {
@@ -76,9 +84,9 @@ export default function ViewFriendList({ data,currentUserId }) {
                     action={data.from ?
                         <Tooltip title="Accept this request">
                             <IconButton aria-label="settings"
-                            onClick={()=>handleAcceptFriendRequest()}
+                                onClick={() => handleAcceptFriendRequest()}
                             >
-                                <PersonAddIcon style={{color:"green"}}/>
+                                <PersonAddIcon style={{ color: "green" }} />
                             </IconButton>
                         </Tooltip>
                         :
@@ -91,21 +99,21 @@ export default function ViewFriendList({ data,currentUserId }) {
                     }
                     title={
                         data.to ? <Typography
-                        style={{cursor:"pointer", textDecoration:"underline"}}
-                        onClick={()=>window.location.href=`/profile/${data.to.id}`}
+                            style={{ cursor: "pointer", textDecoration: "underline" }}
+                            onClick={() => window.location.href = `/profile/${data.to.id}`}
                         >{data.to.firstName} {data.to.lastName}</Typography>
-                        : 
-                        <Typography
-                        style={{cursor:"pointer", textDecoration:"underline"}}
-                        onClick={()=>window.location.href=`/profile/${data.from.id}`}
-                        >{data.from.firstName} {data.from.lastName}</Typography>
-                    
+                            :
+                            <Typography
+                                style={{ cursor: "pointer", textDecoration: "underline" }}
+                                onClick={() => window.location.href = `/profile/${data.from.id}`}
+                            >{data.from.firstName} {data.from.lastName}</Typography>
+
                     }
                     subheader={data.to ? data.to.email : data.from.email}
                 />
             </Card>
         )
-    } 
+    }
     return (
         <Card className={!data.pending ? classes.root : classes.root2}>
             {/* <button onClick={() => console.log(data)}>console</button> */}
@@ -116,25 +124,46 @@ export default function ViewFriendList({ data,currentUserId }) {
                     >
                     </Avatar>
                 }
+
                 action={
-                    <IconButton aria-label="settings">
-                        <MessageIcon />
-                    </IconButton>
+                    data.from ?
+                        <IconButton aria-label="settings"
+                            onClick={() => {
+                                setShowChat(true)
+                                setSelectedUserName(data.from.firstName + ' ' + data.from.lastName)
+                                setOtherUserId(data.from.id)
+                            }}
+                        >
+                            <MessageIcon />
+                        </IconButton>
+
+                        :
+                        <IconButton aria-label="settings"
+                            onClick={() => {
+                                setShowChat(true)
+                                setSelectedUserName(data.to.firstName + ' ' + data.to.lastName)
+                                setOtherUserId(data.to.id)
+                            }}
+                        >
+                            <MessageIcon />
+                        </IconButton>
                 }
                 title={
                     data.to ? <Typography
-                    style={{cursor:"pointer", textDecoration:"underline"}}
-                    onClick={()=>window.location.href=`/profile/${data.to.id}`}
+                        style={{ cursor: "pointer", textDecoration: "underline" }}
+                        onClick={() => window.location.href = `/profile/${data.to.id}`}
                     >{data.to.firstName} {data.to.lastName}</Typography>
-                    : 
-                    <Typography
-                    style={{cursor:"pointer", textDecoration:"underline"}}
-                    onClick={()=>window.location.href=`/profile/${data.from.id}`}
-                    >{data.from.firstName} {data.from.lastName}</Typography>
-                
+                        :
+                        <Typography
+                            style={{ cursor: "pointer", textDecoration: "underline" }}
+                            onClick={() => window.location.href = `/profile/${data.from.id}`}
+                        >{data.from.firstName} {data.from.lastName}</Typography>
+
                 }
                 subheader={data.to ? data.to.email : data.from.email}
             />
+            {showChat && <ChatBox currentUserName={currentUserName} selectedUserName={selectedUserName} currentUserId={currentUserId} otherUserId={otherUserId} showChat={showChat} setShowChat={setShowChat}></ChatBox>}
+
         </Card>
     );
 }
