@@ -21,6 +21,62 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
+
+///socket io
+const socketio = require('socket.io');
+const io = socketio(server)
+const {Room, Message} = require('../db/models')
+
+io.on('connect', async (socket) => {
+  let user
+  socket.on('join', async ({ name, room, roomId }, callback) => {
+    user = { id:socket.id, name, room };
+    if (user.room) {
+    socket.join(user.room);
+    // socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    // socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    const allMessages = await Message.findAll({
+      where:{
+        roomId
+      }
+    })
+    for (let message of allMessages){
+    socket.emit('message', { user: message.name, text: message.text});
+    }
+    // io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+
+    callback();
+  }
+  });
+
+  socket.on('sendMessage', (message, callback) => {
+
+    io.to(user.room).emit('message', { user: user.name, text: message });
+
+    callback();
+  });
+const {addMessageToRoom} = require("../routes/utils/chat")
+  const rooms = await Room.findAll();
+  for (let room of rooms) {
+    socket.on(`${room.id}`, async(message, callback) =>{
+      const newMessages = await addMessageToRoom(user.name, user.room, message, room.id)
+      io.to(user.room).emit('message', { user: user.name, text: message });
+      // io.emit('message', { user: user.name, text: message })
+      callback();
+    })
+  }
+  
+
+  socket.on('disconnection', () => {
+
+    if(user) {
+      io.to(user.room).emit('message', { user: '', text: `Message done` });
+    }
+    // socket.disconnect()s
+  })
+});
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */

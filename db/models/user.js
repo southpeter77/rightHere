@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Photo, {foreignKey:"user_id"})
     User.hasMany(models.Place, {foreignKey:"user_id"})
     User.hasMany(models.Like, {foreignKey:"user_id"})
-
+    User.hasMany(models.Room, {foreignKey:"from_user_id", as: 'messageFrom'})
+    User.hasMany(models.Room, {foreignKey:"to_user_id", as: 'messageTo'})
 
   };
   return User;
