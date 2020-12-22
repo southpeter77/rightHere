@@ -11,7 +11,7 @@ export const grabRoomCurrentAndOther = (data) => {
 
 /////////////////
 export const grabRoomCurrentAndOtherThunk = (payload) => async(dispatch) => {
-    const response = await fetch(`/api/chat/findroom`, {
+    const response = await fetch("/api/chats/findroom", {
         method:"put",
         headers:{"Content-Type":"application/json"},
         body: JSON.stringify(payload)

@@ -11,7 +11,7 @@ import Input from './Input';
 // import {getToUserThunk} from "../store/redux"
 
 let socket;
-const ENDPOINTSOCKETIOD = process.env.ENDPOINTSOCKETIOD
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 const Chat = ({id, name, room})=> {
 
     const [messages, setMessages] = useState([])
@@ -19,7 +19,7 @@ const Chat = ({id, name, room})=> {
     const dispatch = useDispatch();
 
 useEffect(() =>{
-    socket = io(ENDPOINTSOCKETIOD);
+    socket = io(REACT_APP_BASE_URL);
     // dispatch(getToUserThunk(1))
   console.log(name, room, id)
 if (name && room && id) {
@@ -33,7 +33,7 @@ if (name && room && id) {
         socket.off();
     }
   }
-}, [ENDPOINTSOCKETIOD, name, room, id]);
+}, [REACT_APP_BASE_URL, name, room, id]);
 
 // useEffect(() => {
 //     socket.on('message', message => {
