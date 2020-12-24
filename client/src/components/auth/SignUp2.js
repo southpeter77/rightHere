@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 // import Container from '@material-ui/core/Container';
-import { useDispatch,  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../store/actions/user"
 // import MovingImages2 from "./MovingImages2"
 // import Info from "./Info"
@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
     // console.log(process.env.PUBLIC_URL)
+    const signUpErrors = useSelector(state => state.errors.signUpErrors)
     const classes = useStyles();
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -146,7 +147,7 @@ const SignUp = () => {
                             </Collapse>
                             <BottomSignUp2></BottomSignUp2>
 
-                            
+
                         </div>
 
                     </Grid>
@@ -156,7 +157,7 @@ const SignUp = () => {
                     <Grid item xs={12} sm={6} md={4} elevation={1} square className={classes.sticky}>
                         <div className={classes.paper} >
                             {/* <img style={{ height: 100, width: "auto", margin: "auto" }} src="/rightHereLogo.png" /> */}
-                            <Typography style={{fontWeight:"bold"}} align="center" variant="h4" color="primary">SIGN UP</Typography>
+                            <Typography style={{ fontWeight: "bold" }} align="center" variant="h4" color="primary">SIGN UP</Typography>
                             <form className={classes.form} noValidate>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
@@ -239,16 +240,36 @@ const SignUp = () => {
                                     <Grid item xs={12}>
                                     </Grid>
                                 </Grid>
+                                {signUpErrors.length>0 ?
+                                <>
+                                {signUpErrors.map(error=>{
+                                    return (
+                                        <Typography 
+                                        variant="subtitle2"
+                                        style={{color:"crimson"}}
+                                        >{error}</Typography>
+                                    )
+                                })}
                                 <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                className={classes.submit}
+                                onClick={handleSubmit}
+                                style={{backgroundColor:'crimson'}}
+                            >Sign Up</Button>
+                            </>
+                            :
+                            <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
                                     onClick={handleSubmit}
-                                >
-                                    Sign Up
-          </Button>
+                                >Sign Up</Button>
+                            }
+                                
 
                                 <Grid item>
                                     <Typography variant="body2" color="textSecondary" align="center">

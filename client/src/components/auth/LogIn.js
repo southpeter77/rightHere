@@ -9,9 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { login } from "../store/actions/user"
-import { useDispatch,  } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import MovingImages from "./MovingImages"
-
+import LoginErrors from "./LoginErrors"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,13 +51,14 @@ const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  // const [loginErrors, setLoginErrors]= useState([])
   const dispatch = useDispatch()
   const demoLogin = () => {
     // setEmail("demo@demo.com")
     // setPassword('123')
     demoLoginEmailTyper()
   }
-
+const loginErrors = useSelector(state => state.errors.loginErrors)
   const demoLoginEmailTyper =() => {
     let emailField = document.getElementById("email")
     emailField.focus();
@@ -109,7 +110,11 @@ const Login = () => {
     dispatch(login(payload))
   }
   return (
+    <>
     <Grid container>
+      {/* <button
+      onClick={()=>console.log(loginErrors)}
+      >errors</button> */}
       <CssBaseline />
       <Grid container
         spacing={0}
@@ -132,6 +137,7 @@ const Login = () => {
                 variant="outlined"
                 margin="normal"
                 required
+                errorMessages={["Provide Email"]}
                 fullWidth
                 id="email"
                 label="Email Address"
@@ -145,13 +151,33 @@ const Login = () => {
                 required
                 fullWidth
                 name="password"
+                errorMessages={["Provide Password"]}
                 label="Password"
                 type="password"
                 id="password"
                 value={password}
                 onChange={updateProperty(setPassword)}
               />
+
+              {loginErrors.length > 0
+              ?<>
+              {loginErrors.map(error=>{
+                return (<> 
+                <Typography style={{color:"crimson"}}>{error}</Typography>
+                </>)
+              })}
               <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              // color="primary"
+              className={classes.submit}
+              onClick={handleSubmit}
+              style={{backgroundColor:'crimson'}}
+            >
+              Log In
+          </Button></>
+              :<Button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -160,7 +186,10 @@ const Login = () => {
                 onClick={handleSubmit}
               >
                 Log In
-            </Button>
+            </Button>}
+
+
+
               <Grid container>
                 <Grid item xs />
 
@@ -189,6 +218,7 @@ const Login = () => {
 
       </Grid>
     </Grid>
+    </>
   );
 }
 
