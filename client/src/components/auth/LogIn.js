@@ -53,9 +53,49 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const dispatch = useDispatch()
   const demoLogin = () => {
-    setEmail("demo@demo.com")
-    setPassword('123')
+    // setEmail("demo@demo.com")
+    // setPassword('123')
+    demoLoginEmailTyper()
   }
+
+  const demoLoginEmailTyper =() => {
+    let emailField = document.getElementById("email")
+    emailField.focus();
+    let demoEmail = 'demo@demo.com';
+    let emailCount = 0
+    let typingDemoEmail = ''
+    let typingEmail = setInterval(()=>{
+      if (emailCount == demoEmail.length-1) {
+        clearInterval(typingEmail)
+        demoLoginPasswordTyper()
+      }
+      typingDemoEmail+= demoEmail[emailCount]
+      setEmail(typingDemoEmail)
+      emailCount ++;
+    },150)
+  }
+  const demoLoginPasswordTyper = ()=> {
+
+    let passwordField = document.getElementById("password")
+    passwordField.focus()
+    let demoPassword = "123";
+    let passwordCount = 0;
+    let typingDemoPassword = ''
+    let typingPassword = setInterval(()=>{
+      if(passwordCount == demoPassword.length - 1){
+        clearInterval(typingPassword)
+        const payload = {
+          email:'demo@demo.com', password:'123'
+        }
+        dispatch(login(payload))
+      }
+      typingDemoPassword += demoPassword[passwordCount];
+      setPassword(typingDemoPassword)
+      passwordCount ++;
+    }, 300)
+  }
+
+
 
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
