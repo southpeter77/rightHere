@@ -28,6 +28,7 @@ import {grabAllFriendsByUserIdThunk} from "../../components/store/actions/sessio
 import Tooltip from '@material-ui/core/Tooltip';
 import MessageIcon from '@material-ui/icons/Message';
 import FriendList from "./FriendList"
+import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -246,10 +247,10 @@ const NavBar = () => {
           <IconButton
           onClick={() => window.location.href = "/place/all"}
           >
-            <ExploreIcon
+            <RoomOutlinedIcon
               color="secondary"
               fontSize="large"
-            ></ExploreIcon>
+            ></RoomOutlinedIcon>
           </IconButton>
 
 <Search></Search>

@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) =>
       rest.needLogin === true ? (
-        <Redirect to="/login" />
+        <Redirect to="/signup" />
       ) : (
         <Component {...props} />
       )

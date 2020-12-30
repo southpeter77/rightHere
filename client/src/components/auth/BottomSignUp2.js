@@ -34,7 +34,7 @@ const intro3 = {
     img: "/building.jpeg"
 }
 const intro4 = {
-    title: 'Let your friends know you were right here!',
+    title: 'Make friends and Send Messages',
     // desc: "asdfasdf",
     img: "/friend.jpeg"
 }

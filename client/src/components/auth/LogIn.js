@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { login } from "../store/actions/user"
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MovingImages from "./MovingImages"
 import LoginErrors from "./LoginErrors"
 
@@ -58,42 +58,42 @@ const Login = () => {
     // setPassword('123')
     demoLoginEmailTyper()
   }
-const loginErrors = useSelector(state => state.errors.loginErrors)
-  const demoLoginEmailTyper =() => {
+  const loginErrors = useSelector(state => state.errors.loginErrors)
+  const demoLoginEmailTyper = () => {
     let emailField = document.getElementById("email")
     emailField.focus();
     let demoEmail = 'demo@demo.com';
     let emailCount = 0
     let typingDemoEmail = ''
-    let typingEmail = setInterval(()=>{
-      if (emailCount == demoEmail.length-1) {
+    let typingEmail = setInterval(() => {
+      if (emailCount == demoEmail.length - 1) {
         clearInterval(typingEmail)
         demoLoginPasswordTyper()
       }
-      typingDemoEmail+= demoEmail[emailCount]
+      typingDemoEmail += demoEmail[emailCount]
       setEmail(typingDemoEmail)
-      emailCount ++;
-    },150)
+      emailCount++;
+    }, 150)
   }
-  const demoLoginPasswordTyper = ()=> {
+  const demoLoginPasswordTyper = () => {
 
     let passwordField = document.getElementById("password")
     passwordField.focus()
     let demoPassword = "123";
     let passwordCount = 0;
     let typingDemoPassword = ''
-    let typingPassword = setInterval(()=>{
-      if(passwordCount == demoPassword.length - 1){
+    let typingPassword = setInterval(() => {
+      if (passwordCount == demoPassword.length - 1) {
         clearInterval(typingPassword)
         const payload = {
-          email:'demo@demo.com', password:'123'
+          email: 'demo@demo.com', password: '123'
         }
         dispatch(login(payload))
       }
       typingDemoPassword += demoPassword[passwordCount];
       setPassword(typingDemoPassword)
-      passwordCount ++;
-    }, 300)
+      passwordCount++;
+    }, 500)
   }
 
 
@@ -111,113 +111,135 @@ const loginErrors = useSelector(state => state.errors.loginErrors)
   }
   return (
     <>
-    <Grid container>
-      {/* <button
+      <Grid container>
+        {/* <button
       onClick={()=>console.log(loginErrors)}
       >errors</button> */}
-      <CssBaseline />
-      <Grid container
-        spacing={0}
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "100vh" }}  >
+        <CssBaseline />
+        <Grid container
+          spacing={0}
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "100vh" }}  >
 
 
-        <Grid item xs={false} sm={12} md={4} elevation={0} >
-          <MovingImages></MovingImages>
-        </Grid>
-
-
-
-        <Grid item xs={false} sm={6} md={4} elevation={1} square >
-          <div className={classes.paper}>
-            <img style={{ height: 100, width: "auto", margin: "auto" }} src="/rightHereLogo.png" />
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                errorMessages={["Provide Email"]}
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                value={email}
-                onChange={updateProperty(setEmail)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                errorMessages={["Provide Password"]}
-                label="Password"
-                type="password"
-                id="password"
-                value={password}
-                onChange={updateProperty(setPassword)}
-              />
-
-              {loginErrors.length > 0
-              ?<>
-              {loginErrors.map(error=>{
-                return (<> 
-                <Typography style={{color:"crimson"}}>{error}</Typography>
-                </>)
-              })}
-              <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              // color="primary"
-              className={classes.submit}
-              onClick={handleSubmit}
-              style={{backgroundColor:'crimson'}}
-            >
-              Log In
-          </Button></>
-              :<Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={handleSubmit}
-              >
-                Log In
-            </Button>}
+          <Grid item xs={false} sm={12} md={4} elevation={0} >
+            <MovingImages></MovingImages>
+          </Grid>
 
 
 
-              <Grid container>
-                <Grid item xs />
+          <Grid item xs={false} sm={6} md={4} elevation={1} square >
+            <div className={classes.paper}>
+              <img style={{ height: 100, width: "auto", margin: "auto" }} src="/rightHereLogo.png" />
+              <form className={classes.form} noValidate>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  errorMessages={["Provide Email"]}
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={updateProperty(setEmail)}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  errorMessages={["Provide Password"]}
+                  label="Password"
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={updateProperty(setPassword)}
+                />
 
-                <Grid item xs={8}>
-                  <Typography variant="body2" color="textSecondary" align="center">
+                {loginErrors.length > 0
+                  ? <>
+                    {loginErrors.map(error => {
+                      return (<>
+                        <Typography style={{ color: "crimson" }}>{error}</Typography>
+                      </>)
+                    })}
+                    <><Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      // color="primary"
+                      className={classes.submit}
+                      onClick={handleSubmit}
+                      style={{ backgroundColor: 'crimson' }}
+                    >
+                      Log In
+          </Button>
+          <Button 
+                    onClick={() => demoLogin()} 
+                    style={{ cursor: "pointer" }}
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    >
+                      Demo Login
+                    </Button>
+                  </></>
+                  : <><Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleSubmit}
+                  >
+                    Log In
+            </Button>
+                    <Button 
+                    onClick={() => demoLogin()} 
+                    style={{ cursor: "pointer" }}
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    >
+                      Demo Login
+                    </Button>
+                  </>
+                }
 
-                    <Link href="/signup" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" align="center" onClick={()=>demoLogin()} style={{cursor:"pointer"}}>
-                    {"Demo Login"}
-                  </Typography>
+
+
+                <Grid container>
+                  <Grid item xs />
+
+                  <Grid item xs={8}>
+                    <Typography variant="body2" color="textSecondary" align="center">
+
+                      <Link href="/signup" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                      </Link>
+                    </Typography>
+                    {/* <Typography variant="body2" color="textSecondary" align="center" onClick={() => demoLogin()} style={{ cursor: "pointer" }}>
+                      {"Demo Login"}
+                    </Typography> */}
+
+                  </Grid>
+                  <Grid item xs />
+
                 </Grid>
-                <Grid item xs />
-
-              </Grid>
-              <Box mt={5}>
-                <Typography variant="body2" color="textSecondary" align="center">
-                  Right Here 2020
+                <Box mt={5}>
+                  <Typography variant="body2" color="textSecondary" align="center">
+                    Right Here 2020
     </Typography>
-              </Box>
-            </form>
-          </div>
-        </Grid>
+                </Box>
+              </form>
+            </div>
+          </Grid>
 
+        </Grid>
       </Grid>
-    </Grid>
     </>
   );
 }

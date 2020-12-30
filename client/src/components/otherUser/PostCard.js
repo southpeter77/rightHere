@@ -114,7 +114,7 @@ dispatch(likeHandlerInOtherUsersProfile(payload))
   return (
    <> {!edit ? 
       <Card className={classes.root}>
-        {/* <button onClick={() => console.log(data)}>123</button> */}
+        <button onClick={() => console.log(data)}>123</button>
 
       <CardMedia
         className={classes.media}
@@ -135,11 +135,14 @@ dispatch(likeHandlerInOtherUsersProfile(payload))
         style={{ color:'gray',textDecoration: 'none',  cursor: "pointer"}}>
           {`@${data.Place.name}`}</Typography>
           
-
-        <Button 
+    {data.id == currentUser.userId ?
+    <Button 
         style={{marginLeft:"60%"}}
         onClick={()=>setEdit(true)}
         >Edit Post</Button>
+      :null
+    }
+        
       </CardContent>
       <CardActions disableSpacing>
         {/* <IconButton aria-label="add to favorites">
