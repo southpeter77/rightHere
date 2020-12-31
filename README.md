@@ -1,7 +1,6 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -10,10 +9,7 @@
 
   <h3 align="center">Right Here</h3>
 
-  <p align="center">
-    The Right Here is a location driven photo sharing app. This app will provide the user the ability to take a photo using their device or upload a photo directly from their device and save it with the user's current location and share with other users. The photo and location will be saved in database as a 'marker' that can help users to see what others have posted near by you or certain area that you searched for. It can be useful to show your old memory that you forgot about that place and near by.
-    <br />
-  </p>
+
 </p>
 
 
@@ -48,18 +44,32 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+*Interactice splash page on the left with easy sign up on the right.
+![signup](readMeImages/signUp.png)
+*Login options with demo login
+![login](readMeImages/login.png)
+*Renders all the post with search bar on the top that can search users and places.
+![postBrowser](readMeImages/postBrowser.png)
+*Renders all the places that have been created by users.
+![placeBrowser](readMeImages/placeBrowser.png)
+*Can upload photo using device's camera or simply drag and drop a file.
+![upload](readMeImages/upload.png)
+*Can sendmessage to friends
+![upload](readMeImages/chat.png)
 
 ### Technical Stack
 
 * The project runs a React/Redux front end with google map react and react webcam packages
+* It has socket io that allows users to chat each others.
 * The Backend uses Express and S3 with postgreSQL.
 
 
 ### introduction
 
-Have you attended a wedding or other specail occations where you write your name on a guestbook to let them you 'you were here'? We want to know who were there with us for our special moment and let others know too. You've probably written 'I was here' on a desk at school and some even write 'I was here' on the cubicle divider in public restroom. When we go back to the place after awhile, we will see our little mark and think 'oh right, I was there before!' and think of the good memory. 
 
-This is where Right Here app comes in. You can capture your memories in photos, save and share the photos along with the location. Right Here organize photos by location and location driven app. 
+  The Right Here is a location driven photo sharing app. This app willprovide the user the ability to take a photo using their device or upload aphoto directly from their device and save it with the user's currentlocation and share with other users. Users can add each other as friend andthey can message to each others. Users can also search for other users andlocations.
+
+
 
 ### MVP
 the MVP for this website encompasses the following:
@@ -79,8 +89,8 @@ the MVP for this website encompasses the following:
 3. Picture
     1. Can update place, Post, profile picture
 4. Relationship
-    1. Can create a relationship with other users
-    2. only connected users can comment on their Post
+    1. Can create a relationship with other users (friend)
+    2. only connected users can message to each others
 
 
 
@@ -184,19 +194,8 @@ state ={
            posts: ["post1", "post2", "post3"],
            relationships: ["relationship1", "relationship2"]
          },
-         "user2":{
-           id: "user2",
-           email: "email.com",
-           firstName: "firstName",
-           lastName: "lastName",
-           biography: "biography",
-           photos:["photo1", "photo2", "photo3"],
-           comments:["comment1", "comment2", "comment3"],
-           posts: ["post1", "post2", "post3"],
-           relationships: ["relationship1", "relationship2"]
-         },
        },
-       allIds: ["user1", "user2"]
+       allIds: []
      },
      posts:{
        byId:{
@@ -210,18 +209,8 @@ state ={
            photos: ["photo1", "photo2"],
            comments: ["comment1", "comment2"]
          },
-       "post2":{
-           id: "post2",
-           name: "name",
-           description: "description",
-           coordinates: "coordinates",
-           user_id: "user_id",
-           place_id: "place_id",
-           photos: ["photo1", "photo2"],
-           comments: ["comment1", "comment2"]
-         }
        },
-       allIds:["post1", "post2"]
+       allIds:["post1"]
      }
      places: {
        byId:{
@@ -231,16 +220,9 @@ state ={
            coordinates: "coordinates",
            posts: ["post1", "post2"],
            photos: ["photo1", "photo2"]
-         },
-         "place1":{
-           id: "place1",
-           name: "name",
-           coordinates: "coordinates",
-           posts: ["post1", "post2"],
-           photos: ["photo1", "photo2"]
          }
        },
-       allIds:["place1", "place2"]
+       allIds:["place1"]
      },
      photos: {
        byId:{
@@ -250,16 +232,9 @@ state ={
            user_id: "user_id",
            post_id: "post_id",
            place_id: "place_id"
-         },
-         photo2:{
-           id: "photo2",
-           url: "url",
-           user_id: "user_id",
-           post_id: "post_id",
-           place_id: "place_id"
          }
        },
-       allIds: ["photo1", "photo2"]
+       allIds: ["photo1"]
      },
      relationships: {
        byId:{
@@ -268,15 +243,9 @@ state ={
            from_user_id: "from_user_id",
            to_user_id: "to_user_id",
            friend: "friend"
-         },
-         relationship2: {
-           id: "relationship2",
-           from_user_id: "from_user_id",
-           to_user_id: "to_user_id",
-           friend: "friend"
          }
        },
-       allIds= ["relationship1", "relationship2"]
+       allIds= ["relationship1"]
      },
      comments: {
        byId:{
@@ -285,15 +254,9 @@ state ={
            user_id: "user_id",
            post_id: "post_id",
            description: "description"
-         },
-         comment2:{
-           id: "comment2",
-           user_id: "user_id",
-           post_id: "post_id",
-           description: "description"
          }
        },
-       allIds = ["comment1", "comment2"]
+       allIds = ["comment1",]
      }
    },
    sessions:{
@@ -312,12 +275,16 @@ state ={
      commentErrors:[],
      relationshipErrors:[]
    },
-   ui:{ //optional flag for conditionally render certain component
-     signUpModual: true // true = modual appear, false = disappear
+   ui:{
+     signUpModual: ""
    
-   }```
+   }
+}
+```
+
 
 
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/peter-kang-129184166/
+
