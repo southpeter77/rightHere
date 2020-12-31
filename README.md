@@ -67,7 +67,7 @@
 ### introduction
 
 
-  The Right Here is a location driven photo sharing app. This app willprovide the user the ability to take a photo using their device or upload aphoto directly from their device and save it with the user's currentlocation and share with other users. Users can add each other as friend andthey can message to each others. Users can also search for other users andlocations.
+  The Right Here is a location driven photo sharing app. This app will provide the user the ability to take a photo using their device or upload a photo directly from their device and save it with the user's current location and share with other users. Users can add each other as friend and they can message to each others. Users can also search for other users and places.
 
 
 
