@@ -41,8 +41,10 @@ if (name && room && id) {
 //     })
 // }, []);
 useEffect(() => {
-  socket.on('message', message => {
+  socket.on('message', message => { // grab all messages and show on the chat box
+  
     setMessages([...messages, message])
+    // console.log(messages)
   })
   return () => {
     socket.off()

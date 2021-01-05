@@ -27,9 +27,10 @@ const socketio = require('socket.io');
 const io = socketio(server)
 const {Room, Message} = require('../db/models')
 
-io.on('connect', async (socket) => {
+io.on('connection', async (socket) => {
   let user
   socket.on('join', async ({ name, room, roomId }, callback) => {
+    // console.log('connecteddddddddddddddddd')
     user = { id:socket.id, name, room };
     if (user.room) {
     socket.join(user.room);
@@ -49,12 +50,12 @@ io.on('connect', async (socket) => {
   }
   });
 
-  socket.on('sendMessage', (message, callback) => {
+  // socket.on('sendMessage', (message, callback) => {
 
-    io.to(user.room).emit('message', { user: user.name, text: message });
+  //   io.to(user.room).emit('message', { user: user.name, text: message });
 
-    callback();
-  });
+  //   callback();
+  // });
 const {addMessageToRoom} = require("../routes/utils/chat")
   const rooms = await Room.findAll();
   for (let room of rooms) {
@@ -62,6 +63,8 @@ const {addMessageToRoom} = require("../routes/utils/chat")
       const newMessages = await addMessageToRoom(user.name, user.room, message, room.id)
       io.to(user.room).emit('message', { user: user.name, text: message });
       // io.emit('message', { user: user.name, text: message })
+      // console.log(message)
+      socket.broadcast.emit("message", { user: user.name, text: message })
       callback();
     })
   }
