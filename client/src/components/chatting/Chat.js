@@ -10,16 +10,16 @@ import InfoBar from './InfoBar';
 import Input from './Input';
 // import {getToUserThunk} from "../store/redux"
 
-let socket;
+// let socket;
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
-const Chat = ({id, name, room})=> {
+const Chat = ({id, name, room , socket})=> {
 
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState("")
     const dispatch = useDispatch();
 
 useEffect(() =>{
-    socket = io(REACT_APP_BASE_URL);
+    // socket = io(REACT_APP_BASE_URL);
     // dispatch(getToUserThunk(1))
   // console.log(name, room, id)
 if (name && room && id) {
@@ -28,10 +28,10 @@ if (name && room && id) {
           alert(error);
         }
       });
-    return () => {
-        socket.emit("disconnection");
-        socket.off();
-    }
+    // return () => {
+    //     socket.emit("disconnection");
+    //     socket.off();
+    // }
   }
 }, [REACT_APP_BASE_URL, name, room, id]);
 
@@ -58,6 +58,8 @@ const sendMessage = (event) => {
       socket.emit(`${id}`, message, () => setMessage(''));
     }
   }
+
+
 
     return (
         <>

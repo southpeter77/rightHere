@@ -28,7 +28,7 @@ const io = socketio(server)
 const {Room, Message} = require('../db/models')
 
 io.on('connection', async (socket) => {
-  let user
+  let user =''
   socket.on('join', async ({ name, room, roomId }, callback) => {
     // console.log('connecteddddddddddddddddd')
     user = { id:socket.id, name, room };
@@ -70,12 +70,14 @@ const {addMessageToRoom} = require("../routes/utils/chat")
   }
   
 
-  socket.on('disconnection', () => {
-
-    if(user) {
-      io.to(user.room).emit('message', { user: '', text: `Message done` });
-    }
-    // socket.disconnect()s
+  socket.on('disconnect', () => {
+    console.log('disconnect')
+    // socket.broadcast.emit("disconnect-user")
+    // if(user) {
+    //   io.to(user.room).emit('message', { user: '', text: `Message done` });
+    // }
+     user =''
+    socket.disconnect()
   })
 });
 

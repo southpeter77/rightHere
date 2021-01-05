@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Chat from "./Chat"
 import {grabRoomCurrentAndOtherThunk} from "../../components/store/actions/sessions/currentChat"
 import {CURRENT_USER} from "../../components/store/actions/sessions/currentUser"
+import io from 'socket.io-client'
 
 
 export default function ChatBox({currentUserName, selectedUserName,currentUserId, otherUserId, showChat,setShowChat}) {
@@ -33,7 +34,11 @@ export default function ChatBox({currentUserName, selectedUserName,currentUserId
   //     return state.sessions.currentRoom.to_user
   //   }
   // })
-  
+ let socket = io(process.env.REACT_APP_BASE_URL)
+ const finishMessage = () => {
+  // socket.on("disconnect-user");
+  socket.off();
+}
   const roomId=useSelector(state=>state.sessions.currentRoom.id)
   const handleClose = () => {
     setOpen(false);
@@ -62,13 +67,14 @@ if(!loaded) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <Chat name={name} room={room} id={roomId}/>
+        <Chat name={name} room={room} id={roomId} socket ={socket}/>
 
         <IconButton
         style={{width:"2rem", marginLeft:"90%"}}
         onClick={()=>{
-          setShowChat(false)
-          // window.location.reload()
+          // finishMessage()
+          // setShowChat(false)
+          window.location.reload()
         
         }} color="primary">
           <CancelIcon >
