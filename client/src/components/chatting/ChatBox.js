@@ -67,8 +67,8 @@ if(!loaded) {
         <IconButton
         style={{width:"2rem", marginLeft:"90%"}}
         onClick={()=>{
-          // setShowChat(false)
-          window.location.reload()
+          setShowChat(false)
+          // window.location.reload()
         
         }} color="primary">
           <CancelIcon >
