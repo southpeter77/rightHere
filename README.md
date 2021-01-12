@@ -1,14 +1,16 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
+<br>
+[Live Site](https://aa-righthere.herokuapp.com/)
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
+    <a target="_blank" rel="noopener noreferrer" href="https://aa-righthere.herokuapp.com/">
     <img src="client/public/rightHereLogo.png" alt="Logo" width="120" height="auto">
   </a>
-
+    <a target="_blank" rel="noopener noreferrer" href="https://aa-righthere.herokuapp.com/">
   <h3 align="center">Right Here</h3>
-
+  </a>
 
 </p>
 
