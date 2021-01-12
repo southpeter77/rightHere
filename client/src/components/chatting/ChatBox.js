@@ -73,8 +73,8 @@ if(!loaded) {
         style={{width:"2rem", marginLeft:"90%"}}
         onClick={()=>{
           // finishMessage()
-          // setShowChat(false)
-          window.location.reload()
+          setShowChat(false)
+          // window.location.reload()
         
         }} color="primary">
           <CancelIcon >
