@@ -46,7 +46,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-*Interactice splash page on the left with easy sign up on the right.
+*Interactive splash page on the left with easy sign up on the right.
 ![signup](readMeImages/signUp.png)
 *Login options with demo login
 ![login](readMeImages/login.png)
