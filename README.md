@@ -56,7 +56,7 @@
 ![placeBrowser](readMeImages/placeBrowser.png)
 *Can upload photo using device's camera or simply drag and drop a file.
 ![upload](readMeImages/upload.png)
-*Can sendmessage to friends
+*Can send message to friends
 ![upload](readMeImages/chat.png)
 
 ### Technical Stack
