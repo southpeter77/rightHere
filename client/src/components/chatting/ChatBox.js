@@ -37,7 +37,7 @@ export default function ChatBox({currentUserName, selectedUserName,currentUserId
  let socket = io(process.env.REACT_APP_BASE_URL)
  const finishMessage = () => {
   // socket.on("disconnect-user");
-  socket.off();
+  socket.emit("leaveRoom")
 }
   const roomId=useSelector(state=>state.sessions.currentRoom.id)
   const handleClose = () => {
