@@ -74,16 +74,13 @@ if(!loaded) {
         onClick={()=>{
           // finishMessage()
           setShowChat(false)
-          // window.location.reload()
+          window.location.reload()
         
         }} color="primary">
           <CancelIcon >
             
           </CancelIcon>
         </IconButton>
-        {/* <button
-        onClick={()=>console.log(currentUserName, selectedUserName, roomId)}
-        >console</button> */}
       </Dialog>
     </div>
   );
